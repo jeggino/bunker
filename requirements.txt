@@ -1,0 +1,6 @@
+streamlit
+st-gsheets-connection
+streamlit_option_menu
+folium
+streamlit-folium>=0.8.1
+geopandas
