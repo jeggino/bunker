@@ -29,7 +29,7 @@ st.set_page_config(
 ttl = '10m'
 ttl_references = '10m'
 conn = st.connection("gsheets", type=GSheetsConnection)
-df_point = conn.read(ttl=ttl,worksheet="Bunkers")
+df_point = conn.read(ttl=ttl,worksheet="bunkers")
 df_references = conn.read(ttl=ttl_references,worksheet="df_users")
 
 
@@ -67,29 +67,21 @@ st.markdown(reduce_header_height_style, unsafe_allow_html=True)
 # --- DIMENSIONS ---
 OUTPUT_width = 1190
 OUTPUT_height = 450
-ICON_SIZE = (20,20)
-
-ICON_SIZE_huismus = (28,28)
-ICON_SIZE_rat_maybe = (245,150)
-ICON_SIZE_BAX_EXTRA = (50,65)
-ICON_SIZE_ANDER = (18,22)
-ICON_SIZE_BIRD = (155,60)
+ICON_SIZE = (60,35)
 
 
 # --- FUNCTIONS ---
-def popup_polygons(row):
+def tooltip_html(row):
     
     i = row
 
-    project=df_2['project'].iloc[i]
-    datum=df_2['datum'].iloc[i] 
-    time=df_2['time'].iloc[i]
-    sp = df_2['sp'].iloc[i] 
-    functie=df_2['functie'].iloc[i]
-    gedrag=df_2['gedrag'].iloc[i]
-    opmerking=df_2['opmerking'].iloc[i]
-    aantal=df_2['aantal'].iloc[i]
-    waarnemer=df_2['waarnemer'].iloc[i] 
+    id_bunker=df_points['id_bunker'].iloc[i]
+    status=df_points['Last survey'].iloc[i]
+    var_1=df_points['var_1'].iloc[i]
+    var_2=df_points['var_2'].iloc[i]
+    var_3=df_points['var_3'].iloc[i]
+    var_4=df_points['var_4'].iloc[i]
+
        
 
     left_col_color = "#19a7bd"
@@ -100,241 +92,34 @@ def popup_polygons(row):
     <table style="height: 126px; width: 300;">
     <tbody>
     <tr>
-    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Project</span></td>
-    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(project) + """
+    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Bunker</span></td>
+    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(id_bunker) + """
     </tr>
     <tr>
-    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Datum</span></td>
-    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(datum) + """
+    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Last survey</span></td>
+    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(status) + """
     </tr>
     <tr>
-    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Tijd</span></td>
-    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(time) + """
+    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Variable 1</span></td>
+    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(var_1) + """
     </tr>
     <tr>
-    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Soort</span></td>
-    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(sp) + """
+    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Variable 2</span></td>
+    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(var_2) + """
     </tr>
     <tr>
-    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Functie</span></td>
-    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(functie) + """
+    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Variable 3</span></td>
+    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(var_3) + """
     </tr>
     <tr>
-    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Gedrag</span></td>
-    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(gedrag) + """
-    </tr>
-    <tr>
-    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Opmerking</span></td>
-    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(opmerking) + """
-    </tr>
-    <tr>
-    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Aantal</span></td>
-    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(int(aantal)) + """
-    </tr>
-    <tr>
-    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Waarnemer</span></td>
-    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(waarnemer) + """
+    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Variable 4</span></td>
+    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(var_4) + """
     </tr>
     </tbody>
     </table>
     </html>
     """
     return html
-
-
-def popup_html(row):
-    
-    i = row
-
-    project=df_2['project'].iloc[i]
-    datum=df_2['datum'].iloc[i] 
-    time=df_2['time'].iloc[i]
-    verblijf=df_2['verblijf'].iloc[i]
-    sp = df_2['sp'].iloc[i] 
-    functie=df_2['functie'].iloc[i]
-    gedrag=df_2['gedrag'].iloc[i]
-    verblijf=df_2['verblijf'].iloc[i]
-    opmerking=df_2['opmerking'].iloc[i]
-    aantal=df_2['aantal'].iloc[i]
-    waarnemer=df_2['waarnemer'].iloc[i] 
-       
-
-    left_col_color = "#19a7bd"
-    right_col_color = "#f2f0d3"
-    
-    html = """<!DOCTYPE html>
-    <html>
-    <table style="height: 126px; width: 300;">
-    <tbody>
-    <tr>
-    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Project</span></td>
-    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(project) + """
-    </tr>
-    <tr>
-    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Datum</span></td>
-    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(datum) + """
-    </tr>
-    <tr>
-    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Tijd</span></td>
-    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(time) + """
-    </tr>
-    <tr>
-    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Soort</span></td>
-    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(sp) + """
-    </tr>
-    <tr>
-    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Functie</span></td>
-    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(functie) + """
-    </tr>
-    <tr>
-    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Gedrag</span></td>
-    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(gedrag) + """
-    </tr>
-    <tr>
-    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Verblijf</span></td>
-    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(verblijf) + """
-    </tr>
-    <tr>
-    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Opmerking</span></td>
-    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(opmerking) + """
-    </tr>
-    <tr>
-    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Aantal</span></td>
-    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(int(aantal)) + """
-    </tr>
-    <tr>
-    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Waarnemer</span></td>
-    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(waarnemer) + """
-    </tr>
-    </tbody>
-    </table>
-    </html>
-    """
-    return html
-
-
-@st.dialog(" ")
-def update_item():
-
-  datum = st.date_input("Datum","today")
-  nine_hours_from_now = datetime.now() + timedelta(hours=2)
-  time = st.time_input("Tijd", nine_hours_from_now)
-  
-  if st.session_state.project['opdracht'] == 'Vleermuizen':
-
-    sp = st.selectbox("Soort", BAT_NAMES)
- 
-    if output_2["last_active_drawing"]["geometry"]["type"] == 'Polygon':
-        gedrag = None
-        functie = st.selectbox("Functie", ["Foerageergebied","Paringsgebied"])
-        verblijf = None
-    else:
-        gedrag = st.selectbox("Gedrag", BAT_BEHAVIOURS) 
-        functie = st.selectbox("Functie", BAT_FUNCTIE)
-        verblijf = st.selectbox("Verblijf", BAT_VERBLIJF) 
-    aantal = st.number_input("Aantal", min_value=1)
-    datum_2 = None
-
-  elif st.session_state.project['opdracht'] == 'Vogels':
-  
-    sp = st.selectbox("Soort", BIRD_NAMES)
-    gedrag = st.selectbox("Gedrag", BIRD_BEHAVIOURS) 
-    functie = st.selectbox("Functie", BIRD_FUNCTIE) 
-    verblijf = st.selectbox("Verblijf", BIRD_VERBLIJF) 
-    aantal = st.number_input("Aantal", min_value=1)
-    datum_2 = None
-
-  elif st.session_state.project['opdracht'] == 'Vogels-Overig':
-  
-    sp = st.selectbox("Soort", BIRD_NAMES_ANDER)
-    gedrag = st.selectbox("Gedrag", BIRD_BEHAVIOURS) 
-    functie = st.selectbox("Functie", BIRD_FUNCTIE) 
-    verblijf = st.selectbox("Verblijf", BIRD_VERBLIJF) 
-    aantal = st.number_input("Aantal", min_value=1)
-    datum_2 = None
-  
-  elif st.session_state.project['opdracht'] == 'Vleermuiskast':
-    
-    functie = st.selectbox("Voorwaarde", VLEERMUISKAST_OPTIONS)
-    bat_names = ["onbekend"] + BAT_NAMES
-    sp = st.selectbox("Soort", bat_names) 
-    gedrag = None
-    verblijf = None
-    aantal = st.number_input("Aantal", min_value=1)
-    datum_2 = None
-  
-  elif st.session_state.project['opdracht'] == 'Camera':
-    
-    functie = st.selectbox("Camera", CAMERA_OPTIONS)
-    
-    if functie in ["Verwijderd, ratten gedetecteerd","Camera verwijderd, geen ratten gedetecteerd"]:
-      datum_2 = st.date_input("Datum camera verwijderd","today")
-    else:
-      datum_2 = None
-      
-    sp = None 
-    gedrag = None
-    verblijf = None
-    aantal = st.number_input("Aantal", min_value=1)
-  
-  elif st.session_state.project['opdracht'] == 'Rat val':
-    
-    functie = st.selectbox("Rat val", RAT_VAL_OPTIONS)
-
-    if functie in ['Schietval verwijderd, geen rat gedood','Schietval verwijderd, rat gedood']:
-      datum_2 = st.date_input("Datum Val verwijderd","today")
-    else:
-      datum_2 = None
-      
-    sp = None 
-    gedrag = None
-    verblijf = None
-    aantal = st.number_input("Aantal", min_value=1)
-
-  elif st.session_state.project['opdracht'] == 'Vangkooi':
-    
-    functie = st.selectbox("Rat vangkooi", RAT_VANGKOOI_OPTIONS)
-
-    if functie in ['vangkooi verwijderd, rat gevangen','vangkooi verwijderd, geen rat gevangen']:
-      datum_2 = st.date_input("Datum vangkooi verwijderd","today")
-    else:
-      datum_2 = None
-      
-    sp = None 
-    gedrag = None
-    verblijf = None
-    aantal = st.number_input("Aantal", min_value=1)
-
-  opmerking = st.text_input("", placeholder="Vul hier een opmerking in ...")
-
-  if st.button("**Update**",use_container_width=True):
-    df = conn.read(ttl=0,worksheet="df_observations")
-    df_filter = df[df["key"]==id].reset_index(drop=True)
-      
-    id_lat = df_filter['lat'][0]
-    id_lng = df_filter['lng'][0]
-    id_waarnemer = df_filter['waarnemer'][0]
-    id_key = df_filter['key'][0]
-    id_soortgroup = df_filter['soortgroup'][0]
-    id_geometry_type = df_filter['geometry_type'][0]
-    id_coordinates = df_filter['coordinates'][0]
-    id_project = df_filter['project'][0]
-      
-    df_drop = df[~df.apply(tuple, axis=1).isin(df_filter.apply(tuple, axis=1))]
-    conn.update(worksheet='df_observations',data=df_drop)
-    df = conn.read(ttl=0,worksheet="df_observations")
-      
-    data = [{"key":id_key, "waarnemer":id_waarnemer,"datum":str(datum),"datum_2":str(datum_2),"time":time,"soortgroup":id_soortgroup, "aantal":aantal,
-                   "sp":sp, "gedrag":gedrag, "functie":functie, "verblijf":verblijf,
-                   "geometry_type":id_geometry_type,"lat":id_lat,"lng":id_lng,"opmerking":opmerking,"coordinates":id_coordinates,"project":id_project}]
-      
-    df_new = pd.DataFrame(data)
-    df_updated = pd.concat([df,df_new],ignore_index=True)
-    conn.update(worksheet='df_observations',data=df_updated)
-
-    st.rerun()
-
-
 
 
 def logIn():
@@ -359,15 +144,6 @@ def logIn():
         else:
             st.markdown(f"Sorry {name.split()[0]}, het wachtwoord is niet correct.")
 
-def project():
-    st.subheader(f"Welkom {st.session_state.login['name'].split()[0]}!!",divider='grey')
-    index_project = df_references[df_references['username']==st.session_state.login["name"]].index[0]
-    project_list = df_references.loc[index_project,"project"].split(',')
-    project = st.selectbox("Aan welke project ga je werken?",project_list,label_visibility="visible")
-    opdracht = st.selectbox("Aan welke opdracht ga je werken?",DICTIONARY_PROJECTS[project],label_visibility="visible")
-    if st.button("begin"):
-         st.session_state.project = {"project_name": project,"opdracht": opdracht}
-         st.rerun()
         
 def logOut():
     if st.button("logOut",use_container_width=True):
@@ -375,10 +151,6 @@ def logOut():
         del st.session_state.project     
         st.rerun()
 
-def logOut_project():
-    if st.button("Opdracht wijzigen",use_container_width=True):
-        del st.session_state.project
-        st.rerun()
         
 
 #---APP---
@@ -392,28 +164,14 @@ if "login" not in st.session_state:
     st.stop()
 
 
-if 'project' not in st.session_state:  
-    project()
-    st.stop()
-
-
 
 
 with st.sidebar:
-    logOut_project()
     logOut()
     st.divider()
 
 try:
-    try:
-        if st.session_state.project['project_name'] != 'Admin':
-            df_2 = df_point[df_point['project']==st.session_state.project['project_name']]
-            df_2 = df_2[df_2['soortgroup']==st.session_state.project['opdracht']]
-    
-        else:
-            df_2 = df_point[df_point['soortgroup']==st.session_state.project['opdracht']]
-    
-        
+    try:        
         df_2["datum"] = pd.to_datetime(df_2["datum"]).dt.date
     
     
@@ -460,15 +218,6 @@ try:
     
     folium.LayerControl().add_to(map)    
 
-    
-
-    # folium.GeoJson('geometries/map (6).geojson',
-    #               tooltip=folium.features.GeoJsonTooltip(
-    #      fields=['name'],
-    #      labels=False,
-    #      style=("background-color: white; color: #333333; font-family: arial; font-size: 12px; padding: 10px;") 
-    #  )).add_to(functie_dictionary["geometry"])
-
     for i in range(len(df_2)):
 
         if df_2.iloc[i]['geometry_type'] == "Point":
@@ -502,9 +251,6 @@ try:
                          ).add_to(fouctie_loop)
                 
 
-        # elif df_2.iloc[i]['geometry_type'] == "LineString":
-        #     # fouctie_loop = functie_dictionary[df_2.iloc[i]['functie']]
-        #     folium.PolyLine(df_2.iloc[i]['coordinates']).add_to(map)
 
         elif df_2.iloc[i]['geometry_type'] == "Polygon":
             html = popup_polygons(i)
