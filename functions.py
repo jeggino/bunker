@@ -162,6 +162,7 @@ def input_data(output,df):
 @st.dialog(" ")
 def input_insert_bats(output,df):
     waarnemer = st.session_state.login['name']
+    date = st.date_input("Datum")
     temperature = st.number_input("Temperature", min_value=1)
     humidity = st.number_input("humidity", min_value=1)
     sp = st.multiselect("Chose which species was there", BAT_NAMES)
@@ -171,10 +172,10 @@ def input_insert_bats(output,df):
         dict_species = {}
         for species in sp:
             dict_species[species] = st.number_input(species, min_value=1,key=species)
-        data_dict = {"waarnemer":waarnemer,"temperature":temperature,"humidity":humidity} | dict_species
+        data_dict = {'date':date,"waarnemer":waarnemer,"temperature":temperature,"humidity":humidity} | dict_species
         
     else:
-        data_dict = {"waarnemer":waarnemer,"temperature":temperature,"humidity":humidity}
+        data_dict = {'date':date,"waarnemer":waarnemer,"temperature":temperature,"humidity":humidity}
         
     opmerking = st.text_input("", placeholder="Vul hier een opmerking in ...")    
     
@@ -191,7 +192,7 @@ def input_insert_bats(output,df):
         
         id_bunker = str(lng)+str(lat)
 
-        data = [data_dict | {'opmerking':opmerking}]
+        data = [{"id_bunker"} | data_dict | {'opmerking':opmerking}]
         df_new = pd.DataFrame(data)
         df_updated = pd.concat([df,df_new],ignore_index=True)
         conn.update(worksheet="bunkers_observations",data=df_updated)
