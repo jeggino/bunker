@@ -8,7 +8,13 @@ import folium
 from folium.plugins import Draw, Fullscreen, LocateControl, GroupedLayerControl
 from streamlit_folium import st_folium
 
+from streamlit_gsheets import GSheetsConnection
+
 from credentials import *
+
+
+
+conn = st.connection("gsheets", type=GSheetsConnection)
 
 def tooltip_html(row,df):
     
