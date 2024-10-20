@@ -69,7 +69,6 @@ with st.sidebar:
     logOut()
     st.divider()
 
-# try:
 try:
     table_dictionary = tab_popup(df_bunkers_observations)
     df_bunkers_features["Last survey"] = df_bunkers_features.apply(lambda x: "Uninhabited" if table_dictionary[x['id_bunker']].iloc[-1,:].sum() == 0
@@ -101,8 +100,6 @@ folium.TileLayer('OpenStreetMap',overlay=False,show=True,name="Streets").add_to(
 folium.TileLayer(tiles="Cartodb Positron",overlay=False,show=False,name="Light").add_to(map)
 folium.TileLayer('Cartodb dark_matter',overlay=False,show=False,name="Dark").add_to(map)
 folium.TileLayer(tiles='https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}',attr='Google_map',overlay=False,show=False,name="Satellite").add_to(map)
-
-
 
 folium.LayerControl().add_to(map)    
 
@@ -144,8 +141,3 @@ try:
 
 except:
     pass
-
-    
-# except:
-#     st.image("https://media.istockphoto.com/photos/open-empty-cardboard-box-on-a-white-background-picture-id172167710?k=6&m=172167710&s=612x612&w=0&h=Z4fueCweh9q-X_VBRAPCYSalyaAnXG3ioErb8oJSVek=")
-#     st.stop()
