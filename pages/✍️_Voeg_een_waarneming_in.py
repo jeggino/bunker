@@ -62,7 +62,7 @@ waarnemer = st.session_state.login['name']
 
 
 conn = st.connection("gsheets", type=GSheetsConnection)
-df_old = conn.read(ttl='10m',worksheet="bunkers_features")
+df_old = conn.read(ttl=ttl,worksheet="bunkers_features")
 
     
 output_map = map()
