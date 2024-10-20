@@ -100,6 +100,7 @@ for feature_group in functie_dictionary.keys():
 folium.TileLayer('OpenStreetMap',overlay=False,show=True,name="Streets").add_to(map)
 folium.TileLayer(tiles="Cartodb Positron",overlay=False,show=False,name="Light").add_to(map)
 folium.TileLayer('Cartodb dark_matter',overlay=False,show=False,name="Dark").add_to(map)
+folium.TileLayer(tiles='https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}',attr='Google_map',overlay=False,show=False,name="Satellite").add_to(map)
 
 
 
