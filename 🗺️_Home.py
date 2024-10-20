@@ -70,12 +70,14 @@ with st.sidebar:
     st.divider()
 
 try:
+    df_bunkers_features
+    df_bunkers_observations
     table_dictionary = tab_popup(df_bunkers_observations)
     df_bunkers_features["Last survey"] = df_bunkers_features.apply(lambda x: "Uninhabited" if table_dictionary[x['id_bunker']].iloc[-1,:].sum() == 0
                                                else "Inhabited",axis=1) 
-    df_bunkers_features["icon_data"] = df_bunkers_features.apply(lambda x: r"C:\Users\Luigi\OneDrive\Desktop\Icons\bunkers\bunker_empty.png" 
+    df_bunkers_features["icon_data"] = df_bunkers_features.apply(lambda x: "icons/bunker_empty.png" 
                                                                  if x['Last survey']=='Uninhabited'
-                                                                 else r"C:\Users\Luigi\OneDrive\Desktop\Icons\bunkers\bunker_full.png", 
+                                                                 else "icons/bunker_full.png", 
                                                                  axis=1)
 
     map = folium.Map(tiles=None,position=[df_bunkers_features['lat'].mean(),df_bunkers_features['lng'].mean],)
