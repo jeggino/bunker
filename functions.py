@@ -179,6 +179,5 @@ def input_data(output,df):
             insert_bunker_fearures(id_bunker,waarnemer,lat,lng,surrounding,type_bunker,number_chambers,temperature,humidity,opmerking,df)
 
             st.success('Gegevens opgeslagen!', icon="✅")       
-            st.rerun()
   
         st.switch_page("🗺️_Home.py")
