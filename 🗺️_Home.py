@@ -98,7 +98,6 @@ try:
     
     folium.LayerControl().add_to(map)    
     
-    st.error("HERE!!!!!!!!!!")
     for i in range(len(df_bunkers_features)):
     
         html_tooltip = tooltip_html(i)
@@ -116,6 +115,8 @@ try:
                       tooltip=html_tooltip,
                       icon=folium.features.CustomIcon(df_bunkers_features.iloc[i]["icon_data"], icon_size=ICON_SIZE)
                      ).add_to(fouctie_loop)
+    st.error("HERE!!!!!!!!!!")
+
     
     output_2 = st_folium(map,returned_objects=["last_active_drawing"],width=OUTPUT_width, height=OUTPUT_height,
                  feature_group_to_add=list(functie_dictionary.values()))
