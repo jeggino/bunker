@@ -119,6 +119,8 @@ for i in range(len(df_bunkers_features)):
 output_2 = st_folium(map,returned_objects=["last_active_drawing"],width=OUTPUT_width, height=OUTPUT_height,
              feature_group_to_add=list(functie_dictionary.values()))
 
+output_2
+
 try:
     try:
         id = str(output_2["last_active_drawing"]['geometry']['coordinates'][0])+str(output_2["last_active_drawing"]['geometry']['coordinates'][1])
