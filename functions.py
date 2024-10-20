@@ -9,12 +9,12 @@ def tooltip_html(row,df):
     
     i = row
 
-    id_bunker=df_bunkers_features['id_bunker'].iloc[i]
-    status=df_bunkers_features['Last survey'].iloc[i]
-    var_1=df_bunkers_features['var_1'].iloc[i]
-    var_2=df_bunkers_features['var_2'].iloc[i]
-    var_3=df_bunkers_features['var_3'].iloc[i]
-    var_4=df_bunkers_features['var_4'].iloc[i]
+    id_bunker=df['id_bunker'].iloc[i]
+    status=df['Last survey'].iloc[i]
+    var_1=df['var_1'].iloc[i]
+    var_2=df['var_2'].iloc[i]
+    var_3=df['var_3'].iloc[i]
+    var_4=df['var_4'].iloc[i]
 
        
 
