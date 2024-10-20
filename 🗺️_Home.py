@@ -131,55 +131,19 @@ output_2 = st_folium(map,returned_objects=["last_active_drawing"],width=OUTPUT_w
              feature_group_to_add=list(functie_dictionary.values()))
 
 try:
-    try:
-        id = str(output_2["last_active_drawing"]['geometry']['coordinates'][0])+str(output_2["last_active_drawing"]['geometry']['coordinates'][1])
-        name = f"{id}"
-    except:
-        id = str(output_2["last_active_drawing"]['geometry']['coordinates'][0][0][0])+str(output_2["last_active_drawing"]['geometry']['coordinates'][0][0][1])
-        name = f"{id}"
-
+    id = str(output_2["last_active_drawing"]['geometry']['coordinates'][0])+str(output_2["last_active_drawing"]['geometry']['coordinates'][1])
     with st.sidebar:
-        #---FOR THE PICTURE---
-        try:
-            res = drive.get(name).read()                
-            with st.expander("Zie media"):
-                try:
-                    st.image(res)
-                except:
-                    st.video(res)
-            if st.button("Waarneming bijwerken",use_container_width=True):
-                update_item()
-
-            with st.form("entry_form", clear_on_submit=True,border=False):
-                submitted = st.form_submit_button(":red[**Verwijder waarneming**]",use_container_width=True)
-                if submitted:
-                    # if waarnemer ==  df_point.set_index("key").loc[id,"waarnemer"]:
-                    db.delete(id)
-                    drive.delete(name)
-                    st.success('Waarneming verwijderd', icon="✅")
-                    st.page_link("🗺️_Home.py", label="vernieuwen", icon="🔄",use_container_width=True)
-                        # else:
-                        #     st.warning('Je kunt deze observatie niet uitwissen. Een andere gebruiker heeft het gemarkeerd.', icon="⚠️")
-         #---FOR THE PICTURE---               
-        except:
-            # st.info('Geen foto opgeslagen voor deze waarneming')
-
-            # if st.button("Waarneming bijwerken",use_container_width=True):
-            #     update_item()
-
-            
-            with st.form("entry_form", clear_on_submit=True,border=False):
-                submitted = st.form_submit_button(":red[**Verwijder waarneming**]",use_container_width=True)
-                if submitted:
-                    df = conn.read(ttl=0,worksheet="bunkers_features")
-                    df_filter = df[df["id_bunker"]==id]
-                    df_drop = df[~df.apply(tuple, axis=1).isin(df_filter.apply(tuple, axis=1))]
-                    conn.update(worksheet='bunkers_features',data=df_drop)
-                    st.success('Waarneming verwijderd', icon="✅") 
-                    st.page_link("🗺️_Home.py", label="Vernieuwen", icon="🔄",use_container_width=True)
+        with st.form("entry_form", clear_on_submit=True,border=False):
+            submitted = st.form_submit_button(":red[**Verwijder waarneming**]",use_container_width=True)
+            if submitted:
+                df_filter = df_bunkers_features[df_bunkers_features["id_bunker"]==id]
+                df_drop = df_bunkers_features[~df_bunkers_features.apply(tuple, axis=1).isin(df_filter.apply(tuple, axis=1))]
+                conn.update(worksheet='bunkers_features',data=df_drop)
+                st.success('Waarneming verwijderd', icon="✅") 
+                st.page_link("🗺️_Home.py", label="Vernieuwen", icon="🔄",use_container_width=True)
 
 except:
-    st.stop()
+    pass
 
     
 # except:
