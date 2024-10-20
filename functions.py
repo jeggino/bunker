@@ -97,3 +97,77 @@ def logOut():
     if st.button("logOut",use_container_width=True):
         del st.session_state.login
         st.rerun()
+
+def insert_bunker_fearures(id_bunker,waarnemer,datum,lat,lng,surrounding,type_bunker,number_chambers,temperature,humidity,opmerking,df):
+    
+    data = [{"id_bunker":id_bunker, "waarnemer":waarnemer,"datum":datum,"lat":lat,"lng":lng,"surrounding":surrounding,"type_bunker":type_bunker,
+             "number_chambers":number_chambers,"temperature":temperature,"humidity":humidity,
+             "opmerking":opmerking,
+             }]
+    df_new = pd.DataFrame(data)
+    df_updated = pd.concat([df,df_new],ignore_index=True)
+    
+    return conn.update(worksheet="bunkers_features",data=df_updated)      
+  
+def map():
+    
+    m = folium.Map()
+
+    Draw(draw_options={'circle': False,'rectangle': False,'circlemarker': False, 'polyline': False, 'polygon': False},
+         position="topright",).add_to(m)
+    Fullscreen(position="topright").add_to(m)
+    LocateControl(auto_start=True,position="topright").add_to(m)
+    
+
+    
+    output = st_folium(m, returned_objects=["all_drawings"],width=OUTPUT_width, height=OUTPUT_height)
+    output["features"] = output.pop("all_drawings")
+    
+    return  output
+
+        
+@st.dialog(" ")
+def input_data(output,df):
+
+    waarnemer = st.session_state.login['name']     
+    datum = st.date_input("Datum","today")       
+   
+    st.divider()
+
+    surrounding = st.selectbox("Functie", SURROUNDING_OPTIONS)
+    type_bunker = st.selectbox("Functie", TYPE_BUNKER_OPTIONS)
+    number_chambers = st.number_input("Number of chambers", min_value=1)
+    temperature = st.number_input("Temperature", min_value=15)
+    humidity = st.number_input("Humidity", min_value=1)
+    opmerking = st.text_input("", placeholder="Vul hier een opmerking in ...")
+    
+    st.divider()
+        
+    submitted = st.button("**Gegevens opslaan**",use_container_width=True)
+    
+    if submitted:           
+
+        try:
+
+            coordinates = output["features"][0]["geometry"]["coordinates"] 
+                           
+            lng = coordinates[0]
+            lat = coordinates[1]
+            
+            id_bunker = str(lng)+str(lat)
+
+            if len(output["features"]) > 1:
+                st.error("U kunt niet meer dan één waarneming tegelijk uploaden!")
+                st.stop()
+
+            else:
+                insert_bunker_fearures(id_bunker,waarnemer,str(datum),lat,lng,surrounding,type_bunker,number_chambers,temperature,humidity,opmerking,df)
+
+                st.success('Gegevens opgeslagen!', icon="✅")       
+                st.rerun()
+
+        except:
+            st.stop()
+
+        
+        st.switch_page("🗺️_Home.py")
