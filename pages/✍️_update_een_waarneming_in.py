@@ -117,12 +117,12 @@ for i in range(len(df_bunkers_features)):
                   icon=folium.features.CustomIcon(df_bunkers_features.iloc[i]["icon_data"], icon_size=ICON_SIZE)
                  ).add_to(fouctie_loop)
 
-output = st_folium(map,width=OUTPUT_width, height=OUTPUT_height,
-             feature_group_to_add=list(functie_dictionary.values()))
+output = st_folium(map,width=OUTPUT_width, height=OUTPUT_height,returned_objects=["last_object_clicked"],
+                   feature_group_to_add=list(functie_dictionary.values()))
 
 output
 try:
-    if len(output["features"]) != 0:
+    if len(output) != 0:
         input_insert_bats(output,df_bunkers_observations)
 except:
     st.stop()
