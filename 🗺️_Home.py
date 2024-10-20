@@ -21,7 +21,7 @@ from functions import *
 st.set_page_config(
     page_title="Bunkers",
     initial_sidebar_state="collapsed",
-    page_icon="📝",
+    page_icon="🦇",
     layout="wide",
     
 )
@@ -62,7 +62,7 @@ df_bunkers_observations = conn.read(ttl=ttl,worksheet="bunkers_observations")
 df_references = conn.read(ttl=ttl_references,worksheet="df_users")
 
 if "login" not in st.session_state:
-    logIn()
+    logIn(df_references)
     st.stop()
 
 with st.sidebar:
