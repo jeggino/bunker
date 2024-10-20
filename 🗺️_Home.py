@@ -171,7 +171,7 @@ try:
                 submitted = st.form_submit_button(":red[**Verwijder waarneming**]",use_container_width=True)
                 if submitted:
                     df = conn.read(ttl=0,worksheet="bunkers_features")
-                    df_filter = df[df["key"]==id]
+                    df_filter = df[df["id_bunker"]==id]
                     df_drop = df[~df.apply(tuple, axis=1).isin(df_filter.apply(tuple, axis=1))]
                     conn.update(worksheet='bunkers_features',data=df_drop)
                     st.success('Waarneming verwijderd', icon="✅") 
