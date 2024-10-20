@@ -8,5 +8,5 @@ ttl = '10m'
 ttl_references = '10m'
 
 # --- SIDEBAR ---
-IMAGE = "image/logo.png"
-IMAGE_2 ="image/menu.jpg"
+# IMAGE = "image/logo.png"
+# IMAGE_2 ="image/menu.jpg"
