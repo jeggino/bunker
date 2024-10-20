@@ -141,10 +141,10 @@ def input_data(output,df):
     
     if submitted:           
 
-        coordinates = output["features"][0]["geometry"]["coordinates"] 
+        coordinates = output["coordinates"] 
                        
-        lng = coordinates[0]
-        lat = coordinates[1]
+        lng = coordinates["lat"]
+        lat = coordinates['lng']
         
         id_bunker = str(lng)+str(lat)
 
