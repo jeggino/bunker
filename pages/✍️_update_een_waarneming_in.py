@@ -61,13 +61,6 @@ df_bunkers_features = conn.read(ttl=ttl,worksheet="bunkers_features")
 df_bunkers_observations = conn.read(ttl=ttl,worksheet="bunkers_observations")
 df_references = conn.read(ttl=ttl_references,worksheet="df_users")
 
-if "login" not in st.session_state:
-    logIn(df_references)
-    st.stop()
-
-with st.sidebar:
-    logOut()
-    st.divider()
 
 try:
     table_dictionary = tab_popup(df_bunkers_observations)
@@ -128,6 +121,7 @@ output = st_folium(map,returned_objects=["last_active_drawing"],width=OUTPUT_wid
              feature_group_to_add=list(functie_dictionary.values()))
 
 try:
-    input_insert_bats(output,df_bunkers_observations)
+    if len(output_map["features"]) != 0:
+        input_insert_bats(output,df_bunkers_observations)
 except:
-    pass
+    st.stop()
