@@ -192,7 +192,7 @@ def input_insert_bats(output,df):
         
         id_bunker = str(lng)+str(lat)
 
-        data = [{"id_bunker"} | data_dict | {'opmerking':opmerking}]
+        data = [{"id_bunker":id_bunker} | data_dict | {'opmerking':opmerking}]
         df_new = pd.DataFrame(data)
         df_updated = pd.concat([df,df_new],ignore_index=True)
         conn.update(worksheet="bunkers_observations",data=df_updated)
