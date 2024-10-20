@@ -20,13 +20,9 @@ def tooltip_html(row,df):
     
     i = row
 
-    status=df['Last survey'].iloc[i]
-    waarnemer=df['waarnemer'].iloc[i]
     surrounding=df['surrounding'].iloc[i]
     type_bunker=df['type_bunker'].iloc[i]
     number_chambers=df['number_chambers'].iloc[i]
-    temperature=df['temperature'].iloc[i]
-    humidity=df['humidity'].iloc[i]
     opmerking=df['opmerking'].iloc[i]
     
 
@@ -38,14 +34,6 @@ def tooltip_html(row,df):
     <table style="height: 126px; width: 300;">
     <tbody>
     <tr>
-    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Status</span></td>
-    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(status) + """
-    </tr>
-    <tr>
-    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Waarnemer</span></td>
-    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(waarnemer) + """
-    </tr>
-    <tr>
     <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Surrounding</span></td>
     <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(surrounding) + """
     </tr>
@@ -56,14 +44,6 @@ def tooltip_html(row,df):
     <tr>
     <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Number of chambers</span></td>
     <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(number_chambers) + """
-    </tr>
-    <tr>
-    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Temperature</span></td>
-    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(temperature) + """
-    </tr>
-    <tr>
-    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Humidity</span></td>
-    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(humidity) + """
     </tr>
     <tr>
     <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Opmerking</span></td>
@@ -118,11 +98,10 @@ def logOut():
         del st.session_state.login
         st.rerun()
 
-def insert_bunker_fearures(last_survey,id_bunker,waarnemer,lat,lng,surrounding,type_bunker,number_chambers,temperature,humidity,opmerking,df):
+def insert_bunker_fearures(last_survey,id_bunker,lat,lng,surrounding,type_bunker,number_chambers,opmerking,df):
     
-    data = [{'Last survey':last_survey,"id_bunker":id_bunker, "waarnemer":waarnemer,"lat":lat,"lng":lng,"surrounding":surrounding,"type_bunker":type_bunker,
-             "number_chambers":number_chambers,"temperature":temperature,"humidity":humidity,
-             "opmerking":opmerking,
+    data = [{'Last survey':last_survey,"id_bunker":id_bunker, "lat":lat,"lng":lng,"surrounding":surrounding,"type_bunker":type_bunker,
+             "number_chambers":number_chambers,"opmerking":opmerking,
              }]
     df_new = pd.DataFrame(data)
     df_updated = pd.concat([df,df_new],ignore_index=True)
@@ -148,15 +127,11 @@ def map():
 
         
 @st.dialog(" ")
-def input_data(output,df):
-
-    waarnemer = st.session_state.login['name']     
+def input_data(output,df):   
 
     surrounding = st.selectbox("Type of surrounding", SURROUNDING_OPTIONS)
     type_bunker = st.selectbox("Type of bunker", TYPE_BUNKER_OPTIONS)
     number_chambers = st.number_input("Number of chambers", min_value=1)
-    temperature = st.number_input("Temperature", min_value=15)
-    humidity = st.number_input("Humidity", min_value=1)
     opmerking = st.text_input("", placeholder="Vul hier een opmerking in ...")
     last_survey = 'No Data Yet!'
     
@@ -178,7 +153,7 @@ def input_data(output,df):
             st.stop()
 
         else:
-            insert_bunker_fearures(last_survey,id_bunker,waarnemer,lat,lng,surrounding,type_bunker,number_chambers,temperature,humidity,opmerking,df)
+            insert_bunker_fearures(last_survey,id_bunker,lat,lng,surrounding,type_bunker,number_chambers,opmerking,df)
 
             st.success('Gegevens opgeslagen!', icon="✅")       
   
