@@ -69,7 +69,7 @@ with st.sidebar:
     logOut()
     st.divider()
 
-# try:
+try:
     table_dictionary = tab_popup(df_bunkers_observations)
     df_bunkers_features["Last survey"] = df_bunkers_features.apply(lambda x: "Uninhabited" if table_dictionary[x['id_bunker']].iloc[-1,:].sum() == 0
                                                else "Inhabited",axis=1) 
