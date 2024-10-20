@@ -100,7 +100,7 @@ folium.LayerControl().add_to(map)
 
 for i in range(len(df_bunkers_features)):
 
-    html_tooltip = tooltip_html(i)
+    html_tooltip = tooltip_html(i,df_bunkers_features)
     tooltip = folium.Tooltip(folium.Html(html_tooltip, script=True))
     
     html_popup = table_dictionary[df_bunkers_features.iloc[i]['id_bunker']].astype('int').replace({0:'-'}).to_html(
