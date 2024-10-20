@@ -118,9 +118,9 @@ def logOut():
         del st.session_state.login
         st.rerun()
 
-def insert_bunker_fearures(id_bunker,waarnemer,lat,lng,surrounding,type_bunker,number_chambers,temperature,humidity,opmerking,df):
+def insert_bunker_fearures(last_survey='No Data Yet!',id_bunker,waarnemer,lat,lng,surrounding,type_bunker,number_chambers,temperature,humidity,opmerking,df):
     
-    data = [{"id_bunker":id_bunker, "waarnemer":waarnemer,"lat":lat,"lng":lng,"surrounding":surrounding,"type_bunker":type_bunker,
+    data = [{'Last survey':last_survey,"id_bunker":id_bunker, "waarnemer":waarnemer,"lat":lat,"lng":lng,"surrounding":surrounding,"type_bunker":type_bunker,
              "number_chambers":number_chambers,"temperature":temperature,"humidity":humidity,
              "opmerking":opmerking,
              }]
