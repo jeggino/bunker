@@ -20,14 +20,15 @@ def tooltip_html(row,df):
     
     i = row
 
-    id_bunker=df['id_bunker'].iloc[i]
     status=df['Last survey'].iloc[i]
-    var_1=df['var_1'].iloc[i]
-    var_2=df['var_2'].iloc[i]
-    var_3=df['var_3'].iloc[i]
-    var_4=df['var_4'].iloc[i]
-
-       
+    waarnemer=df['waarnemer'].iloc[i]
+    surrounding=df['surrounding'].iloc[i]
+    type_bunker=df['type_bunker'].iloc[i]
+    number_chambers=df['number_chambers'].iloc[i]
+    temperature=df['temperature'].iloc[i]
+    humidity=df['humidity'].iloc[i]
+    opmerking=df['opmerking'].iloc[i]
+    
 
     left_col_color = "#19a7bd"
     right_col_color = "#f2f0d3"
@@ -37,28 +38,36 @@ def tooltip_html(row,df):
     <table style="height: 126px; width: 300;">
     <tbody>
     <tr>
-    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Bunker</span></td>
-    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(id_bunker) + """
-    </tr>
-    <tr>
-    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Last survey</span></td>
+    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Status</span></td>
     <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(status) + """
     </tr>
     <tr>
-    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Variable 1</span></td>
-    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(var_1) + """
+    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Waarnemer</span></td>
+    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(waarnemer) + """
     </tr>
     <tr>
-    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Variable 2</span></td>
-    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(var_2) + """
+    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Surrounding</span></td>
+    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(surrounding) + """
     </tr>
     <tr>
-    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Variable 3</span></td>
-    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(var_3) + """
+    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Type of bunker</span></td>
+    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(type_bunker) + """
     </tr>
     <tr>
-    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Variable 4</span></td>
-    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(var_4) + """
+    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Number of chambers</span></td>
+    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(number_chambers) + """
+    </tr>
+    <tr>
+    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Temperature</span></td>
+    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(temperature) + """
+    </tr>
+    <tr>
+    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Humidity</span></td>
+    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(humidity) + """
+    </tr>
+    <tr>
+    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Opmerking</span></td>
+    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(opmerking) + """
     </tr>
     </tbody>
     </table>
@@ -109,9 +118,9 @@ def logOut():
         del st.session_state.login
         st.rerun()
 
-def insert_bunker_fearures(id_bunker,waarnemer,datum,lat,lng,surrounding,type_bunker,number_chambers,temperature,humidity,opmerking,df):
+def insert_bunker_fearures(id_bunker,waarnemer,lat,lng,surrounding,type_bunker,number_chambers,temperature,humidity,opmerking,df):
     
-    data = [{"id_bunker":id_bunker, "waarnemer":waarnemer,"datum":datum,"lat":lat,"lng":lng,"surrounding":surrounding,"type_bunker":type_bunker,
+    data = [{"id_bunker":id_bunker, "waarnemer":waarnemer,"lat":lat,"lng":lng,"surrounding":surrounding,"type_bunker":type_bunker,
              "number_chambers":number_chambers,"temperature":temperature,"humidity":humidity,
              "opmerking":opmerking,
              }]
@@ -141,9 +150,6 @@ def map():
 def input_data(output,df):
 
     waarnemer = st.session_state.login['name']     
-    datum = st.date_input("Datum","today")       
-   
-    st.divider()
 
     surrounding = st.selectbox("Functie", SURROUNDING_OPTIONS)
     type_bunker = st.selectbox("Functie", TYPE_BUNKER_OPTIONS)
@@ -170,7 +176,7 @@ def input_data(output,df):
             st.stop()
 
         else:
-            insert_bunker_fearures(id_bunker,waarnemer,str(datum),lat,lng,surrounding,type_bunker,number_chambers,temperature,humidity,opmerking,df)
+            insert_bunker_fearures(id_bunker,waarnemer,lat,lng,surrounding,type_bunker,number_chambers,temperature,humidity,opmerking,df)
 
             st.success('Gegevens opgeslagen!', icon="✅")       
             st.rerun()
