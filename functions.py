@@ -158,3 +158,43 @@ def input_data(output,df):
             st.success('Gegevens opgeslagen!', icon="✅")       
   
         st.switch_page("🗺️_Home.py")
+
+@st.dialog(" ")
+def input_insert_bats(output,df):
+    waarnemer = st.session_state.login['name']
+    temperature = st.number_input("Temperature", min_value=1)
+    humidity = st.number_input("humidity", min_value=1)
+    sp = st.selectbox("Soort", BAT_NAMES)
+    
+    if sp:
+        dict_species = {}
+        for species in sp:
+            dict_species[species] = st.number_input(species, min_value=1)
+        data_dict = {"waarnemer":waarnemer,"temperature":temperature,"humidity":humidity} | dict_species
+        
+    else:
+        data_dict = {"waarnemer":waarnemer,"temperature":temperature,"humidity":humidity}
+        
+    opmerking = st.text_input("", placeholder="Vul hier een opmerking in ...")    
+    
+    st.divider()
+        
+    submitted = st.button("**Gegevens opslaan**",use_container_width=True)
+    
+    if submitted:           
+
+        coordinates = output["features"][0]["geometry"]["coordinates"] 
+                       
+        lng = coordinates[0]
+        lat = coordinates[1]
+        
+        id_bunker = str(lng)+str(lat)
+
+        data = [data_dict | {'opmerking':opmerking}]
+        df_new = pd.DataFrame(data)
+        df_updated = pd.concat([df,df_new],ignore_index=True)
+        conn.update(worksheet="bunkers_observations",data=df_updated)
+
+        st.success('Gegevens opgeslagen!', icon="✅")       
+  
+        st.switch_page("🗺️_Home.py")
