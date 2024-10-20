@@ -1,6 +1,6 @@
 # --- DIMENSIONS ---
-OUTPUT_width = 1190
-OUTPUT_height = 450
+OUTPUT_width = 350
+OUTPUT_height = 550
 ICON_SIZE = (60,35)
 
 # --- DATASET CACHE ---
