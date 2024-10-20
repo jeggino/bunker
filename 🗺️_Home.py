@@ -79,7 +79,7 @@ try:
                                                                  if x['Last survey']=='Uninhabited'
                                                                  else "icons/bunker_full.png", 
                                                                  axis=1)
-
+    df_bunkers_features
     map = folium.Map(tiles=None,position=[df_bunkers_features['lat'].mean(),df_bunkers_features['lng'].mean],)
     LocateControl(auto_start=True,position="topright").add_to(map)
     Fullscreen(position="topright").add_to(map)
