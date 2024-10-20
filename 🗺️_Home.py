@@ -76,7 +76,7 @@ try:
                                                else "Inhabited",axis=1) 
     df_bunkers_features["icon_data"] = df_bunkers_features.apply(lambda x: "icons/bunker_empty.png" 
                                                                  if x['Last survey']=='Uninhabited'
-                                                                 (else "icons/bunker_full.png" if x['Last survey']=='Inhabited'
+                                                                 else ("icons/bunker_full.png" if x['Last survey']=='Inhabited'
                                                                  else 'icons/bunker_no_data.png'), 
                                                                  axis=1)
 except: 
