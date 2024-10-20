@@ -98,7 +98,7 @@ try:
     
     folium.LayerControl().add_to(map)    
     
-    
+    st.error("HERE!!!!!!!!!!")
     for i in range(len(df_bunkers_features)):
     
         html_tooltip = tooltip_html(i)
