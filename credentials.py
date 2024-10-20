@@ -14,3 +14,5 @@ IMAGE_2 ="icons/menu.jpg"
 SURROUNDING_OPTIONS = ['In the dunes', 'deciduous forrest', 'pine/evergreen forrest']
 
 TYPE_BUNKER_OPTIONS = ['A','B','C']
+
+BAT_NAMES = ['Gewone dwergvleermuis','Ruige dwergvleermuis', 'Laatvlieger','Rosse vleermuis','Meervleermuis','Watervleermuis','...Andere(n)']
