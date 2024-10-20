@@ -56,7 +56,7 @@ st.markdown("""
 st.logo(IMAGE_2,  link=None, icon_image=IMAGE_2)
 
 #--- UI ---
-# conn = st.connection("gsheets", type=GSheetsConnection)
+conn = st.connection("gsheets", type=GSheetsConnection)
 df_bunkers_features = conn.read(ttl=ttl,worksheet="bunkers_features")
 df_bunkers_observations = conn.read(ttl=ttl,worksheet="bunkers_observations")
 df_references = conn.read(ttl=ttl_references,worksheet="df_users")
