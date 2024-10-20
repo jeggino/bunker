@@ -141,10 +141,10 @@ def input_data(output,df):
     
     if submitted:           
 
-        coordinates = output["coordinates"] 
+        coordinates = output["features"][0]["geometry"]["coordinates"] 
                        
-        lng = coordinates["lat"]
-        lat = coordinates['lng']
+        lng = coordinates[0]
+        lat = coordinates[1]
         
         id_bunker = str(lng)+str(lat)
 
@@ -184,10 +184,10 @@ def input_insert_bats(output,df):
     
     if submitted:           
 
-        coordinates = output["features"][0]["geometry"]["coordinates"] 
+        coordinates = output["last_object_clicked"]
                        
-        lng = coordinates[0]
-        lat = coordinates[1]
+        lng = coordinates["lat"]
+        lat = coordinates['lng']
         
         id_bunker = str(lng)+str(lat)
 
