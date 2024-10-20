@@ -137,9 +137,10 @@ def map():
          position="topright").add_to(m)
     Fullscreen(position="topright").add_to(m)
     LocateControl(auto_start=True,position="topright").add_to(m)
+    folium.TileLayer(tiles='https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}',attr='Google_map',overlay=False,show=False,name="Satellite").add_to(m)
     
 
-    
+    folium.LayerControl().add_to(m)
     output = st_folium(m, returned_objects=["all_drawings"],width=OUTPUT_width, height=OUTPUT_height)
     output["features"] = output.pop("all_drawings")
     
