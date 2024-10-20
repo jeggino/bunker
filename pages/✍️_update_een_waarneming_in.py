@@ -121,6 +121,7 @@ output = st_folium(map,width=OUTPUT_width, height=OUTPUT_height,returned_objects
                    feature_group_to_add=list(functie_dictionary.values()))
 
 st.write(len(output))
+output
 try:
     if len(output["last_object_clicked"]) != 0:
         input_insert_bats(output,df_bunkers_observations)
