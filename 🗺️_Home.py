@@ -74,13 +74,15 @@ try:
     table_dictionary = tab_popup(df_bunkers_observations)
     df_bunkers_features["Last survey"] = df_bunkers_features.apply(lambda x: "Uninhabited" if table_dictionary[x['id_bunker']].iloc[-1,:].sum() == 0
                                                else "Inhabited",axis=1) 
-    df_bunkers_features["icon_data"] = df_bunkers_features.apply(lambda x: "icons/bunker_empty.png" 
-                                                                 if x['Last survey']=='Uninhabited'
-                                                                 else ("icons/bunker_full.png" if x['Last survey']=='Inhabited'
-                                                                 else 'icons/bunker_no_data.png'), 
-                                                                 axis=1)
-except: 
+except:
     pass
+    
+df_bunkers_features["icon_data"] = df_bunkers_features.apply(lambda x: "icons/bunker_empty.png" 
+                                                             if x['Last survey']=='Uninhabited'
+                                                             else ("icons/bunker_full.png" if x['Last survey']=='Inhabited'
+                                                             else 'icons/bunker_no_data.png'), 
+                                                             axis=1)
+
     
 map = folium.Map(tiles=None,position=[df_bunkers_features['lat'].mean(),df_bunkers_features['lng'].mean],)
 LocateControl(auto_start=True,position="topright").add_to(map)
