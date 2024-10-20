@@ -121,7 +121,7 @@ output = st_folium(map,returned_objects=["last_active_drawing"],width=OUTPUT_wid
              feature_group_to_add=list(functie_dictionary.values()))
 
 try:
-    if len(output_map["features"]) != 0:
+    if len(output["features"]) != 0:
         input_insert_bats(output,df_bunkers_observations)
 except:
     st.stop()
