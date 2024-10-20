@@ -113,8 +113,8 @@ def map():
     
     m = folium.Map()
 
-    Draw(draw_options={'circle': False,'rectangle': False,'circlemarker': False, 'polyline': False, 'polygon': False},
-         position="topright",).add_to(m)
+    Draw(draw_options={'circle': False,'rectangle': False,'circlemarker': False, 'polyline': False, 'polygon': True},
+         position="topright").add_to(m)
     Fullscreen(position="topright").add_to(m)
     LocateControl(auto_start=True,position="topright").add_to(m)
     
