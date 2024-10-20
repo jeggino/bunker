@@ -9,7 +9,7 @@ ttl_references = '10m'
 
 # --- SIDEBAR ---
 # IMAGE = "image/logo.png"
-# IMAGE_2 ="image/menu.jpg"
+IMAGE_2 ="image/menu.jpg"
 
 SURROUNDING_OPTIONS = ['In the dunes', 'deciduous forrest', 'pine/evergreen forrest']
 
