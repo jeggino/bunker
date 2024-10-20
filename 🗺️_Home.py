@@ -70,13 +70,17 @@ with st.sidebar:
     st.divider()
 
 try:
-    table_dictionary = tab_popup(df_bunkers_observations)
-    df_bunkers_features["Last survey"] = df_bunkers_features.apply(lambda x: "Uninhabited" if table_dictionary[x['id_bunker']].iloc[-1,:].sum() == 0
-                                               else "Inhabited",axis=1) 
-    df_bunkers_features["icon_data"] = df_bunkers_features.apply(lambda x: "icons/bunker_empty.png" 
-                                                                 if x['Last survey']=='Uninhabited'
-                                                                 else "icons/bunker_full.png", 
-                                                                 axis=1)
+    try:
+        table_dictionary = tab_popup(df_bunkers_observations)
+        df_bunkers_features["Last survey"] = df_bunkers_features.apply(lambda x: "Uninhabited" if table_dictionary[x['id_bunker']].iloc[-1,:].sum() == 0
+                                                   else "Inhabited",axis=1) 
+        df_bunkers_features["icon_data"] = df_bunkers_features.apply(lambda x: "icons/bunker_empty.png" 
+                                                                     if x['Last survey']=='Uninhabited'
+                                                                     else "icons/bunker_full.png", 
+                                                                     axis=1)
+    except: 
+        pass
+        
     map = folium.Map(tiles=None,position=[df_bunkers_features['lat'].mean(),df_bunkers_features['lng'].mean],)
     LocateControl(auto_start=True,position="topright").add_to(map)
     Fullscreen(position="topright").add_to(map)
@@ -102,11 +106,14 @@ try:
     
         html_tooltip = tooltip_html(i,df_bunkers_features)
         tooltip = folium.Tooltip(folium.Html(html_tooltip, script=True))
-        
-        html_popup = table_dictionary[df_bunkers_features.iloc[i]['id_bunker']].astype('int').replace({0:'-'}).to_html(
-            classes="table table-striped table-hover table-condensed table-responsive"
-        )
-        popup = folium.Popup(html_popup, max_width=700)
+
+        try:
+            html_popup = table_dictionary[df_bunkers_features.iloc[i]['id_bunker']].astype('int').replace({0:'-'}).to_html(
+                classes="table table-striped table-hover table-condensed table-responsive"
+            )
+            popup = folium.Popup(html_popup, max_width=700)
+        except:
+            popup = 'NO DATA'
         
         fouctie_loop = functie_dictionary[df_bunkers_features.iloc[i]['Last survey']]
     
