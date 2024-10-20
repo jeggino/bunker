@@ -187,8 +187,8 @@ def input_insert_bats(output,df):
 
         coordinates = output["last_object_clicked"]
                        
-        lng = coordinates["lat"]
-        lat = coordinates['lng']
+        lng = coordinates["lng"]
+        lat = coordinates['lat']
         
         id_bunker = str(lng)+str(lat)
 
