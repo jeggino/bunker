@@ -69,58 +69,58 @@ with st.sidebar:
     logOut()
     st.divider()
 
-try:
-    table_dictionary = tab_popup(df_bunkers_observations)
-    df_bunkers_features["Last survey"] = df_bunkers_features.apply(lambda x: "Uninhabited" if table_dictionary[x['id_bunker']].iloc[-1,:].sum() == 0
-                                               else "Inhabited",axis=1) 
-    df_bunkers_features["icon_data"] = df_bunkers_features.apply(lambda x: "icons/bunker_empty.png" 
-                                                                 if x['Last survey']=='Uninhabited'
-                                                                 else "icons/bunker_full.png", 
-                                                                 axis=1)
-    map = folium.Map(tiles=None,position=[df_bunkers_features['lat'].mean(),df_bunkers_features['lng'].mean],)
-    LocateControl(auto_start=True,position="topright").add_to(map)
-    Fullscreen(position="topright").add_to(map)
-    
-    functie_dictionary = {}
-    functie_len = df_bunkers_features['Last survey'].unique()
-    
-    for functie in functie_len:
-        functie_dictionary[functie] = folium.FeatureGroup(name=functie)    
-    
-    for feature_group in functie_dictionary.keys():
-        map.add_child(functie_dictionary[feature_group])
-    
-    folium.TileLayer('OpenStreetMap',overlay=False,show=True,name="Streets").add_to(map)
-    folium.TileLayer(tiles="Cartodb Positron",overlay=False,show=False,name="Light").add_to(map)
-    folium.TileLayer('Cartodb dark_matter',overlay=False,show=False,name="Dark").add_to(map)
-    
-    
-    
-    folium.LayerControl().add_to(map)    
-    
-    for i in range(len(df_bunkers_features)):
-    
-        html_tooltip = tooltip_html(i)
-        tooltip = folium.Tooltip(folium.Html(html_tooltip, script=True))
-        
-        html_popup = table_dictionary[df_bunkers_features.iloc[i]['id_bunker']].astype('int').replace({0:'-'}).to_html(
-            classes="table table-striped table-hover table-condensed table-responsive"
-        )
-        popup = folium.Popup(html_popup, max_width=700)
-        
-        fouctie_loop = functie_dictionary[df_bunkers_features.iloc[i]['Last survey']]
-    
-        folium.Marker([df_bunkers_features.iloc[i]['lat'], df_bunkers_features.iloc[i]['lng']],
-                      popup=popup,
-                      tooltip=html_tooltip,
-                      icon=folium.features.CustomIcon(df_bunkers_features.iloc[i]["icon_data"], icon_size=ICON_SIZE)
-                     ).add_to(fouctie_loop)
-    st.error("HERE!!!!!!!!!!")
+# try:
+table_dictionary = tab_popup(df_bunkers_observations)
+df_bunkers_features["Last survey"] = df_bunkers_features.apply(lambda x: "Uninhabited" if table_dictionary[x['id_bunker']].iloc[-1,:].sum() == 0
+                                           else "Inhabited",axis=1) 
+df_bunkers_features["icon_data"] = df_bunkers_features.apply(lambda x: "icons/bunker_empty.png" 
+                                                             if x['Last survey']=='Uninhabited'
+                                                             else "icons/bunker_full.png", 
+                                                             axis=1)
+map = folium.Map(tiles=None,position=[df_bunkers_features['lat'].mean(),df_bunkers_features['lng'].mean],)
+LocateControl(auto_start=True,position="topright").add_to(map)
+Fullscreen(position="topright").add_to(map)
 
+functie_dictionary = {}
+functie_len = df_bunkers_features['Last survey'].unique()
+
+for functie in functie_len:
+    functie_dictionary[functie] = folium.FeatureGroup(name=functie)    
+
+for feature_group in functie_dictionary.keys():
+    map.add_child(functie_dictionary[feature_group])
+
+folium.TileLayer('OpenStreetMap',overlay=False,show=True,name="Streets").add_to(map)
+folium.TileLayer(tiles="Cartodb Positron",overlay=False,show=False,name="Light").add_to(map)
+folium.TileLayer('Cartodb dark_matter',overlay=False,show=False,name="Dark").add_to(map)
+
+
+
+folium.LayerControl().add_to(map)    
+
+for i in range(len(df_bunkers_features)):
+
+    html_tooltip = tooltip_html(i)
+    tooltip = folium.Tooltip(folium.Html(html_tooltip, script=True))
     
-    output_2 = st_folium(map,returned_objects=["last_active_drawing"],width=OUTPUT_width, height=OUTPUT_height,
-                 feature_group_to_add=list(functie_dictionary.values()))
+    html_popup = table_dictionary[df_bunkers_features.iloc[i]['id_bunker']].astype('int').replace({0:'-'}).to_html(
+        classes="table table-striped table-hover table-condensed table-responsive"
+    )
+    popup = folium.Popup(html_popup, max_width=700)
     
-except:
-    st.image("https://media.istockphoto.com/photos/open-empty-cardboard-box-on-a-white-background-picture-id172167710?k=6&m=172167710&s=612x612&w=0&h=Z4fueCweh9q-X_VBRAPCYSalyaAnXG3ioErb8oJSVek=")
-    st.stop()
+    fouctie_loop = functie_dictionary[df_bunkers_features.iloc[i]['Last survey']]
+
+    folium.Marker([df_bunkers_features.iloc[i]['lat'], df_bunkers_features.iloc[i]['lng']],
+                  popup=popup,
+                  tooltip=html_tooltip,
+                  icon=folium.features.CustomIcon(df_bunkers_features.iloc[i]["icon_data"], icon_size=ICON_SIZE)
+                 ).add_to(fouctie_loop)
+st.error("HERE!!!!!!!!!!")
+
+
+output_2 = st_folium(map,returned_objects=["last_active_drawing"],width=OUTPUT_width, height=OUTPUT_height,
+             feature_group_to_add=list(functie_dictionary.values()))
+    
+# except:
+#     st.image("https://media.istockphoto.com/photos/open-empty-cardboard-box-on-a-white-background-picture-id172167710?k=6&m=172167710&s=612x612&w=0&h=Z4fueCweh9q-X_VBRAPCYSalyaAnXG3ioErb8oJSVek=")
+#     st.stop()
