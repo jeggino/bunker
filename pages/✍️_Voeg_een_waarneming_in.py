@@ -58,20 +58,21 @@ st.markdown("""
 # IMAGE_2 ="image/menu.jpg"
 # st.logo(IMAGE,  link=None, icon_image=IMAGE_2)
 
-waarnemer = st.session_state.login['name']
-
-
-conn = st.connection("gsheets", type=GSheetsConnection)
-df_old = conn.read(ttl=ttl,worksheet="bunkers_features")
-
-    
-output_map = map()
-
 try:
-    if len(output_map["features"]) != 0:
-        input_data(output_map,df_old)
-except:
-    st.stop()
+    waarnemer = st.session_state.login['name']
     
-# except:
-#     st.switch_page("🗺️_Home.py")
+    
+    conn = st.connection("gsheets", type=GSheetsConnection)
+    df_old = conn.read(ttl=ttl,worksheet="bunkers_features")
+    
+        
+    output_map = map()
+    
+    try:
+        if len(output_map["features"]) != 0:
+            input_data(output_map,df_old)
+    except:
+        st.stop()
+    
+except:
+    st.switch_page("🗺️_Home.py")
