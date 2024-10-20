@@ -118,7 +118,7 @@ def logOut():
         del st.session_state.login
         st.rerun()
 
-def insert_bunker_fearures(last_survey='No Data Yet!',id_bunker,waarnemer,lat,lng,surrounding,type_bunker,number_chambers,temperature,humidity,opmerking,df):
+def insert_bunker_fearures(last_survey,id_bunker,waarnemer,lat,lng,surrounding,type_bunker,number_chambers,temperature,humidity,opmerking,df):
     
     data = [{'Last survey':last_survey,"id_bunker":id_bunker, "waarnemer":waarnemer,"lat":lat,"lng":lng,"surrounding":surrounding,"type_bunker":type_bunker,
              "number_chambers":number_chambers,"temperature":temperature,"humidity":humidity,
@@ -157,6 +157,7 @@ def input_data(output,df):
     temperature = st.number_input("Temperature", min_value=15)
     humidity = st.number_input("Humidity", min_value=1)
     opmerking = st.text_input("", placeholder="Vul hier een opmerking in ...")
+    last_survey = 'No Data Yet!'
     
     st.divider()
         
@@ -176,7 +177,7 @@ def input_data(output,df):
             st.stop()
 
         else:
-            insert_bunker_fearures(id_bunker,waarnemer,lat,lng,surrounding,type_bunker,number_chambers,temperature,humidity,opmerking,df)
+            insert_bunker_fearures(last_survey,id_bunker,waarnemer,lat,lng,surrounding,type_bunker,number_chambers,temperature,humidity,opmerking,df)
 
             st.success('Gegevens opgeslagen!', icon="✅")       
   
