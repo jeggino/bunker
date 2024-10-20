@@ -164,12 +164,13 @@ def input_insert_bats(output,df):
     waarnemer = st.session_state.login['name']
     temperature = st.number_input("Temperature", min_value=1)
     humidity = st.number_input("humidity", min_value=1)
-    sp = st.selectbox("Soort", BAT_NAMES)
+    sp = st.multiselect("Chose which species was there", BAT_NAMES)
+    
     
     if sp:
         dict_species = {}
         for species in sp:
-            dict_species[species] = st.number_input(species, min_value=1)
+            dict_species[species] = st.number_input(species, min_value=1,key=species)
         data_dict = {"waarnemer":waarnemer,"temperature":temperature,"humidity":humidity} | dict_species
         
     else:
