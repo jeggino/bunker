@@ -151,8 +151,8 @@ def input_data(output,df):
 
     waarnemer = st.session_state.login['name']     
 
-    surrounding = st.selectbox("Functie", SURROUNDING_OPTIONS)
-    type_bunker = st.selectbox("Functie", TYPE_BUNKER_OPTIONS)
+    surrounding = st.selectbox("Type of surrounding", SURROUNDING_OPTIONS)
+    type_bunker = st.selectbox("Type of bunker", TYPE_BUNKER_OPTIONS)
     number_chambers = st.number_input("Number of chambers", min_value=1)
     temperature = st.number_input("Temperature", min_value=15)
     humidity = st.number_input("Humidity", min_value=1)
