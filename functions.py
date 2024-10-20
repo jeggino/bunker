@@ -152,27 +152,21 @@ def input_data(output,df):
     
     if submitted:           
 
-        try:
+        coordinates = output["features"][0]["geometry"]["coordinates"] 
+                       
+        lng = coordinates[0]
+        lat = coordinates[1]
+        
+        id_bunker = str(lng)+str(lat)
 
-            coordinates = output["features"][0]["geometry"]["coordinates"] 
-                           
-            lng = coordinates[0]
-            lat = coordinates[1]
-            
-            id_bunker = str(lng)+str(lat)
-
-            if len(output["features"]) > 1:
-                st.error("U kunt niet meer dan één waarneming tegelijk uploaden!")
-                st.stop()
-
-            else:
-                insert_bunker_fearures(id_bunker,waarnemer,str(datum),lat,lng,surrounding,type_bunker,number_chambers,temperature,humidity,opmerking,df)
-
-                st.success('Gegevens opgeslagen!', icon="✅")       
-                st.rerun()
-
-        except:
+        if len(output["features"]) > 1:
+            st.error("U kunt niet meer dan één waarneming tegelijk uploaden!")
             st.stop()
 
-        
+        else:
+            insert_bunker_fearures(id_bunker,waarnemer,str(datum),lat,lng,surrounding,type_bunker,number_chambers,temperature,humidity,opmerking,df)
+
+            st.success('Gegevens opgeslagen!', icon="✅")       
+            st.rerun()
+  
         st.switch_page("🗺️_Home.py")
