@@ -5,7 +5,6 @@ import datetime
 from datetime import datetime, timedelta, date
 
 
-# --- FUNCTIONS ---
 def tooltip_html(row,df):
     
     i = row
