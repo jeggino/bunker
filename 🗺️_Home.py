@@ -13,7 +13,7 @@ import random
 import ast
 
 from credentials import *
-from functions import logIn,logOut,tab_popup,tooltip_html
+from functions import logIn,logOut,tab_popup,tooltip_html,conn
 
 
 
@@ -53,10 +53,10 @@ st.markdown("""
 """ , unsafe_allow_html=True)
 
 
-# st.logo(IMAGE,  link=None, icon_image=IMAGE_2)
+st.logo(IMAGE_2,  link=None, icon_image=IMAGE_2)
 
 #--- UI ---
-conn = st.connection("gsheets", type=GSheetsConnection)
+# conn = st.connection("gsheets", type=GSheetsConnection)
 df_bunkers_features = conn.read(ttl=ttl,worksheet="bunkers_features")
 df_bunkers_observations = conn.read(ttl=ttl,worksheet="bunkers_observations")
 df_references = conn.read(ttl=ttl_references,worksheet="df_users")
