@@ -70,8 +70,6 @@ with st.sidebar:
     st.divider()
 
 try:
-    df_bunkers_features
-    df_bunkers_observations
     table_dictionary = tab_popup(df_bunkers_observations)
     df_bunkers_features["Last survey"] = df_bunkers_features.apply(lambda x: "Uninhabited" if table_dictionary[x['id_bunker']].iloc[-1,:].sum() == 0
                                                else "Inhabited",axis=1) 
@@ -79,7 +77,6 @@ try:
                                                                  if x['Last survey']=='Uninhabited'
                                                                  else "icons/bunker_full.png", 
                                                                  axis=1)
-    df_bunkers_features
     map = folium.Map(tiles=None,position=[df_bunkers_features['lat'].mean(),df_bunkers_features['lng'].mean],)
     LocateControl(auto_start=True,position="topright").add_to(map)
     Fullscreen(position="topright").add_to(map)
@@ -101,7 +98,7 @@ try:
     
     folium.LayerControl().add_to(map)    
     
-    
+    st.error("HERE!!!!!!!!!!")
     for i in range(len(df_bunkers_features)):
     
         html_tooltip = tooltip_html(i)
