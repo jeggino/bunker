@@ -75,7 +75,7 @@ try:
                                                else "Inhabited",axis=1) 
 except:
     pass
-    
+table_dictionary
 df_bunkers_features["icon_data"] = df_bunkers_features.apply(lambda x: "icons/bunker_empty.png" 
                                                              if x['Last survey']=='Uninhabited'
                                                              else ("icons/bunker_full.png" if x['Last survey']=='Inhabited'
