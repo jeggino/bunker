@@ -13,7 +13,7 @@ import random
 import ast
 
 from credentials import *
-from functions import logIn,logOut,tab_popup,tooltip_html,conn
+from functions import logIn,logOut,tab_popup,tooltip_html,conn,popup_table
 
 
 
@@ -124,11 +124,14 @@ for i in range(len(df_bunkers_features)):
                   icon=folium.features.CustomIcon(df_bunkers_features.iloc[i]["icon_data"], icon_size=ICON_SIZE)
                  ).add_to(fouctie_loop)
 
-output_2 = st_folium(map,returned_objects=["last_active_drawing"],width=OUTPUT_width, height=OUTPUT_height,
+output = st_folium(map,returned_objects=["last_active_drawing"],width=OUTPUT_width, height=OUTPUT_height,
              feature_group_to_add=list(functie_dictionary.values()))
 
+
 try:
-    id = str(output_2["last_active_drawing"]['geometry']['coordinates'][0])+str(output_2["last_active_drawing"]['geometry']['coordinates'][1])
+    
+    id = str(output["last_active_drawing"]['geometry']['coordinates'][0])+str(output["last_active_drawing"]['geometry']['coordinates'][1])
+    popup_table(id,output,df_bunkers_features,table_dictionary)
     with st.sidebar:
         with st.form("entry_form", clear_on_submit=True,border=False):
             submitted = st.form_submit_button(":red[**Verwijder waarneming**]",use_container_width=True)
