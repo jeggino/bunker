@@ -202,11 +202,7 @@ def input_insert_bats(output,df):
         st.switch_page("🗺️_Home.py")
 
 @st.dialog(" ")
-def popup_table(output,df_bunkers_features,table_dictionary): 
-    coordinates = output["last_object_clicked"]
-    lng = coordinates["lng"]
-    lat = coordinates['lat']
-    id_bunker = str(lng)+str(lat)
+def popup_table(id_bunker,output,df_bunkers_features,table_dictionary): 
     df_popup = df_bunkers_features[df_bunkers_features['id_bunker']==id_bunker]
     st.write(df_popup['surrounding'])
     st.write(df_popup['lat'])
