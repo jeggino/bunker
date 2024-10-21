@@ -61,7 +61,7 @@ def tab_popup(df_bunkers_observations):
         try:
             df_table = df_bunkers_observations[df_bunkers_observations.id_bunker==id]
             df_table['date'] = pd.to_datetime(df_table['date'],format="%Y-%m-%d")
-            df_table.set_index("Date",inplace=True)
+            df_table.set_index("date",inplace=True)
             df_table = df_table.iloc[:,1:]
             df_table.sort_index(inplace=True)
             df_table.dropna(axis=1, how='all',inplace=True)
