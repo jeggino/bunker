@@ -127,15 +127,14 @@ for i in range(len(df_bunkers_features)):
 output = st_folium(map,returned_objects=["last_object_clicked"],width=OUTPUT_width, height=OUTPUT_height,
              feature_group_to_add=list(functie_dictionary.values()))
 
-try:
-    if len(output["last_object_clicked"]) != 0:
-        coordinates = output["last_object_clicked"]
-               
-        lng = coordinates["lng"]
-        lat = coordinates['lat']
-        
-        id = str(lng)+str(lat)
-        popup_table(id,output,df_bunkers_features,table_dictionary)
+if len(output["last_object_clicked"]) != 0:
+    coordinates = output["last_object_clicked"]
+           
+    lng = coordinates["lng"]
+    lat = coordinates['lat']
+    
+    id = str(lng)+str(lat)
+    popup_table(id,output,df_bunkers_features,table_dictionary)
     with st.sidebar:
         with st.form("entry_form", clear_on_submit=True,border=False):
             submitted = st.form_submit_button(":red[**Verwijder waarneming**]",use_container_width=True)
@@ -146,5 +145,3 @@ try:
                 st.success('Waarneming verwijderd', icon="✅") 
                 st.page_link("🗺️_Home.py", label="Vernieuwen", icon="🔄",use_container_width=True)
 
-except:
-    pass
