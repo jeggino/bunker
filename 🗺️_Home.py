@@ -120,8 +120,8 @@ for i in range(len(df_bunkers_features)):
     fouctie_loop = functie_dictionary[df_bunkers_features.iloc[i]['Last survey']]
 
     folium.Marker([df_bunkers_features.iloc[i]['lat'], df_bunkers_features.iloc[i]['lng']],
-                  popup=popup,
-                  tooltip=html_tooltip,
+                  # popup=popup,
+                  # tooltip=html_tooltip,
                   icon=folium.features.CustomIcon(df_bunkers_features.iloc[i]["icon_data"], icon_size=ICON_SIZE)
                  ).add_to(fouctie_loop)
 
