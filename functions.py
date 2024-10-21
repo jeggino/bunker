@@ -207,8 +207,8 @@ def input_insert_bats(output,df):
 @st.dialog(" ")
 def popup_table(id_bunker,output,df_bunkers_features,table_dictionary): 
     df_popup = df_bunkers_features[df_bunkers_features['id_bunker']==id_bunker]
-    st.write(df_popup['surrounding'].value)
-    st.write(df_popup['lat'].value)
-    st.write(df_popup['lng'].value)
+    st.write(df_popup['surrounding'].values)
+    st.write(df_popup['lat'].values)
+    st.write(df_popup['lng'].values)
     st.dataframe(table_dictionary[id_bunker])
     
