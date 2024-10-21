@@ -210,5 +210,5 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
     st.write(df_popup['surrounding'].values)
     st.write(df_popup['lat'].values)
     st.write(df_popup['lng'].values)
-   st.dataframe(table_dictionary[id_bunker])
+   st.dataframe(table_dictionary)
     
