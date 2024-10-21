@@ -124,13 +124,17 @@ for i in range(len(df_bunkers_features)):
                   icon=folium.features.CustomIcon(df_bunkers_features.iloc[i]["icon_data"], icon_size=ICON_SIZE)
                  ).add_to(fouctie_loop)
 
-output = st_folium(map,returned_objects=["last_active_drawing"],width=OUTPUT_width, height=OUTPUT_height,
+output = st_folium(map,returned_objects=["last_object_clicked"],width=OUTPUT_width, height=OUTPUT_height,
              feature_group_to_add=list(functie_dictionary.values()))
 
 
 try:
+    coordinates = output["last_object_clicked"]
+           
+    lng = coordinates["lng"]
+    lat = coordinates['lat']
     
-    id = str(output["last_active_drawing"]['geometry']['coordinates'][0])+str(output["last_active_drawing"]['geometry']['coordinates'][1])
+    id = str(lng)+str(lat)
     popup_table(id,output,df_bunkers_features,table_dictionary)
     with st.sidebar:
         with st.form("entry_form", clear_on_submit=True,border=False):
