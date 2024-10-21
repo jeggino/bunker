@@ -56,16 +56,19 @@ def tooltip_html(row,df):
     return html
 
 def tab_popup(df_bunkers_observations):
-    table_dictionary = {}
-    for id in df_bunkers_observations.id_bunker.unique():
-        df_table = df_bunkers_observations[df_bunkers_observations.id_bunker==id]
-        df_table['date'] = pd.to_datetime(df_table['date'],format="%Y-%m-%d")
-        df_table.set_index("Date",inplace=True)
-        df_table = df_table.iloc[:,1:]
-        df_table.sort_index(inplace=True)
-        df_table.dropna(axis=1, how='all',inplace=True)
-        df_table.fillna(0, inplace=True)
-        table_dictionary[id] = df_table
+    try:
+        table_dictionary = {}
+        for id in df_bunkers_observations.id_bunker.unique():
+            df_table = df_bunkers_observations[df_bunkers_observations.id_bunker==id]
+            df_table['date'] = pd.to_datetime(df_table['date'],format="%Y-%m-%d")
+            df_table.set_index("Date",inplace=True)
+            df_table = df_table.iloc[:,1:]
+            df_table.sort_index(inplace=True)
+            df_table.dropna(axis=1, how='all',inplace=True)
+            df_table.fillna(0, inplace=True)
+            table_dictionary[id] = df_table
+    except:
+        continue
 
     return table_dictionary
 
