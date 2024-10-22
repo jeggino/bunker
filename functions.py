@@ -206,14 +206,14 @@ def input_insert_bats(output,df):
 @st.dialog(" ")
 def popup_table(id_bunker,output,df_bunkers_features,table_dictionary): 
     df_popup = df_bunkers_features[df_bunkers_features['id_bunker']==id_bunker].reset_index(drop=True)
-    st.header('Bunker characteristics',divider=True)
+    st.header('Bunker characteristics',divider='grey')
     st.write(f'Number of chambers: {df_popup['number_chambers'].loc[0]}')
     st.write(f'Surrounding: {df_popup['surrounding'].loc[0]}')
     st.write(f'Type of bunker: {df_popup['type_bunker'].loc[0]}')
-    st.header('Opmerking',divider=True)
+    st.header('Opmerking',divider='grey')
     st.write(f'{df_popup['opmerking'].loc[0]}')
+    st.header('Surveys',divider='grey')
     try:
-        # table_dictionary[id_bunker].drop('id_bunker',axis=1,inplace=True)
         table_dictionary[id_bunker].iloc[:,4:-1] = table_dictionary[id_bunker].iloc[:,4:-1].astype('int').replace({0:'-'})
         st.dataframe(table_dictionary[id_bunker].iloc[:,1:])
     except:
