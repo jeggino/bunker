@@ -89,10 +89,10 @@ dict_presences
 # try:
     # df_bunkers_features["Last survey"] = df_bunkers_features.apply(lambda x: "Uninhabited" if table_dictionary[x['id_bunker']].iloc[-1,4:-1].sum() == 0
     #                                            else "Inhabited",axis=1)
-df_bunkers_features["Last survey"] = df_bunkers_features["Last survey"].map(dict_presences)
+df_bunkers_features["id_bunker"] = df_bunkers_features["id_bunker"].map(dict_presences)
 # except:
 #     pass
-
+df_bunkers_features["Last survey"] = df_bunkers_features["Last survey"].astype(str)
 df_bunkers_features["icon_data"] = df_bunkers_features.apply(lambda x: "icons/bunker_empty.png" 
                                                              if x['Last survey']=='Uninhabited'
                                                              else ("icons/bunker_full.png" if x['Last survey']=='Inhabited'
