@@ -74,7 +74,7 @@ st.write(table_dictionary['4.83866252.432101'].iloc[-1,4:-1].sum())
 
 #---
 dict_presences = {}
-for id in for id in df_bunkers_observations.id_bunker.unique():
+for id in df_bunkers_observations.id_bunker.unique():
     try:
         if table_dictionary[id].iloc[-1,4:-1].sum() == 0:
             dict_presences[id] = "Uninhabited"
