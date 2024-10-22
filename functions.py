@@ -60,7 +60,7 @@ def tab_popup(df_bunkers_observations):
     for id in df_bunkers_observations.id_bunker.unique():
         try:
             df_table = df_bunkers_observations[df_bunkers_observations.id_bunker==id]
-            df_table['date'] = pd.to_datetime(df_table['date'],format="%Y-%m-%d").dt.floor('D')
+            df_table['date'] = pd.to_datetime(df_table['date'],format="%Y-%m-%d").dt.date
             df_table.set_index("date",inplace=True)
             df_table.sort_index(inplace=True)
             df_table.dropna(axis=1, how='all',inplace=True)
@@ -209,6 +209,7 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
     st.write(f'Number of chambers: {df_popup['number_chambers'].loc[0]}')
     st.write(f'Surrounding: {df_popup['surrounding'].loc[0]}')
     st.write(f'Type of bunker: {df_popup['type_bunker'].loc[0]}')
+    st.header('Opmerking')
     st.write(f'{df_popup['opmerking'].loc[0]}')
     try:
         # table_dictionary[id_bunker].drop('id_bunker',axis=1,inplace=True)
