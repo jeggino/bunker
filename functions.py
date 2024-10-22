@@ -210,7 +210,7 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
     st.write(f'Waarnemer: {df_popup['waarnemer'].values}')
     st.write(f'Temperature: {df_popup['temperature'].values}')
     st.write(f'Humidity: df_popup['humidity'].values}')
-    st.write(f'df_popup['opmerking'].values}')
+    st.write(f'{df_popup['opmerking'].values}')
     try:
         table_dictionary[id_bunker].iloc[:,3:] = table_dictionary[id_bunker].iloc[:,3:].replace({0:'-'})
         st.dataframe(table_dictionary[id_bunker])
