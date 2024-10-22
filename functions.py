@@ -211,8 +211,8 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
     st.write(f'Type of bunker: {df_popup['type_bunker'].loc[0]}')
     st.write(f'{df_popup['opmerking'].loc[0]}')
     try:
-        table_dictionary[id_bunker].drop('id_bunker',axis=1,inplace=True)
-        table_dictionary[id_bunker].iloc[:,3:] = table_dictionary[id_bunker].iloc[:,3:].astype('int').replace({0:'-'})
+        # table_dictionary[id_bunker].drop('id_bunker',axis=1,inplace=True)
+        table_dictionary[id_bunker].iloc[:,4:] = table_dictionary[id_bunker].iloc[:,4:].astype('int').replace({0:'-'})
         st.dataframe(table_dictionary[id_bunker])
     except:
         st.write('No Data')
