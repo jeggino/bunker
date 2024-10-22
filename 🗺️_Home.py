@@ -71,9 +71,25 @@ with st.sidebar:
 
 table_dictionary = tab_popup(df_bunkers_observations)
 st.write(table_dictionary['4.83866252.432101'].iloc[-1,4:-1].sum())
+
+#---
+dict_presences = {}
+for id in for id in df_bunkers_observations.id_bunker.unique():
+    try:
+        if table_dictionary[id].iloc[-1,4:-1].sum() == 0:
+            dict_presences[id] = "Uninhabited"
+        elif table_dictionary[id].iloc[-1,4:-1].sum() > 0:
+            dict_presences[id] = "Inhabited"
+    except:
+        continue
+            
+            
+        
+#---
 try:
-    df_bunkers_features["Last survey"] = df_bunkers_features.apply(lambda x: "Uninhabited" if table_dictionary[x['id_bunker']].iloc[-1,4:-1].sum() == 0
-                                               else "Inhabited",axis=1)
+    # df_bunkers_features["Last survey"] = df_bunkers_features.apply(lambda x: "Uninhabited" if table_dictionary[x['id_bunker']].iloc[-1,4:-1].sum() == 0
+    #                                            else "Inhabited",axis=1)
+    df_bunkers_features["Last survey"] = df_bunkers_features["Last survey"].map(dict_presences)
 except:
     pass
 
