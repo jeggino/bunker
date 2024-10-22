@@ -83,7 +83,7 @@ for id in df_bunkers_observations.id_bunker.unique():
     except:
         continue
             
-            
+dict_presences          
         
 #---
 try:
