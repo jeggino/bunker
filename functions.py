@@ -212,8 +212,7 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
     # st.write(f'Humidity: {df_popup['humidity'].values}')
     # st.write(f'{df_popup['opmerking'].values}')
     try:
-        table_dictionary[id_bunker].iloc[:,3:] = table_dictionary[id_bunker].iloc[:,3:].replace({0:'-'})
-        st.dataframe(table_dictionary[id_bunker])
+        st.dataframe(table_dictionary[id_bunker].iloc[:,4:].replace({0:'-'})
     except:
         st.write('No Data')
     
