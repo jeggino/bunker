@@ -81,7 +81,9 @@ for id in df_bunkers_observations.id_bunker.unique():
             dict_presences[id] = "Inhabited"
     except:
         dict_presences[id] = "No Data"
-            
+
+dict_presences
+
 df_bunkers_features["Last survey"] = df_bunkers_features["id_bunker"].map(dict_presences)
 df_bunkers_features["icon_data"] = df_bunkers_features.apply(lambda x: "icons/bunker_empty.png" 
                                                              if x['Last survey']=='Uninhabited'
