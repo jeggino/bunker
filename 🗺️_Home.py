@@ -92,7 +92,7 @@ dict_presences
 df_bunkers_features["id_bunker"] = df_bunkers_features["id_bunker"].astype(str)
 # except:
 #     pass
-df_bunkers_features["Last survey"] = df_bunkers_features["Last survey"].map(dict_presences)
+df_bunkers_features["Last survey"] = df_bunkers_features["id_bunker"].map(dict_presences)
 df_bunkers_features["icon_data"] = df_bunkers_features.apply(lambda x: "icons/bunker_empty.png" 
                                                              if x['Last survey']=='Uninhabited'
                                                              else ("icons/bunker_full.png" if x['Last survey']=='Inhabited'
