@@ -206,6 +206,7 @@ def input_insert_bats(output,df):
 @st.dialog(" ")
 def popup_table(id_bunker,output,df_bunkers_features,table_dictionary): 
     df_popup = df_bunkers_features[df_bunkers_features['id_bunker']==id_bunker]
+    df_popup
     st.write(f'Waarnemer: {df_popup['waarnemer'].values}')
     st.write(f'Temperature: {df_popup['temperature'].values}')
     st.write(f'Humidity: {df_popup['humidity'].values}')
