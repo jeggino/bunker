@@ -62,7 +62,7 @@ def tab_popup(df_bunkers_observations):
             df_table = df_bunkers_observations[df_bunkers_observations.id_bunker==id]
             df_table['date'] = pd.to_datetime(df_table['date'],format="%Y-%m-%d")
             df_table.set_index("date",inplace=True)
-            # df_table.drop('id_bunker',axis=1,inplace=True)
+            df_table.drop('id_bunker',axis=1,inplace=True)
             df_table.sort_index(inplace=True)
             df_table.dropna(axis=1, how='all',inplace=True)
             df_table.fillna(0, inplace=True)
@@ -215,5 +215,5 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
         table_dictionary[id_bunker].iloc[:,3:] = table_dictionary[id_bunker].iloc[:,3:].replace({0:'-'})
         st.dataframe(table_dictionary[id_bunker])
     except:
-        st.heder('No Data')
+        st.write('No Data')
     
