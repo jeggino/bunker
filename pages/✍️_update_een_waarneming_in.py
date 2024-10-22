@@ -61,21 +61,25 @@ df_bunkers_features = conn.read(ttl=ttl,worksheet="bunkers_features")
 df_bunkers_observations = conn.read(ttl=ttl,worksheet="bunkers_observations")
 df_references = conn.read(ttl=ttl_references,worksheet="df_users")
 
+table_dictionary = tab_popup(df_bunkers_observations)
 
-try:
-    table_dictionary = tab_popup(df_bunkers_observations)
-    df_bunkers_features["Last survey"] = df_bunkers_features.apply(lambda x: "Uninhabited" if table_dictionary[x['id_bunker']].iloc[-1,:].sum() == 0
-                                               else "Inhabited",axis=1) 
-except:
-    pass
-    
+dict_presences = {}
+for id in df_bunkers_observations.id_bunker.unique():
+    try:
+        if table_dictionary[id].iloc[-1,4:-1].sum() == 0:
+            dict_presences[id] = "Uninhabited"
+        elif table_dictionary[id].iloc[-1,4:-1].sum() > 0:
+            dict_presences[id] = "Inhabited"
+    except:
+        dict_presences[id] = "No Data"
+            
+df_bunkers_features["Last survey"] = df_bunkers_features["id_bunker"].map(dict_presences)
 df_bunkers_features["icon_data"] = df_bunkers_features.apply(lambda x: "icons/bunker_empty.png" 
                                                              if x['Last survey']=='Uninhabited'
                                                              else ("icons/bunker_full.png" if x['Last survey']=='Inhabited'
                                                              else 'icons/bunker_no_data.png'), 
                                                              axis=1)
 
-    
 map = folium.Map(tiles=None,position=[df_bunkers_features['lat'].mean(),df_bunkers_features['lng'].mean],)
 LocateControl(auto_start=True,position="topright").add_to(map)
 Fullscreen(position="topright").add_to(map)
