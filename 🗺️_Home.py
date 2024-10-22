@@ -70,7 +70,6 @@ with st.sidebar:
     st.divider()
 
 table_dictionary = tab_popup(df_bunkers_observations)
-st.write(table_dictionary['4.83866252.432101'].iloc[-1,4:-1].sum())
 
 #---
 dict_presences = {}
@@ -81,7 +80,7 @@ for id in df_bunkers_observations.id_bunker.unique():
         elif table_dictionary[id].iloc[-1,4:-1].sum() > 0:
             dict_presences[id] = "Inhabited"
     except:
-        continue
+        dict_presences[id] = "No Data"
             
 df_bunkers_features["Last survey"] = df_bunkers_features["id_bunker"].map(dict_presences)
 df_bunkers_features["icon_data"] = df_bunkers_features.apply(lambda x: "icons/bunker_empty.png" 
