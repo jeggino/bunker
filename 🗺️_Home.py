@@ -99,6 +99,8 @@ df_bunkers_features["icon_data"] = df_bunkers_features.apply(lambda x: "icons/bu
                                                              else 'icons/bunker_no_data.png'), 
                                                              axis=1)
 
+df_bunkers_features
+
     
 map = folium.Map(tiles=None,position=[df_bunkers_features['lat'].mean(),df_bunkers_features['lng'].mean],)
 LocateControl(auto_start=True,position="topright").add_to(map)
