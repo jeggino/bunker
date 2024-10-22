@@ -205,14 +205,14 @@ def input_insert_bats(output,df):
 
 @st.dialog(" ")
 def popup_table(id_bunker,output,df_bunkers_features,table_dictionary): 
-    df_popup = df_bunkers_features[df_bunkers_features['id_bunker']==id_bunker]
-    st.dataframe(df_popup)
-    # st.write(f'Waarnemer: {df_popup['waarnemer'].values}')
-    # st.write(f'Temperature: {df_popup['temperature'].values}')
-    # st.write(f'Humidity: {df_popup['humidity'].values}')
-    # st.write(f'{df_popup['opmerking'].values}')
+    df_popup = df_bunkers_features[df_bunkers_features['id_bunker']==id_bunker].reset_index(drop=True)
+    st.write(f'Number of chambers: {df_popup['number_chambers'].loc[0]}')
+    st.write(f'Surrounding: {df_popup['surrounding'].loc[0]}')
+    st.write(f'Type of bunker: {df_popup['type_bunker'].loc[0]}')
+    st.write(f'{df_popup['opmerking'].loc[0]}')
     try:
-        st.dataframe(table_dictionary[id_bunker].iloc[:,5:].astype('int').replace({0:'-'}))
+        table_dictionary[id_bunker].iloc[:,4:] = table_dictionary[id_bunker].iloc[:,4:].astype('int').replace({0:'-'})
+        st.dataframe(table_dictionary[id_bunker].iloc[:,1:])
     except:
         st.write('No Data')
     
