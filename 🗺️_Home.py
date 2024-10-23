@@ -109,23 +109,10 @@ folium.TileLayer(tiles='https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}',attr
 folium.LayerControl().add_to(map)    
 
 for i in range(len(df_bunkers_features)):
-
-    # html_tooltip = tooltip_html(i,df_bunkers_features)
-    # tooltip = folium.Tooltip(folium.Html(html_tooltip, script=True))
-
-    # try:
-    #     html_popup = table_dictionary[df_bunkers_features.iloc[i]['id_bunker']].astype('int').replace({0:'-'}).to_html(
-    #         classes="table table-striped table-hover table-condensed table-responsive"
-    #     )
-    #     popup = folium.Popup(html_popup, max_width=700)
-    # except:
-    #     popup = 'NO DATA'
     
     fouctie_loop = functie_dictionary[df_bunkers_features.iloc[i]['Last survey']]
 
     folium.Marker([df_bunkers_features.iloc[i]['lat'], df_bunkers_features.iloc[i]['lng']],
-                  # popup=popup,
-                  # tooltip=html_tooltip,
                   icon=folium.features.CustomIcon(df_bunkers_features.iloc[i]["icon_data"], icon_size=ICON_SIZE)
                  ).add_to(fouctie_loop)
 
