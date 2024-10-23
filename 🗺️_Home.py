@@ -13,7 +13,7 @@ import random
 import ast
 
 from credentials import *
-from functions import logIn,logOut,tab_popup,tooltip_html,conn, popup_table
+from functions import logIn,logOut,tab_popup,popup_table
 
 
 
