@@ -22,17 +22,7 @@ from functions import logIn,logOut,tab_popup,popup_table
 #     page_icon="🦇",
 #     layout="wide",  
 # )
-st.set_page_config(
-    page_title="Ex-stream-ly Cool App",
-    page_icon="🧊",
-    layout="wide",
-    initial_sidebar_state="expanded",
-    menu_items={
-        'Get Help': 'https://www.extremelycoolapp.com/help',
-        'Report a bug': "https://www.extremelycoolapp.com/bug",
-        'About': "# This is a header. This is an *extremely* cool app!"
-    }
-)
+
 
 st.markdown(
     """
@@ -63,13 +53,13 @@ st.markdown("""
 
 st.logo(IMAGE_2,  link=None, icon_image=IMAGE_2)
 
-#--- UI ---
+# --- DATASETS ---
 conn = st.connection("gsheets", type=GSheetsConnection)
 df_bunkers_features = conn.read(ttl=ttl,worksheet="bunkers_features")
 df_bunkers_observations = conn.read(ttl=ttl,worksheet="bunkers_observations")
 df_references = conn.read(ttl=ttl_references,worksheet="df_users")
 
-
+#--- App ---
 if "login" not in st.session_state:
     logIn(df_references)
     st.stop()
@@ -80,7 +70,6 @@ with st.sidebar:
 
 table_dictionary = tab_popup(df_bunkers_observations)
 
-#---
 dict_presences = {}
 for id in df_bunkers_observations.id_bunker.unique():
     try:
