@@ -2,7 +2,7 @@ import streamlit as st
 
 # --- DIMENSIONS ---
 OUTPUT_width = '95%'
-OUTPUT_height = 600
+OUTPUT_height = 580
 ICON_SIZE = (60,35)
 
 # --- DATASET CACHE ---
