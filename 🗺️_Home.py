@@ -89,7 +89,7 @@ df_bunkers_features["Last survey"] = df_bunkers_features["id_bunker"].map(dict_p
 df_bunkers_features["icon_data"] = df_bunkers_features.apply(lambda x: "icons/bunker_previous.png" 
                                                              if x['Last survey']=='Not inhabited in latest survey'
                                                              else ("icons/bunker_full.png" if x['Last survey']=='Inhabited in latest survey'
-                                                                   else ("icons/empty.png" if x['Last survey']=='Never inhabited during the survey'
+                                                                   else ("icons/bunker_empty.png" if x['Last survey']=='Never inhabited during the survey'
                                                              else 'icons/bunker_no_data.png')), 
                                                              axis=1)
 df_bunkers_features    
