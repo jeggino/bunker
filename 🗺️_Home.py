@@ -111,16 +111,16 @@ folium.LayerControl().add_to(map)
 
 for i in range(len(df_bunkers_features)):
 
-    html_tooltip = tooltip_html(i,df_bunkers_features)
-    tooltip = folium.Tooltip(folium.Html(html_tooltip, script=True))
+    # html_tooltip = tooltip_html(i,df_bunkers_features)
+    # tooltip = folium.Tooltip(folium.Html(html_tooltip, script=True))
 
-    try:
-        html_popup = table_dictionary[df_bunkers_features.iloc[i]['id_bunker']].astype('int').replace({0:'-'}).to_html(
-            classes="table table-striped table-hover table-condensed table-responsive"
-        )
-        popup = folium.Popup(html_popup, max_width=700)
-    except:
-        popup = 'NO DATA'
+    # try:
+    #     html_popup = table_dictionary[df_bunkers_features.iloc[i]['id_bunker']].astype('int').replace({0:'-'}).to_html(
+    #         classes="table table-striped table-hover table-condensed table-responsive"
+    #     )
+    #     popup = folium.Popup(html_popup, max_width=700)
+    # except:
+    #     popup = 'NO DATA'
     
     fouctie_loop = functie_dictionary[df_bunkers_features.iloc[i]['Last survey']]
 
@@ -133,21 +133,25 @@ for i in range(len(df_bunkers_features)):
 output = st_folium(map,returned_objects=["last_object_clicked"],width=OUTPUT_width, height=OUTPUT_height,
              feature_group_to_add=list(functie_dictionary.values()))
 
-if len(output["last_object_clicked"]) != 0:
-    coordinates = output["last_object_clicked"]
-           
-    lng = coordinates["lng"]
-    lat = coordinates['lat']
-    
-    id = str(lng)+str(lat)
-    popup_table(id,output,df_bunkers_features,table_dictionary)
-    with st.sidebar:
-        with st.form("entry_form", clear_on_submit=True,border=False):
-            submitted = st.form_submit_button(":red[**Verwijder waarneming**]",use_container_width=True)
-            if submitted:
-                df_filter = df_bunkers_features[df_bunkers_features["id_bunker"]==id]
-                df_drop = df_bunkers_features[~df_bunkers_features.apply(tuple, axis=1).isin(df_filter.apply(tuple, axis=1))]
-                conn.update(worksheet='bunkers_features',data=df_drop)
-                st.success('Waarneming verwijderd', icon="✅") 
-                st.page_link("🗺️_Home.py", label="Vernieuwen", icon="🔄",use_container_width=True)
+try:
+    if len(output["last_object_clicked"]) != 0:
+        coordinates = output["last_object_clicked"]
+               
+        lng = coordinates["lng"]
+        lat = coordinates['lat']
+        
+        id = str(lng)+str(lat)
+        popup_table(id,output,df_bunkers_features,table_dictionary)
+        with st.sidebar:
+            with st.form("entry_form", clear_on_submit=True,border=False):
+                submitted = st.form_submit_button(":red[**Verwijder waarneming**]",use_container_width=True)
+                if submitted:
+                    df_filter = df_bunkers_features[df_bunkers_features["id_bunker"]==id]
+                    df_drop = df_bunkers_features[~df_bunkers_features.apply(tuple, axis=1).isin(df_filter.apply(tuple, axis=1))]
+                    conn.update(worksheet='bunkers_features',data=df_drop)
+                    st.success('Waarneming verwijderd', icon="✅") 
+                    st.page_link("🗺️_Home.py", label="Vernieuwen", icon="🔄",use_container_width=True)
+
+except:
+    pass
 
