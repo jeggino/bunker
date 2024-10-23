@@ -2,7 +2,7 @@ import streamlit as st
 
 # --- DIMENSIONS ---
 OUTPUT_width = '95%'
-OUTPUT_height = 300
+OUTPUT_height = 600
 # OUTPUT_width = st.get_container_width
 # OUTPUT_height = st.screen_width
 ICON_SIZE = (60,35)
