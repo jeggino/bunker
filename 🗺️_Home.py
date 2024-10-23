@@ -15,8 +15,13 @@ import ast
 from credentials import *
 from functions import logIn,logOut,tab_popup,popup_table
 
-
-
+#---LAYOUT---
+st.set_page_config(
+    page_title="Bunkers",
+    initial_sidebar_state="collapsed",
+    page_icon="🦇",
+    layout="wide",  
+)
 
 
 st.markdown(
@@ -54,14 +59,6 @@ df_bunkers_features = conn.read(ttl=ttl,worksheet="bunkers_features")
 df_bunkers_observations = conn.read(ttl=ttl,worksheet="bunkers_observations")
 df_references = conn.read(ttl=ttl_references,worksheet="df_users")
 
-# #---LAYOUT---
-# st.set_page_config(
-#     page_title="Bunkers",
-#     initial_sidebar_state="collapsed",
-#     page_icon="🦇",
-#     layout="wide",
-    
-# )
 
 if "login" not in st.session_state:
     logIn(df_references)
