@@ -86,7 +86,7 @@ for id in df_bunkers_observations.id_bunker.unique():
 dict_presences
 
 df_bunkers_features["Last survey"] = df_bunkers_features["id_bunker"].map(dict_presences).fillna("No Data")
-df_bunkers_features["icon_data"] = df_bunkers_features.apply(lambda x: "icons/previous.png" 
+df_bunkers_features["icon_data"] = df_bunkers_features.apply(lambda x: "icons/bunker_previous.png" 
                                                              if x['Last survey']=='Not inhabited in latest survey'
                                                              else ("icons/bunker_full.png" if x['Last survey']=='Inhabited in latest survey'
                                                                    else ("icons/empty.png" if x['Last survey']=='Never inhabited during the survey'
