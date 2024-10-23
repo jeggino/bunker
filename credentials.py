@@ -1,7 +1,7 @@
 import streamlit as st
 
 # --- DIMENSIONS ---
-OUTPUT_width = 350
+OUTPUT_width = '95%'
 OUTPUT_height = 550
 # OUTPUT_width = st.get_container_width
 # OUTPUT_height = st.screen_width
