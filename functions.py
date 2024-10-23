@@ -16,45 +16,6 @@ from credentials import *
 
 conn = st.connection("gsheets", type=GSheetsConnection)
 
-def tooltip_html(row,df):
-    
-    i = row
-
-    surrounding=df['surrounding'].iloc[i]
-    type_bunker=df['type_bunker'].iloc[i]
-    number_chambers=df['number_chambers'].iloc[i]
-    opmerking=df['opmerking'].iloc[i]
-    
-
-    left_col_color = "#19a7bd"
-    right_col_color = "#f2f0d3"
-    
-    html = """<!DOCTYPE html>
-    <html>
-    <table style="height: 126px; width: 300;">
-    <tbody>
-    <tr>
-    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Surrounding</span></td>
-    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(surrounding) + """
-    </tr>
-    <tr>
-    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Type of bunker</span></td>
-    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(type_bunker) + """
-    </tr>
-    <tr>
-    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Number of chambers</span></td>
-    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(number_chambers) + """
-    </tr>
-    <tr>
-    <td style="background-color: """+ left_col_color +""";"><span style="color: #ffffff;">Opmerking</span></td>
-    <td style="width: 150px;background-color: """+ right_col_color +""";">{}</td>""".format(opmerking) + """
-    </tr>
-    </tbody>
-    </table>
-    </html>
-    """
-    return html
-
 def tab_popup(df_bunkers_observations):
     table_dictionary = {}
     for id in df_bunkers_observations.id_bunker.unique():
