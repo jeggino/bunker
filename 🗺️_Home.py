@@ -73,17 +73,21 @@ table_dictionary = tab_popup(df_bunkers_observations)
 dict_presences = {}
 for id in df_bunkers_observations.id_bunker.unique():
     try:
-        if table_dictionary[id].iloc[-1,4:-1].sum() == 0:
-            dict_presences[id] = "Uninhabited"
+        if (table_dictionary[id].iloc[-1,4:-1].sum() == 0) & (table_dictionary[id].iloc[:-1,4:-1].sum() > 0):
+            dict_presences[id] = "Not inhabited in latest survey"
         elif table_dictionary[id].iloc[-1,4:-1].sum() > 0:
-            dict_presences[id] = "Inhabited"
+            dict_presences[id] = "Inhabited in latest survey"
+        elif len(table_dictionary[id].sum()):
+            dict_presences[id] = "Never inhabited during the survey"
+            
     except:
         continue
 
 df_bunkers_features["Last survey"] = df_bunkers_features["id_bunker"].map(dict_presences).fillna("No Data")
-df_bunkers_features["icon_data"] = df_bunkers_features.apply(lambda x: "icons/bunker_empty.png" 
-                                                             if x['Last survey']=='Uninhabited'
-                                                             else ("icons/bunker_full.png" if x['Last survey']=='Inhabited'
+df_bunkers_features["icon_data"] = df_bunkers_features.apply(lambda x: "icons/previous.png" 
+                                                             if x['Last survey']=='Not inhabited in latest survey'
+                                                             else ("icons/bunker_full.png" if x['Last survey']=='Inhabited in latest survey'
+                                                                   else ("icons/empty.png" if x['Last survey']=='Never inhabited during the survey'
                                                              else 'icons/bunker_no_data.png'), 
                                                              axis=1)
     
