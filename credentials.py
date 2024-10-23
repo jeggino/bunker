@@ -1,3 +1,5 @@
+import streamlit as st
+
 # --- DIMENSIONS ---
 # OUTPUT_width = 350
 # OUTPUT_height = 550
