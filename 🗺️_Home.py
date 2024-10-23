@@ -54,7 +54,7 @@ df_bunkers_features = conn.read(ttl=ttl,worksheet="bunkers_features")
 df_bunkers_observations = conn.read(ttl=ttl,worksheet="bunkers_observations")
 df_references = conn.read(ttl=ttl_references,worksheet="df_users")
 
----LAYOUT---
+#---LAYOUT---
 st.set_page_config(
     page_title="Bunkers",
     initial_sidebar_state="collapsed",
