@@ -175,6 +175,11 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
     st.write(f'**Type of bunker:** {df_popup['type_bunker'].loc[0]}')
     st.write(f'**Number of entrances:** {df_popup['number_entrance'].loc[0]}')
     st.write(f'**Type of entrances:** {df_popup['type_entrances'].loc[0]}')
+    st.header('Species found',divider='grey')
+    
+    for species in table_dictionary[id_bunker].iloc[:,4:-1].columns:
+        st.write(f'*{species}*')
+        
     st.header('Opmerking',divider='grey')
     st.write(f'{df_popup['opmerking'].loc[0]}')
     st.header('Surveys',divider='grey')
