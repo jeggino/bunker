@@ -179,7 +179,7 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
     st.write(f'{df_popup['opmerking'].loc[0]}')
     st.header('Surveys',divider='grey')
     try:
-        table_dictionary[id_bunker].iloc[:,6:-1] = table_dictionary[id_bunker].iloc[:,6:-1].astype('int').replace({0:'-'})
+        table_dictionary[id_bunker].iloc[:,4:-1] = table_dictionary[id_bunker].iloc[:,4:-1].astype('int').replace({0:'-'})
         st.dataframe(table_dictionary[id_bunker].iloc[:,1:])
     except:
         st.write('No Data')
