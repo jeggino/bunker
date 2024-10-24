@@ -183,8 +183,9 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
         for species in table_dictionary[id_bunker].iloc[:,4:-1].columns:
             st.write(f'*{species}*')
             df = table_dictionary[id_bunker].iloc[:,4:-1]
-            st.text(f"""
-            The peak count of individuals reached **{df[species].max()}**, documented on the date **{df[df[species]==df[species].max()].index[0]}**.
+            st.write(f"""
+            The peak count of individuals reached **{int(df[species].max())}**, 
+            documented on the date **{df[df[species]==df[species].max()].index[0]}**.
             """)
             
         st.header('Surveys',divider='grey')
