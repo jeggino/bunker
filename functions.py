@@ -179,14 +179,17 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
     st.write(f'{df_popup['opmerking'].loc[0]}')
     try:
         st.header('Species found',divider='grey')
-        
-        for species in table_dictionary[id_bunker].iloc[:,4:-1].columns:
-            st.write(f'*{species}*')
-            df = table_dictionary[id_bunker].iloc[:,4:-1]
-            st.write(f"""
-            The peak count of individuals reached :blue-background[**{int(df[species].max())}**], 
-            documented on the date :blue-background[**{df[df[species]==df[species].max()].index[0]}**].
-            """)
+
+        if len(table_dictionary[id_bunker].iloc[:,4:-1].columns) ==0:
+            st.write("No species yet")
+        else:
+            for species in table_dictionary[id_bunker].iloc[:,4:-1].columns:
+                st.write(f'*{species}*')
+                df = table_dictionary[id_bunker].iloc[:,4:-1]
+                st.write(f"""
+                The peak count of individuals reached :blue-background[**{int(df[species].max())}**], 
+                documented on the date :blue-background[**{df[df[species]==df[species].max()].index[0]}**].
+                """)
             
         st.header('Surveys',divider='grey')
     
