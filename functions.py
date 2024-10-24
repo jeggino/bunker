@@ -61,10 +61,10 @@ def logOut():
         del st.session_state.login
         st.rerun()
 
-def insert_bunker_fearures(last_survey,id_bunker,lat,lng,surrounding,type_bunker,number_chambers,opmerking,df):
+def insert_bunker_fearures(last_survey,id_bunker,lat,lng,surrounding,type_bunker,number_chambers,number_entrance,type_entrances,opmerking,df):
     
     data = [{'Last survey':last_survey,"id_bunker":id_bunker, "lat":lat,"lng":lng,"surrounding":surrounding,"type_bunker":type_bunker,
-             "number_chambers":number_chambers,"opmerking":opmerking,
+             "number_chambers":number_chambers,"number_entrance":number_entrance,"type_entrances":type_entrances,"opmerking":opmerking,
              }]
     df_new = pd.DataFrame(data)
     df_updated = pd.concat([df,df_new],ignore_index=True)
@@ -95,6 +95,8 @@ def input_data(output,df):
     surrounding = st.selectbox("Type of surrounding", SURROUNDING_OPTIONS)
     type_bunker = st.selectbox("Type of bunker", TYPE_BUNKER_OPTIONS)
     number_chambers = st.number_input("Number of chambers", min_value=1)
+    number_entrance = st.number_input("Number of entrances", min_value=1)
+    type_entrances = st.selectbox("Type of entrances", TYPE_ENTRANCES_OPTIONS)
     opmerking = st.text_input("", placeholder="Vul hier een opmerking in ...")
     last_survey = 'No Data Yet!'
     
@@ -116,7 +118,7 @@ def input_data(output,df):
             st.stop()
 
         else:
-            insert_bunker_fearures(last_survey,id_bunker,lat,lng,surrounding,type_bunker,number_chambers,opmerking,df)
+            insert_bunker_fearures(last_survey,id_bunker,lat,lng,surrounding,type_bunker,number_chambers,number_entrance,type_entrances,opmerking,df)
 
             st.success('Gegevens opgeslagen!', icon="✅")       
   
@@ -171,11 +173,13 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
     st.write(f'**Number of chambers:** {df_popup['number_chambers'].loc[0]}')
     st.write(f'**Surrounding:** {df_popup['surrounding'].loc[0]}')
     st.write(f'**Type of bunker:** {df_popup['type_bunker'].loc[0]}')
+    t.write(f'**Number of entrances:** {df_popup['number_entrance'].loc[0]}')
+    t.write(f'**Type of entrances:** {df_popup['type_entrances'].loc[0]}')
     st.header('Opmerking',divider='grey')
     st.write(f'{df_popup['opmerking'].loc[0]}')
     st.header('Surveys',divider='grey')
     try:
-        table_dictionary[id_bunker].iloc[:,4:-1] = table_dictionary[id_bunker].iloc[:,4:-1].astype('int').replace({0:'-'})
+        table_dictionary[id_bunker].iloc[:,6:-1] = table_dictionary[id_bunker].iloc[:,6:-1].astype('int').replace({0:'-'})
         st.dataframe(table_dictionary[id_bunker].iloc[:,1:])
     except:
         st.write('No Data')
