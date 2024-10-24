@@ -181,7 +181,7 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
         st.header('Species found',divider='grey')
 
         if len(table_dictionary[id_bunker].iloc[:,4:-1].columns) ==0:
-            st.write("No species yet")
+            st.write("No species found yet")
         else:
             for species in table_dictionary[id_bunker].iloc[:,4:-1].columns:
                 st.write(f'*{species}*')
