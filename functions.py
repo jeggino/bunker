@@ -171,10 +171,10 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
     df_popup = df_bunkers_features[df_bunkers_features['id_bunker']==id_bunker].reset_index(drop=True)
     st.header('Bunker characteristics',divider='grey')
     st.write(f'**Number of chambers:** {int(df_popup['number_chambers'].loc[0])}')
-    st.write(f'**Surrounding:** {int(df_popup['surrounding'].loc[0])}')
-    st.write(f'**Type of bunker:** {int(df_popup['type_bunker'].loc[0])}')
+    st.write(f'**Surrounding:** {df_popup['surrounding'].loc[0]}')
+    st.write(f'**Type of bunker:** {df_popup['type_bunker'].loc[0]}')
     st.write(f'**Number of entrances:** {int(df_popup['number_entrance'].loc[0])}')
-    st.write(f'**Type of entrances:** {int(df_popup['type_entrances'].loc[0])}')
+    st.write(f'**Type of entrances:** {df_popup['type_entrances'].loc[0]}')
     st.header('Opmerking',divider='grey')
     st.write(f'{df_popup['opmerking'].loc[0]}')
     try:
