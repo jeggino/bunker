@@ -18,3 +18,5 @@ SURROUNDING_OPTIONS = ['In the dunes', 'deciduous forrest', 'pine/evergreen forr
 TYPE_BUNKER_OPTIONS = ['A','B','C']
 
 BAT_NAMES = ['Gewone dwergvleermuis','Ruige dwergvleermuis', 'Laatvlieger','Rosse vleermuis','Meervleermuis','Watervleermuis','...Andere(n)']
+
+TYPE_ENTRANCES_OPTIONS = ['A','B','C']
