@@ -13,16 +13,17 @@ import random
 import ast
 
 from credentials import *
+
+
+#---LAYOUT---
+st.set_page_config(
+    page_title="Bunkers",
+    initial_sidebar_state="collapsed",
+    page_icon="🦇",
+    layout="wide",  
+)
+
 from functions import logIn,logOut,tab_popup,popup_table
-
-# #---LAYOUT---
-# st.set_page_config(
-#     page_title="Bunkers",
-#     initial_sidebar_state="collapsed",
-#     page_icon="🦇",
-#     layout="wide",  
-# )
-
 
 st.markdown(
     """
