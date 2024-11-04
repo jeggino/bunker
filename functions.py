@@ -132,8 +132,8 @@ def input_insert_bats(output,df):
         temperature = st.number_input("Temperature (C°)",value=8)
         humidity = st.number_input("Humidity (%)", min_value=1,max_value=100,value=40)
     else:
-        temperature = None
-        humidity = None
+        temperature = '-'
+        humidity = '-'
     sp = st.multiselect("Chose which species was there", BAT_NAMES)
     
     
