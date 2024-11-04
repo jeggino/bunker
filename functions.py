@@ -128,8 +128,12 @@ def input_data(output,df):
 def input_insert_bats(output,df):
     waarnemer = st.session_state.login['name']
     date = st.date_input("Datum")
-    temperature = st.number_input("Temperature (C°)",value=8)
-    humidity = st.number_input("Humidity (%)", min_value=1,max_value=100,value=40)
+    if st.checkbox("I have temperature and humidity parameters"):
+        temperature = st.number_input("Temperature (C°)",value=8)
+        humidity = st.number_input("Humidity (%)", min_value=1,max_value=100,value=40)
+    else:
+        temperature = None
+        humidity = None
     sp = st.multiselect("Chose which species was there", BAT_NAMES)
     
     
