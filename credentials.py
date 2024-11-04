@@ -6,7 +6,7 @@ OUTPUT_height = 550
 ICON_SIZE = (60,35)
 
 # --- DATASET CACHE ---
-ttl = 0
+ttl = '10m'
 ttl_references = '10m'
 
 # --- SIDEBAR ---
