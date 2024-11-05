@@ -88,7 +88,7 @@ for id in df_bunkers_observations.id_bunker.unique():
         continue
         
 df_bunkers_features["Last survey"] = df_bunkers_features["id_bunker"].map(dict_presences).fillna("No Data")
-df_bunkers_features
+
 map = folium.Map(tiles=None,position=[df_bunkers_features['lat'].mean(),df_bunkers_features['lng'].mean],)
 LocateControl(auto_start=True,position="topright").add_to(map)
 Fullscreen(position="topright").add_to(map)
