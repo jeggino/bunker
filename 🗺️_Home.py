@@ -70,17 +70,12 @@ with st.sidebar:
     st.divider()
 
 table_dictionary = tab_popup(df_bunkers_observations)
-table_dictionary["4.83927252.433455"]
-table_dictionary["4.83927252.433455"].iloc[-1,4:-1]
-st.write(table_dictionary["4.83927252.433455"].iloc[-1,4:-1].sum())
-st.write(table_dictionary["4.83927252.433455"].iloc[:-1,4:-1].sum().sum())
-st.write(table_dictionary["4.83927252.433455"].iloc[:,4:-1].sum().sum())
 
 dict_presences = {}
-df_bunkers_observations
 
 for id in df_bunkers_observations.id_bunker.unique():
     try:
+        
         if (table_dictionary[id].iloc[-1,4:-1].sum() == 0) & (table_dictionary[id].iloc[:-1,4:-1].sum().sum() > 0):
             dict_presences[id] = "Not inhabited in latest survey"
         elif table_dictionary[id].iloc[-1,4:-1].sum() > 0:
