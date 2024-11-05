@@ -106,8 +106,26 @@ try:
     
         fouctie_loop = functie_dictionary[df_bunkers_features.iloc[i]['Last survey']]
     
+        if df_bunkers_features.iloc[i]['class_hybernate'] == 'Bunker': 
+            icon="square"
+        elif df_bunkers_features.iloc[i]['class_hybernate'] == 'Batbox':
+            icon="circle"
+        
+        if df_bunkers_features.iloc[i]['Last survey'] == "Not inhabited in latest survey":
+            color='orange'
+        elif df_bunkers_features.iloc[i]['Last survey'] == "Inhabited in latest survey":
+            color='red'
+        elif df_bunkers_features.iloc[i]['Last survey'] == "Never inhabited during the survey":
+            color='green'
+        elif df_bunkers_features.iloc[i]['Last survey'] == "No Data":
+            color='lightgray'
+    
         folium.Marker([df_bunkers_features.iloc[i]['lat'], df_bunkers_features.iloc[i]['lng']],
-                      icon=folium.features.CustomIcon(df_bunkers_features.iloc[i]["icon_data"], icon_size=ICON_SIZE)
+                      icon=folium.Icon(icon=icon,
+                                       prefix='fa',
+                                       icon_color='black',
+                                       color=color
+                                      )
                      ).add_to(fouctie_loop)
     
     output = st_folium(map,width=OUTPUT_width, height=OUTPUT_height,returned_objects=["last_object_clicked"],
