@@ -73,8 +73,7 @@ table_dictionary = tab_popup(df_bunkers_observations)
 table_dictionary["4.83927252.433455"]
 table_dictionary["4.83927252.433455"].iloc[-1,4:-1]
 st.write(table_dictionary["4.83927252.433455"].iloc[-1,4:-1].sum())
-st.write(table_dictionary["4.83927252.433455"].iloc[-1,4:-1].sum().sum())
-
+st.write(table_dictionary["4.83927252.433455"].iloc[:-1,4:-1].sum().sum())
 
 dict_presences = {}
 df_bunkers_observations
@@ -90,6 +89,7 @@ for id in df_bunkers_observations.id_bunker.unique():
             
     except:
         continue
+        
 dict_presences
 df_bunkers_features["Last survey"] = df_bunkers_features["id_bunker"].map(dict_presences).fillna("No Data")
 df_bunkers_features["icon_data"] = df_bunkers_features.apply(lambda x: "icons/bunker_previous.png" 
