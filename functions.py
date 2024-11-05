@@ -63,7 +63,7 @@ def logOut():
 
 def insert_bunker_fearures(last_survey,id_bunker,lat,lng,class_hybernate,surrounding,type_bunker,number_chambers,number_entrance,type_entrances,opmerking,df):
     
-    data = [{'Last survey':last_survey,"id_bunker":id_bunker, "lat":lat,"lng":LNG,"class_hybernate":class_hybernate",surrounding":surrounding,"type_bunker":type_bunker,
+    data = [{'Last survey':last_survey,"id_bunker":id_bunker, "lat":lat,"lng":lng,"class_hybernate":class_hybernate",surrounding":surrounding,"type_bunker":type_bunker,
              "number_chambers":number_chambers,"number_entrance":number_entrance,"type_entrances":type_entrances,"opmerking":opmerking,
              }]
     df_new = pd.DataFrame(data)
