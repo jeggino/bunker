@@ -71,12 +71,6 @@ with st.sidebar:
 
 table_dictionary = tab_popup(df_bunkers_observations)
 
-tab_prova = table_dictionary['5.23009353.369353']
-tab_prova
-st.write(tab_prova.iloc[-1,4:].sum())
-st.write(tab_prova.iloc[:-1,4:].sum().sum())
-st.write(tab_prova.iloc[:,4:].sum())
-
 
 dict_presences = {}
 
@@ -93,7 +87,6 @@ for id in df_bunkers_observations.id_bunker.unique():
     except:
         continue
         
-dict_presences
 df_bunkers_features["Last survey"] = df_bunkers_features["id_bunker"].map(dict_presences).fillna("No Data")
 df_bunkers_features["icon_data"] = df_bunkers_features.apply(lambda x: "icons/bunker_previous.png" 
                                                              if x['Last survey']=='Not inhabited in latest survey'
