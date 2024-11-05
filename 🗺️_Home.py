@@ -88,12 +88,6 @@ for id in df_bunkers_observations.id_bunker.unique():
         continue
         
 df_bunkers_features["Last survey"] = df_bunkers_features["id_bunker"].map(dict_presences).fillna("No Data")
-df_bunkers_features["icon_data"] = df_bunkers_features.apply(lambda x: "icons/bunker_previous.png" 
-                                                             if x['Last survey']=='Not inhabited in latest survey'
-                                                             else ("icons/bunker_full.png" if x['Last survey']=='Inhabited in latest survey'
-                                                                   else ("icons/bunker_empty.png" if x['Last survey']=='Never inhabited during the survey'
-                                                             else 'icons/bunker_no_data.png')), 
-                                                             axis=1)
 
 map = folium.Map(tiles=None,position=[df_bunkers_features['lat'].mean(),df_bunkers_features['lng'].mean],)
 LocateControl(auto_start=True,position="topright").add_to(map)
@@ -119,8 +113,26 @@ for i in range(len(df_bunkers_features)):
     
     fouctie_loop = functie_dictionary[df_bunkers_features.iloc[i]['Last survey']]
 
+    if df_bunkers_features.iloc[i]['class_hybernate'] == 'Bunker': 
+        icon="square"
+    elif df_bunkers_features.iloc[i]['class_hybernate'] == 'Batbox':
+        icon="circle"
+    
+    if df_bunkers_features.iloc[i]['Last survey'] == "Not inhabited in latest survey":
+        color='orange'
+    elif df_bunkers_features.iloc[i]['Last survey'] == "Inhabited in latest survey":
+        color='red'
+    elif df_bunkers_features.iloc[i]['Last survey'] == "Never inhabited during the survey":
+        color='green'
+    else:
+        color='yellow'
+
     folium.Marker([df_bunkers_features.iloc[i]['lat'], df_bunkers_features.iloc[i]['lng']],
-                  icon=folium.features.CustomIcon(df_bunkers_features.iloc[i]["icon_data"], icon_size=ICON_SIZE)
+                  icon=folium.Icon(icon=icon,
+                                   prefix='fa',
+                                   icon_color='black',
+                                   color=color
+                                  )
                  ).add_to(fouctie_loop)
 
 output = st_folium(map,returned_objects=["last_object_clicked"],width=OUTPUT_width, height=OUTPUT_height,
