@@ -61,9 +61,9 @@ def logOut():
         del st.session_state.login
         st.rerun()
 
-def insert_bunker_fearures(last_survey,id_bunker,lat,lng,surrounding,type_bunker,number_chambers,number_entrance,type_entrances,opmerking,df):
+def insert_bunker_fearures(last_survey,id_bunker,lat,lng,class_hybernate,surrounding,type_bunker,number_chambers,number_entrance,type_entrances,opmerking,df):
     
-    data = [{'Last survey':last_survey,"id_bunker":id_bunker, "lat":lat,"lng":lng,"surrounding":surrounding,"type_bunker":type_bunker,
+    data = [{'Last survey':last_survey,"id_bunker":id_bunker, "lat":lat,"lng":LNG,"class_hybernate":class_hybernate",surrounding":surrounding,"type_bunker":type_bunker,
              "number_chambers":number_chambers,"number_entrance":number_entrance,"type_entrances":type_entrances,"opmerking":opmerking,
              }]
     df_new = pd.DataFrame(data)
@@ -91,12 +91,20 @@ def map():
         
 @st.dialog(" ")
 def input_data(output,df):   
-
-    surrounding = st.selectbox("Type of surrounding", SURROUNDING_OPTIONS)
-    type_bunker = st.selectbox("Type of bunker", TYPE_BUNKER_OPTIONS)
-    number_chambers = st.number_input("Number of chambers", min_value=1)
-    number_entrance = st.number_input("Number of entrances", min_value=1)
-    type_entrances = st.selectbox("Type of entrances", TYPE_ENTRANCES_OPTIONS)
+    
+    class_hybernate = st.selectbox("", CLASS_HYBERNATE_OPTIONS) 
+    if class_hybernate == 'Bunker':
+        surrounding = st.selectbox("Type of surrounding", SURROUNDING_OPTIONS)
+        type_bunker = st.selectbox("Type of bunker", TYPE_BUNKER_OPTIONS)
+        number_chambers = st.number_input("Number of chambers", min_value=1)
+        number_entrance = st.number_input("Number of entrances", min_value=1)
+        type_entrances = st.selectbox("Type of entrances", TYPE_ENTRANCES_OPTIONS)
+    else:
+        surrounding = None
+        type_bunker = None
+        number_chambers = None
+        number_entrance = None
+        type_entrances = None
     opmerking = st.text_input("", placeholder="Vul hier een opmerking in ...")
     last_survey = 'No Data Yet!'
     
@@ -118,24 +126,35 @@ def input_data(output,df):
             st.stop()
 
         else:
-            insert_bunker_fearures(last_survey,id_bunker,lat,lng,surrounding,type_bunker,number_chambers,number_entrance,type_entrances,opmerking,df)
+            insert_bunker_fearures(last_survey,id_bunker,lat,lng,class_hybernate,surrounding,type_bunker,number_chambers,number_entrance,type_entrances,opmerking,df)
 
             st.success('Gegevens opgeslagen!', icon="✅")       
   
         st.switch_page("🗺️_Home.py")
 
 @st.dialog(" ")
-def input_insert_bats(output,df):
+def input_insert_bats(output,df,df_features):
+    
+    coordinates = output["last_object_clicked"]
+    lng = coordinates["lng"]
+    lat = coordinates['lat']
+    id_bunker = str(lng)+str(lat)
+    
     waarnemer = st.session_state.login['name']
     date = st.date_input("Datum")
-    if st.checkbox("I have temperature and humidity parameters"):
-        temperature = st.number_input("Temperature (C°)",value=8)
-        humidity = st.number_input("Humidity (%)", min_value=1,max_value=100,value=40)
+
+    if df_features[df_features['id_bunker']==id_bunker]['class_hybernate'].values=='Bunker':
+        if st.checkbox("I have temperature and humidity parameters"):
+            temperature = st.number_input("Temperature (C°)",value=8)
+            humidity = st.number_input("Humidity (%)", min_value=1,max_value=100,value=40)
+        else:
+            temperature = '-'
+            humidity = '-'
     else:
         temperature = '-'
         humidity = '-'
+        
     sp = st.multiselect("Chose which species was there", BAT_NAMES)
-    
     
     if sp:
         dict_species = {}
@@ -154,13 +173,6 @@ def input_insert_bats(output,df):
     
     if submitted:           
 
-        coordinates = output["last_object_clicked"]
-                       
-        lng = coordinates["lng"]
-        lat = coordinates['lat']
-        
-        id_bunker = str(lng)+str(lat)
-
         data = [{"id_bunker":id_bunker} | data_dict | {'opmerking':opmerking}]
         df_new = pd.DataFrame(data)
         df_updated = pd.concat([df,df_new],ignore_index=True)
@@ -173,12 +185,13 @@ def input_insert_bats(output,df):
 @st.dialog(" ")
 def popup_table(id_bunker,output,df_bunkers_features,table_dictionary): 
     df_popup = df_bunkers_features[df_bunkers_features['id_bunker']==id_bunker].reset_index(drop=True)
-    st.header('Bunker characteristics',divider='grey')
-    st.write(f'**Number of chambers:** {int(df_popup['number_chambers'].loc[0])}')
-    st.write(f'**Surrounding:** {df_popup['surrounding'].loc[0]}')
-    st.write(f'**Type of bunker:** {df_popup['type_bunker'].loc[0]}')
-    st.write(f'**Number of entrances:** {int(df_popup['number_entrance'].loc[0])}')
-    st.write(f'**Type of entrances:** {df_popup['type_entrances'].loc[0]}')
+    if df_popup['class_hybernate'].loc[0] == 'Bunker':
+        st.header('Bunker characteristics',divider='grey')
+        st.write(f'**Number of chambers:** {int(df_popup['number_chambers'].loc[0])}')
+        st.write(f'**Surrounding:** {df_popup['surrounding'].loc[0]}')
+        st.write(f'**Type of bunker:** {df_popup['type_bunker'].loc[0]}')
+        st.write(f'**Number of entrances:** {int(df_popup['number_entrance'].loc[0])}')
+        st.write(f'**Type of entrances:** {df_popup['type_entrances'].loc[0]}')
     st.header('Opmerking',divider='grey')
     st.write(f'{df_popup['opmerking'].loc[0]}')
     try:
