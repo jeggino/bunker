@@ -119,7 +119,7 @@ try:
     
     try:
         if len(output["last_object_clicked"]) != 0:
-            input_insert_bats(output,df_bunkers_observations,df_features)
+            input_insert_bats(output,df_bunkers_observations,df_bunkers_features)
     except:
         pass
 
