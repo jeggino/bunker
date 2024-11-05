@@ -124,7 +124,7 @@ for i in range(len(df_bunkers_features)):
         color='red'
     elif df_bunkers_features.iloc[i]['Last survey'] == "Never inhabited during the survey":
         color='green'
-    else:
+    elif df_bunkers_features.iloc[i]['Last survey'] == "No Data":
         color='yellow'
 
     folium.Marker([df_bunkers_features.iloc[i]['lat'], df_bunkers_features.iloc[i]['lng']],
