@@ -71,7 +71,7 @@ with st.sidebar:
 
 table_dictionary = tab_popup(df_bunkers_observations)
 st.write(table_dictionary["4.83531452.432428"].iloc[:-1,4:-1].sum())
-
+table_dictionary["4.83531452.432428"].iloc[:-1,4:-1]
 dict_presences = {}
 for id in df_bunkers_observations.id_bunker.unique():
     try:
