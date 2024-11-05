@@ -17,7 +17,7 @@ CLASS_HYBERNATE_OPTIONS = ['Bunker','Batbox']
 
 SURROUNDING_OPTIONS = ['In the dunes', 'deciduous forrest', 'pine/evergreen forrest']
 
-BATBOX_SHAPE_OPTIONS = [ 'platte kast', 'ronde kast'}
+BATBOX_SHAPE_OPTIONS = [ 'platte kast', 'ronde kast']
 
 TYPE_BUNKER_OPTIONS = ['A','B','C']
 
