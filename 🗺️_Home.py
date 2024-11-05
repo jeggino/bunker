@@ -121,7 +121,7 @@ for i in range(len(df_bunkers_features)):
     if df_bunkers_features.iloc[i]['Last survey'] == "Not inhabited in latest survey":
         color='orange'
     elif df_bunkers_features.iloc[i]['Last survey'] == "Inhabited in latest survey":
-        color='red'
+        color='yellow'
     elif df_bunkers_features.iloc[i]['Last survey'] == "Never inhabited during the survey":
         color='green'
     elif df_bunkers_features.iloc[i]['Last survey'] == "No Data":
