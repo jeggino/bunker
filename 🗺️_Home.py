@@ -70,6 +70,7 @@ with st.sidebar:
     st.divider()
 
 table_dictionary = tab_popup(df_bunkers_observations)
+table_dictionary
 
 dict_presences = {}
 for id in df_bunkers_observations.id_bunker.unique():
