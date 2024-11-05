@@ -13,6 +13,8 @@ ttl_references = '10m'
 # IMAGE = "image/logo.png"
 IMAGE_2 ="icons/menu.jpg"
 
+CLASS_HYBERNATE_OPTIONS = ['Bunker','Batbox']
+
 SURROUNDING_OPTIONS = ['In the dunes', 'deciduous forrest', 'pine/evergreen forrest']
 
 TYPE_BUNKER_OPTIONS = ['A','B','C']
