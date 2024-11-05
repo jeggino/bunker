@@ -70,7 +70,7 @@ with st.sidebar:
     st.divider()
 
 table_dictionary = tab_popup(df_bunkers_observations)
-st.write(table_dictionary["4.83927252.433455"].iloc[:-1,4:-1].sum().sum())
+st.write(table_dictionary["4.83531452.432428"].iloc[:-1,4:-1].sum())
 
 dict_presences = {}
 for id in df_bunkers_observations.id_bunker.unique():
