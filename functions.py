@@ -61,10 +61,10 @@ def logOut():
         del st.session_state.login
         st.rerun()
 
-def insert_bunker_fearures(last_survey,id_bunker,lat,lng,class_hybernate,surrounding,type_bunker,number_chambers,number_entrance,type_entrances,opmerking,df):
+def insert_bunker_fearures(last_survey,id_bunker,lat,lng,class_hybernate,surrounding,type_bunker,batbox_shape,number_chambers,number_entrance,type_entrances,opmerking,df):
     
     data = [{'Last survey':last_survey,"id_bunker":id_bunker, "lat":lat,"lng":lng,"class_hybernate":class_hybernate,"surrounding":surrounding,"type_bunker":type_bunker,
-             "number_chambers":number_chambers,"number_entrance":number_entrance,"type_entrances":type_entrances,"opmerking":opmerking,
+             "batbox_shape":batbox_shape,"number_chambers":number_chambers,"number_entrance":number_entrance,"type_entrances":type_entrances,"opmerking":opmerking,
              }]
     df_new = pd.DataFrame(data)
     df_updated = pd.concat([df,df_new],ignore_index=True)
@@ -99,7 +99,9 @@ def input_data(output,df):
         number_chambers = st.number_input("Number of chambers", min_value=1)
         number_entrance = st.number_input("Number of entrances", min_value=1)
         type_entrances = st.selectbox("Type of entrances", TYPE_ENTRANCES_OPTIONS)
+        batbox_shape = None
     else:
+        batbox_shape = st.selectbox("Batbox", BATBOX_SHAPE_OPTIONS)
         surrounding = None
         type_bunker = None
         number_chambers = None
@@ -126,7 +128,7 @@ def input_data(output,df):
             st.stop()
 
         else:
-            insert_bunker_fearures(last_survey,id_bunker,lat,lng,class_hybernate,surrounding,type_bunker,number_chambers,number_entrance,type_entrances,opmerking,df)
+            insert_bunker_fearures(last_survey,id_bunker,lat,lng,class_hybernate,surrounding,type_bunker,batbox_shape,number_chambers,number_entrance,type_entrances,opmerking,df)
 
             st.success('Gegevens opgeslagen!', icon="✅")       
   
