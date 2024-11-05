@@ -74,6 +74,7 @@ table_dictionary["4.83927252.433455"]
 table_dictionary["4.83927252.433455"].iloc[-1,4:-1]
 st.write(table_dictionary["4.83927252.433455"].iloc[-1,4:-1].sum())
 st.write(table_dictionary["4.83927252.433455"].iloc[:-1,4:-1].sum().sum())
+st.write(table_dictionary["4.83927252.433455"].iloc[:,4:-1].sum().sum())
 
 dict_presences = {}
 df_bunkers_observations
