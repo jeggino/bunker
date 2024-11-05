@@ -201,6 +201,10 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
     st.header('Opmerking',divider='grey')
     st.write(f'{df_popup['opmerking'].loc[0]}')
     try:
+        st.images(f'icons/images/{id_bunker}.jpg')
+    except:
+        pass
+    try:
         st.header('Species found',divider='grey')
 
         if len(table_dictionary[id_bunker].iloc[:,4:].columns) ==0:
