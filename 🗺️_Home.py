@@ -73,6 +73,8 @@ table_dictionary = tab_popup(df_bunkers_observations)
 st.write(table_dictionary["5.23009353.369353"].iloc[-1,4:-1].sum())
 table_dictionary["5.23009353.369353"].iloc[-1,4:-1]
 dict_presences = {}
+df_bunkers_observations
+
 for id in df_bunkers_observations.id_bunker.unique():
     try:
         if (table_dictionary[id].iloc[-1,4:-1].sum() == 0) & (table_dictionary[id].iloc[:-1,4:-1].sum().sum() > 0):
