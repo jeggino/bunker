@@ -72,6 +72,7 @@ with st.sidebar:
 table_dictionary = tab_popup(df_bunkers_observations)
 
 tab_prova = table_dictionary['5.23009353.369353']
+tab_prova
 st.write(tab_prova.iloc[-1,4:-1].sum())
 st.write(tab_prova.iloc[:-1,4:-1].sum().sum())
 st.write(tab_prova.iloc[:,4:-1].sum())
