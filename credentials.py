@@ -17,6 +17,8 @@ CLASS_HYBERNATE_OPTIONS = ['Bunker','Batbox']
 
 SURROUNDING_OPTIONS = ['In the dunes', 'deciduous forrest', 'pine/evergreen forrest']
 
+BATBOW_SHAPE_OPTIONS = [ 'platte kast', 'ronde kast'}
+
 TYPE_BUNKER_OPTIONS = ['A','B','C']
 
 BAT_NAMES = ['Gewone dwergvleermuis','Ruige dwergvleermuis', 'Laatvlieger','Rosse vleermuis','Gewone grootoorvleermuis','Meervleermuis','Watervleermuis','...Andere(n)']
