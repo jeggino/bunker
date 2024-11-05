@@ -196,7 +196,7 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
         st.write(f'**Type of entrances:** {df_popup['type_entrances'].loc[0]}')
     else:
         st.header('Bunker characteristics',divider='grey')
-        st.write(f'**Box shape:** {int(df_popup['batbox_shape'].loc[0])}')
+        st.write(f'**Box shape:** {df_popup['batbox_shape'].loc[0]}')
         
     st.header('Opmerking',divider='grey')
     st.write(f'{df_popup['opmerking'].loc[0]}')
