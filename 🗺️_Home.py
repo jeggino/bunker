@@ -83,11 +83,11 @@ dict_presences = {}
 for id in df_bunkers_observations.id_bunker.unique():
     try:
         
-        if (table_dictionary[id].iloc[-1,4:-1].sum() == 0) & (table_dictionary[id].iloc[:-1,4:-1].sum().sum() > 0):
+        if (table_dictionary[id].iloc[-1,4:].sum() == 0) & (table_dictionary[id].iloc[:-1,4:].sum().sum() > 0):
             dict_presences[id] = "Not inhabited in latest survey"
-        elif table_dictionary[id].iloc[-1,4:-1].sum() > 0:
+        elif table_dictionary[id].iloc[-1,4:].sum() > 0:
             dict_presences[id] = "Inhabited in latest survey"
-        elif len(table_dictionary[id].iloc[:,4:-1].sum()) == 0:
+        elif len(table_dictionary[id].iloc[:,4:].sum()) == 0:
             dict_presences[id] = "Never inhabited during the survey"
             
     except:
