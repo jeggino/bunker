@@ -143,7 +143,7 @@ def input_insert_bats(output,df,df_features):
     waarnemer = st.session_state.login['name']
     date = st.date_input("Datum")
 
-    if df_features[df_features['id_bunker']==id_bunker]['class_hybernate'].values=='Bunker':
+    if df_features[df_features['id_bunker']==id_bunker].reset_index()['class_hybernate'].values[0]=='Bunker':
         if st.checkbox("I have temperature and humidity parameters"):
             temperature = st.number_input("Temperature (C°)",value=8)
             humidity = st.number_input("Humidity (%)", min_value=1,max_value=100,value=40)
