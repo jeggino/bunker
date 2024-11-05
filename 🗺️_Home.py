@@ -72,6 +72,7 @@ with st.sidebar:
 table_dictionary = tab_popup(df_bunkers_observations)
 st.write(table_dictionary["5.23009353.369353"].iloc[-1,4:-1].sum())
 table_dictionary["5.23009353.369353"].iloc[-1,4:-1]
+table_dictionary["5.23009353.369353"]
 dict_presences = {}
 df_bunkers_observations
 
