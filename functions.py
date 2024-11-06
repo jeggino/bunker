@@ -62,10 +62,10 @@ def logOut():
         del st.session_state.login
         st.rerun()
 
-def insert_bunker_fearures(last_survey,id_bunker,lat,lng,class_hybernate,kraamverblijjkast,surrounding,type_bunker,
+def insert_bunker_fearures(last_survey,id_bunker,bunker_name,lat,lng,class_hybernate,kraamverblijjkast,surrounding,type_bunker,
                            batbox_shape,number_chambers,number_entrance,opmerking,df):
     
-    data = [{'Last survey':last_survey,"id_bunker":id_bunker, "lat":lat,"lng":lng,"class_hybernate":class_hybernate,
+    data = [{'Last survey':last_survey,"id_bunker":id_bunker,'bunker_name':bunker_name, "lat":lat,"lng":lng,"class_hybernate":class_hybernate,
              'kraamverblijjkast':kraamverblijjkast,"surrounding":surrounding,"type_bunker":type_bunker,
              "batbox_shape":batbox_shape,"number_chambers":number_chambers,"number_entrance":number_entrance,"opmerking":opmerking,
              }]
@@ -97,6 +97,7 @@ def input_data(output,df):
     
     class_hybernate = st.selectbox("", CLASS_HYBERNATE_OPTIONS) 
     if class_hybernate == 'Bunker':
+        bunker_name = st.text_input("Bunker naam", placeholder="Vul hier ...")
         surrounding = st.selectbox("Type omgeving", SURROUNDING_OPTIONS)
         type_bunker = st.selectbox("Soort bunker", TYPE_BUNKER_OPTIONS)
         number_chambers = st.number_input("Aantal kamers", min_value=1)
@@ -110,6 +111,7 @@ def input_data(output,df):
         type_bunker = None
         number_chambers = None
         number_entrance = None
+        bunker_name =None
     opmerking = st.text_input("", placeholder="Vul hier een opmerking in ...")
     last_survey = 'Geen data'
     
@@ -131,7 +133,7 @@ def input_data(output,df):
             st.stop()
 
         else:
-            insert_bunker_fearures(last_survey,id_bunker,lat,lng,class_hybernate,kraamverblijjkast,surrounding,type_bunker,
+            insert_bunker_fearures(last_survey,id_bunker,bunker_name,lat,lng,class_hybernate,kraamverblijjkast,surrounding,type_bunker,
                                    batbox_shape,number_chambers,number_entrance,opmerking,df)
 
             st.success('Gegevens opgeslagen!', icon="✅")       
@@ -192,9 +194,11 @@ def input_insert_bats(output,df,df_features):
 def popup_table(id_bunker,output,df_bunkers_features,table_dictionary): 
     df_popup = df_bunkers_features[df_bunkers_features['id_bunker']==id_bunker].reset_index(drop=True)
     df_popup['opmerking'] = df_popup['opmerking'].fillna(value='Geen opmerking')
+    df_popup['bunker_name'] = df_popup['bunker_name'].fillna(value='Geen opmerking')
     
     if df_popup['class_hybernate'].loc[0] == 'Bunker':
         st.header('Bunkerkenmerken',divider='grey')
+        st.write(f'**Naam:** {int(df_popup['bunker_name'].loc[0])}')
         st.write(f'**Aantal kamers:** {int(df_popup['number_chambers'].loc[0])}')
         st.write(f'**Omgeving:** {df_popup['surrounding'].loc[0]}')
         st.write(f'**Soort bunker:** {df_popup['type_bunker'].loc[0]}')
@@ -213,12 +217,12 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
     try:
         st.header('Gevonden soorten',divider='grey')
     
-        if len(table_dictionary[id_bunker].iloc[:,4:-1].columns) ==0:
+        if len(table_dictionary[id_bunker].iloc[:,5:-1].columns) ==0:
             st.write("Nog geen soort gevonden")
         else:
-            for species in table_dictionary[id_bunker].iloc[:,4:-1].columns:
+            for species in table_dictionary[id_bunker].iloc[:,5:-1].columns:
                 st.write(f'*{species}*')
-                df = table_dictionary[id_bunker].iloc[:,4:-1]
+                df = table_dictionary[id_bunker].iloc[:,5:-1]
                 st.write(f"""
                 Het maximale aantal individuen werd bereikt :blue-background[**{int(df[species].max())}**], 
                 gedocumenteerd op datum :blue-background[**{df[df[species]==df[species].max()].index[0]}**].
@@ -226,7 +230,7 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
             
         st.header('Onderzoeken',divider='grey')
     
-        table_dictionary[id_bunker].iloc[:,4:-1] = table_dictionary[id_bunker].iloc[:,4:-1].astype('int').replace({0:'-'})
+        table_dictionary[id_bunker].iloc[:,5:-1] = table_dictionary[id_bunker].iloc[:,5:-1].astype('int').replace({0:'-'})
         table_dictionary[id_bunker].iloc[:,-1] = table_dictionary[id_bunker].iloc[:,-1].replace({0:'-'})
         if df_popup['class_hybernate'].loc[0] == 'Bunker':
             st.dataframe(table_dictionary[id_bunker].iloc[:,1:])
@@ -244,6 +248,7 @@ def update_item(id):
   df_drop = df[~df.apply(tuple, axis=1).isin(df_filter.apply(tuple, axis=1))]
 
   id_bunker = df_filter['id_bunker'][0]
+  id_bunker_name = df_filter['bunker_name'][0]
   id_lat = df_filter['lat'][0]
   id_lng = df_filter['lng'][0]
   id_class_hybernate = df_filter['class_hybernate'][0]
@@ -256,6 +261,7 @@ def update_item(id):
   id_kraamverblijjkast = df_filter['kraamverblijjkast'][0]
 
   if id_class_hybernate == 'Bunker':
+      bunker_name = st.text_input("Bunker naam", value=id_bunker_name,placeholder="Vul hier een naam ...")
       surrounding = st.selectbox("Type omgeving", SURROUNDING_OPTIONS,index=SURROUNDING_OPTIONS.index(id_surrounding))
       type_bunker = st.selectbox("Soort bunker", TYPE_BUNKER_OPTIONS,index=TYPE_BUNKER_OPTIONS.index(id_type_bunker))
       number_chambers = st.number_input("Aantal kamers", min_value=1,value=int(id_number_chambers))
@@ -270,6 +276,7 @@ def update_item(id):
       type_bunker = None
       number_chambers = None
       number_entrance = None
+      bunker_name = None
 
   opmerking = st.text_input("", value=id_opmerking,placeholder="Vul hier een opmerking in ...")
   last_survey = 'Geen data'
@@ -278,7 +285,7 @@ def update_item(id):
     conn.update(worksheet='bunkers_features',data=df_drop)
     df_old = conn.read(ttl=0,worksheet="bunkers_features")
   
-    data = [{'Last survey':last_survey,"id_bunker":id_bunker, "lat":id_lat,"lng":id_lng,"class_hybernate":id_class_hybernate,
+    data = [{'Last survey':last_survey,"id_bunker":id_bunker, 'bunker_name':bunker_name,"lat":id_lat,"lng":id_lng,"class_hybernate":id_class_hybernate,
     'kraamverblijjkast':kraamverblijjkast,"surrounding":surrounding,"type_bunker":type_bunker,
     "batbox_shape":batbox_shape,"number_chambers":number_chambers,"number_entrance":number_entrance,"opmerking":opmerking,
     }]
