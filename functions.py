@@ -167,7 +167,9 @@ def input_insert_bats(output,df,df_features):
     else:
         data_dict = {'date':date,"waarnemer":waarnemer,"temperature":temperature,"humidity":humidity}
         
-    opmerking = st.text_input("", placeholder="Vul hier een opmerking in ...")    
+    opmerking = st.text_input("", placeholder="Vul hier een opmerking in ...")   
+    if opmerking==None:
+        opmerking = '-'
     
     st.divider()
         
