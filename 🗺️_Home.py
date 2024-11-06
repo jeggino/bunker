@@ -115,8 +115,12 @@ for i in range(len(df_bunkers_features)):
 
     if df_bunkers_features.iloc[i]['class_hybernate'] == 'Bunker': 
         icon_shape=""
-        border_width=1
         icon=''
+        if df_bunkers_features.iloc[i]['type_bunker'] == 'Niet toegankelijk':
+            border_width=5
+        else:
+            border_width=1
+        
     elif df_bunkers_features.iloc[i]['class_hybernate'] == 'Vleermuiskast':
         icon_shape="circle"
         border_width=1
