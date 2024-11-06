@@ -19,6 +19,6 @@ SURROUNDING_OPTIONS = ['In de duinen', 'Loofbos', 'Pijnboombos/groenblijvend bos
 
 BATBOX_SHAPE_OPTIONS = ['Platte kast', 'Ronde kast']
 
-TYPE_BUNKER_OPTIONS = ['Open','Dichtbij']
+TYPE_BUNKER_OPTIONS = ['Open','Niet toegankelijk']
 
 BAT_NAMES = ['Gewone dwergvleermuis','Ruige dwergvleermuis', 'Laatvlieger','Rosse vleermuis','Gewone grootoorvleermuis','Meervleermuis','Watervleermuis','...Andere(n)']
