@@ -107,7 +107,7 @@ def input_data(output,df):
         number_chambers = None
         number_entrance = None
     opmerking = st.text_input("", placeholder="Vul hier een opmerking in ...")
-    last_survey = 'No Data Yet!'
+    last_survey = 'Geen data'
     
     st.divider()
         
@@ -193,7 +193,6 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
         st.write(f'**Omgeving:** {df_popup['surrounding'].loc[0]}')
         st.write(f'**Soort bunker:** {df_popup['type_bunker'].loc[0]}')
         st.write(f'**Aantal ingangen:** {int(df_popup['number_entrance'].loc[0])}')
-        st.write(f'**Type ingangen:** {df_popup['type_entrances'].loc[0]}')
     else:
         st.header('Vleermuiskast kenmerken',divider='grey')
         st.write(f'**Vorm:** {df_popup['batbox_shape'].loc[0]}')
