@@ -118,14 +118,15 @@ try:
         elif df_bunkers_features.iloc[i]['Last survey'] == "Nooit bewoond tijdens het onderzoek":
             color='green'
         elif df_bunkers_features.iloc[i]['Last survey'] == "Geen data":
-            color='lightgray'
+            color='yellow'
     
         folium.Marker([df_bunkers_features.iloc[i]['lat'], df_bunkers_features.iloc[i]['lng']],
-                      icon=folium.Icon(icon=icon,
-                                       prefix='fa',
-                                       icon_color='black',
-                                       color=color
-                                      )
+                      icon=folium.plugins.BeautifyIcon(icon_shape=icon,
+                                                   border_width=5,
+                                                   icon='',
+                                   background_color=color,
+                                   border_color=color
+                                  )
                      ).add_to(fouctie_loop)
     
     output = st_folium(map,width=OUTPUT_width, height=OUTPUT_height,returned_objects=["last_object_clicked"],
