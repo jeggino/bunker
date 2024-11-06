@@ -61,10 +61,11 @@ def logOut():
         del st.session_state.login
         st.rerun()
 
-def insert_bunker_fearures(last_survey,id_bunker,lat,lng,class_hybernate,surrounding,type_bunker,batbox_shape,number_chambers,number_entrance,type_entrances,opmerking,df):
+def insert_bunker_fearures(last_survey,id_bunker,lat,lng,class_hybernate,surrounding,type_bunker,
+                           batbox_shape,number_chambers,number_entrance,opmerking,df):
     
     data = [{'Last survey':last_survey,"id_bunker":id_bunker, "lat":lat,"lng":lng,"class_hybernate":class_hybernate,"surrounding":surrounding,"type_bunker":type_bunker,
-             "batbox_shape":batbox_shape,"number_chambers":number_chambers,"number_entrance":number_entrance,"type_entrances":type_entrances,"opmerking":opmerking,
+             "batbox_shape":batbox_shape,"number_chambers":number_chambers,"number_entrance":number_entrance,"opmerking":opmerking,
              }]
     df_new = pd.DataFrame(data)
     df_updated = pd.concat([df,df_new],ignore_index=True)
@@ -94,19 +95,17 @@ def input_data(output,df):
     
     class_hybernate = st.selectbox("", CLASS_HYBERNATE_OPTIONS) 
     if class_hybernate == 'Bunker':
-        surrounding = st.selectbox("Type of surrounding", SURROUNDING_OPTIONS)
-        type_bunker = st.selectbox("Type of bunker", TYPE_BUNKER_OPTIONS)
-        number_chambers = st.number_input("Number of chambers", min_value=1)
-        number_entrance = st.number_input("Number of entrances", min_value=1)
-        type_entrances = st.selectbox("Type of entrances", TYPE_ENTRANCES_OPTIONS)
+        surrounding = st.selectbox("Type omgeving", SURROUNDING_OPTIONS)
+        type_bunker = st.selectbox("Soort bunker", TYPE_BUNKER_OPTIONS)
+        number_chambers = st.number_input("Aantal kamers", min_value=1)
+        number_entrance = st.number_input("Aantal ingangen", min_value=1)
         batbox_shape = None
     else:
-        batbox_shape = st.selectbox("Batbox", BATBOX_SHAPE_OPTIONS)
+        batbox_shape = st.selectbox("Vorm", BATBOX_SHAPE_OPTIONS)
         surrounding = None
         type_bunker = None
         number_chambers = None
         number_entrance = None
-        type_entrances = None
     opmerking = st.text_input("", placeholder="Vul hier een opmerking in ...")
     last_survey = 'No Data Yet!'
     
@@ -128,7 +127,8 @@ def input_data(output,df):
             st.stop()
 
         else:
-            insert_bunker_fearures(last_survey,id_bunker,lat,lng,class_hybernate,surrounding,type_bunker,batbox_shape,number_chambers,number_entrance,type_entrances,opmerking,df)
+            insert_bunker_fearures(last_survey,id_bunker,lat,lng,class_hybernate,surrounding,type_bunker,
+                                   batbox_shape,number_chambers,number_entrance,opmerking,df)
 
             st.success('Gegevens opgeslagen!', icon="✅")       
   
@@ -146,9 +146,9 @@ def input_insert_bats(output,df,df_features):
     date = st.date_input("Datum")
 
     if df_features[df_features['id_bunker']==id_bunker].reset_index()['class_hybernate'].values[0]=='Bunker':
-        if st.checkbox("I have temperature and humidity parameters"):
-            temperature = st.number_input("Temperature (C°)",value=8)
-            humidity = st.number_input("Humidity (%)", min_value=1,max_value=100,value=40)
+        if st.checkbox("Geef aan of u temperatuur- en vochtigheidsparameters hebt"):
+            temperature = st.number_input("Temperatuur (C°)",value=8)
+            humidity = st.number_input("Vochtigheid (%)", min_value=1,max_value=100,value=40)
         else:
             temperature = '-'
             humidity = '-'
@@ -156,7 +156,7 @@ def input_insert_bats(output,df,df_features):
         temperature = '-'
         humidity = '-'
         
-    sp = st.multiselect("Chose which species was there", BAT_NAMES)
+    sp = st.multiselect("Kies welke soort er was", BAT_NAMES)
     
     if sp:
         dict_species = {}
@@ -188,15 +188,15 @@ def input_insert_bats(output,df,df_features):
 def popup_table(id_bunker,output,df_bunkers_features,table_dictionary): 
     df_popup = df_bunkers_features[df_bunkers_features['id_bunker']==id_bunker].reset_index(drop=True)
     if df_popup['class_hybernate'].loc[0] == 'Bunker':
-        st.header('Bunker characteristics',divider='grey')
-        st.write(f'**Number of chambers:** {int(df_popup['number_chambers'].loc[0])}')
-        st.write(f'**Surrounding:** {df_popup['surrounding'].loc[0]}')
-        st.write(f'**Type of bunker:** {df_popup['type_bunker'].loc[0]}')
-        st.write(f'**Number of entrances:** {int(df_popup['number_entrance'].loc[0])}')
-        st.write(f'**Type of entrances:** {df_popup['type_entrances'].loc[0]}')
+        st.header('Bunkerkenmerken',divider='grey')
+        st.write(f'**Aantal kamers:** {int(df_popup['number_chambers'].loc[0])}')
+        st.write(f'**Omgeving:** {df_popup['surrounding'].loc[0]}')
+        st.write(f'**Soort bunker:** {df_popup['type_bunker'].loc[0]}')
+        st.write(f'**Aantal ingangen:** {int(df_popup['number_entrance'].loc[0])}')
+        st.write(f'**Type ingangen:** {df_popup['type_entrances'].loc[0]}')
     else:
-        st.header('Box characteristics',divider='grey')
-        st.write(f'**Shape:** {df_popup['batbox_shape'].loc[0]}')
+        st.header('Vleermuiskast kenmerken',divider='grey')
+        st.write(f'**Vorm:** {df_popup['batbox_shape'].loc[0]}')
         
     st.header('Opmerking',divider='grey')
     st.write(f'{df_popup['opmerking'].loc[0]}')
@@ -205,24 +205,24 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
     except:
         pass
     try:
-        st.header('Species found',divider='grey')
+        st.header('Gevonden soorten',divider='grey')
 
         if len(table_dictionary[id_bunker].iloc[:,4:].columns) ==0:
-            st.write("No species found yet")
+            st.write("Nog geen soort gevonden")
         else:
             for species in table_dictionary[id_bunker].iloc[:,4:].columns:
                 st.write(f'*{species}*')
                 df = table_dictionary[id_bunker].iloc[:,4:]
                 st.write(f"""
-                The peak count of individuals reached :blue-background[**{int(df[species].max())}**], 
-                documented on the date :blue-background[**{df[df[species]==df[species].max()].index[0]}**].
+                Het maximale aantal individuen werd bereikt: blue-background[**{int(df[species].max())}**], 
+                gedocumenteerd op datum: blue-background[**{df[df[species]==df[species].max()].index[0]}**].
                 """)
             
-        st.header('Surveys',divider='grey')
+        st.header('Onderzoeken',divider='grey')
     
         table_dictionary[id_bunker].iloc[:,4:-1] = table_dictionary[id_bunker].iloc[:,4:-1].astype('int').replace({0:'-'})
         table_dictionary[id_bunker].iloc[:,-1] = table_dictionary[id_bunker].iloc[:,-1].replace({0:'-'})
         st.dataframe(table_dictionary[id_bunker].iloc[:,1:])
     except:
-        st.write('No Data')
+        st.write('Geen data')
     
