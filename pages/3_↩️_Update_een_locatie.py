@@ -114,9 +114,13 @@ for i in range(len(df_bunkers_features)):
     fouctie_loop = functie_dictionary[df_bunkers_features.iloc[i]['Last survey']]
 
     if df_bunkers_features.iloc[i]['class_hybernate'] == 'Bunker': 
-        icon="square"
+        icon_shape=""
+        border_width=1
+        icon=''
     elif df_bunkers_features.iloc[i]['class_hybernate'] == 'Vleermuiskast':
-        icon="circle"
+        icon_shape="circle"
+        border_width=1
+        icon=''
     
     if df_bunkers_features.iloc[i]['Last survey'] == "Niet bewoond in laatste onderzoek":
         color='orange'
@@ -128,11 +132,11 @@ for i in range(len(df_bunkers_features)):
         color='yellow'
 
     folium.Marker([df_bunkers_features.iloc[i]['lat'], df_bunkers_features.iloc[i]['lng']],
-                  icon=folium.plugins.BeautifyIcon(icon_shape=icon,
-                                                   border_width=5,
-                                                   icon='',
+                  icon=folium.plugins.BeautifyIcon(icon_shape=icon_shape,
+                                                   border_width=border_width,
+                                                   icon=icon,
                                    background_color=color,
-                                   border_color=color
+                                   border_color='black'
                                   )
                  ).add_to(fouctie_loop)
 
