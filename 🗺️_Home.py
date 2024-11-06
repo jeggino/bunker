@@ -148,7 +148,11 @@ try:
         
         id = str(lng)+str(lat)
         popup_table(id,output,df_bunkers_features,table_dictionary)
+        
         with st.sidebar:
+            if st.button("Waarneming bijwerken",use_container_width=True):
+                update_item(id)
+
             with st.form("entry_form", clear_on_submit=True,border=False):
                 submitted = st.form_submit_button(":red[**Verwijder waarneming**]",use_container_width=True)
                 if submitted:
