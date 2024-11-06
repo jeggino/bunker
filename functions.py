@@ -131,7 +131,7 @@ def input_data(output,df):
             st.stop()
 
         else:
-            insert_bunker_fearures(last_survey,id_bunker,lat,lng,class_hybernate,surrounding,type_bunker,kraamverblijjkast,
+            insert_bunker_fearures(last_survey,id_bunker,lat,lng,class_hybernate,kraamverblijjkast,surrounding,type_bunker,
                                    batbox_shape,number_chambers,number_entrance,opmerking,df)
 
             st.success('Gegevens opgeslagen!', icon="✅")       
