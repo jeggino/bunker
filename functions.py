@@ -258,7 +258,7 @@ def update_item(id):
   if id_class_hybernate == 'Bunker':
       surrounding = st.selectbox("Type omgeving", SURROUNDING_OPTIONS,index=SURROUNDING_OPTIONS.index(id_surrounding))
       type_bunker = st.selectbox("Soort bunker", TYPE_BUNKER_OPTIONS,index=TYPE_BUNKER_OPTIONS.index(id_type_bunker))
-      number_chambers = st.number_input("Aantal kamers", min_value=1,value=id_number_chambers)
+      number_chambers = st.number_input("Aantal kamers", min_value=1,value=int(id_number_chambers))
       number_entrance = st.number_input("Aantal ingangen", min_value=1,value=id_number_entrance)
       batbox_shape = None
       kraamverblijjkast = None
