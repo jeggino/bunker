@@ -17,9 +17,9 @@ from credentials import *
 
 #---LAYOUT---
 st.set_page_config(
-    page_title="Bunkers",
+    page_title="Winterslaap",
     initial_sidebar_state="collapsed",
-    page_icon="🦇",
+    page_icon="😴",
     layout="wide",  
 )
 
@@ -78,16 +78,16 @@ for id in df_bunkers_observations.id_bunker.unique():
     try:
         
         if (table_dictionary[id].iloc[-1,4:].sum() == 0) & (table_dictionary[id].iloc[:-1,4:].sum().sum() > 0):
-            dict_presences[id] = "Not inhabited in latest survey"
+            dict_presences[id] = "Niet bewoond in laatste onderzoek"
         elif table_dictionary[id].iloc[-1,4:].sum() > 0:
-            dict_presences[id] = "Inhabited in latest survey"
+            dict_presences[id] = "Bewoond in laatste onderzoek"
         elif len(table_dictionary[id].iloc[:,4:].sum()) == 0:
-            dict_presences[id] = "Never inhabited during the survey"
+            dict_presences[id] = "Nooit bewoond tijdens het onderzoek"
             
     except:
         continue
         
-df_bunkers_features["Last survey"] = df_bunkers_features["id_bunker"].map(dict_presences).fillna("No Data")
+df_bunkers_features["Last survey"] = df_bunkers_features["id_bunker"].map(dict_presences).fillna("Geen data")
 
 map = folium.Map(tiles=None,position=[df_bunkers_features['lat'].mean(),df_bunkers_features['lng'].mean],)
 LocateControl(auto_start=True,position="topright").add_to(map)
@@ -115,16 +115,16 @@ for i in range(len(df_bunkers_features)):
 
     if df_bunkers_features.iloc[i]['class_hybernate'] == 'Bunker': 
         icon="square"
-    elif df_bunkers_features.iloc[i]['class_hybernate'] == 'Batbox':
+    elif df_bunkers_features.iloc[i]['class_hybernate'] == 'Vleermuiskast':
         icon="circle"
     
-    if df_bunkers_features.iloc[i]['Last survey'] == "Not inhabited in latest survey":
+    if df_bunkers_features.iloc[i]['Last survey'] == "Niet bewoond in laatste onderzoek":
         color='orange'
-    elif df_bunkers_features.iloc[i]['Last survey'] == "Inhabited in latest survey":
+    elif df_bunkers_features.iloc[i]['Last survey'] == "Bewoond in laatste onderzoek":
         color='red'
-    elif df_bunkers_features.iloc[i]['Last survey'] == "Never inhabited during the survey":
+    elif df_bunkers_features.iloc[i]['Last survey'] == "Nooit bewoond tijdens het onderzoek":
         color='green'
-    elif df_bunkers_features.iloc[i]['Last survey'] == "No Data":
+    elif df_bunkers_features.iloc[i]['Last survey'] == "Geen data":
         color='lightgray'
 
     folium.Marker([df_bunkers_features.iloc[i]['lat'], df_bunkers_features.iloc[i]['lng']],
