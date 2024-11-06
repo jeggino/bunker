@@ -132,7 +132,7 @@ for i in range(len(df_bunkers_features)):
         color='yellow'
 
     folium.Marker([df_bunkers_features.iloc[i]['lat'], df_bunkers_features.iloc[i]['lng']],
-                  icon=folium.plugins.BeautifyIcon(icon_shape=icon,
+                  icon=folium.plugins.BeautifyIcon(icon_shape=icon_shape,
                                                    border_width=border_width,
                                                    icon=icon,
                                    background_color=color,
