@@ -4,7 +4,7 @@ import pandas as pd
 import random
 
 import folium
-from folium.plugins import Draw, Fullscreen, LocateControl, GroupedLayerControl, plugins
+from folium.plugins import Draw, Fullscreen, LocateControl, GroupedLayerControl
 from streamlit_folium import st_folium
 import datetime
 from datetime import datetime, timedelta, date
@@ -128,7 +128,7 @@ for i in range(len(df_bunkers_features)):
         color='lightgray'
 
     folium.Marker([df_bunkers_features.iloc[i]['lat'], df_bunkers_features.iloc[i]['lng']],
-                  icon=plugins.BeautifyIcon(icon_shape=icon,
+                  icon=folium.plugins.BeautifyIcon(icon_shape=icon,
                                    background_color='black',
                                    border_color=color
                                   )
