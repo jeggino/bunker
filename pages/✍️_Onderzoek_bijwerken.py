@@ -19,7 +19,7 @@ from functions import logIn,logOut,tab_popup,input_insert_bats
 
 # ---LAYOUT---
 st.set_page_config(
-    page_title="Bunkers & Vleermuiskasten",
+    page_title="Bunkers & Kasten",
     initial_sidebar_state="collapsed",
     page_icon="🦇",
     layout="wide",
