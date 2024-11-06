@@ -15,7 +15,7 @@ IMAGE_2 ="icons/menu.jpg"
 
 CLASS_HYBERNATE_OPTIONS = ['Bunker','Vleermuiskast']
 
-SURROUNDING_OPTIONS = ['In de duinen', 'Loofbos', 'Pijnboombos/groenblijvend bos']
+SURROUNDING_OPTIONS = ['In de duinen', 'Loofbos', 'Naaldbos/groenblijvend bos']
 
 BATBOX_SHAPE_OPTIONS = ['Platte kast', 'Ronde kast']
 
