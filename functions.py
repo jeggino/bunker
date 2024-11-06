@@ -235,4 +235,58 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
             st.dataframe(df_survey.iloc[:,1:])
     except:
         st.write('Geen data')
+
+@st.dialog(" ")
+def update_item(id):
+
+  df = conn.read(ttl=0,worksheet="bunkers_features")
+  df_filter = df[df["id_bunker"]==id].reset_index(drop=True)
+
+  id_bunker = df_filter['id_bunker'][0]
+  id_lat = df_filter['lat'][0]
+  id_lng = df_filter['lng'][0]
+  id_class_hybernate = df_filter['class_hybernate'][0]
+  id_surrounding = df_filter['surrounding'][0]
+  id_type_bunker = df_filter['type_bunker'][0]
+  id_number_chambers = df_filter['number_chambers'][0]
+  id_opmerking = df_filter['opmerking'][0]
+  id_number_entrance = df_filter['number_entrance'][0]
+  id_batbox_shape = df_filter['batbox_shape'][0]
+  id_kraamverblijjkast = df_filter['kraamverblijjkast'][0]
+
+  if id_class_hybernate == 'Bunker':
+      surrounding = st.selectbox("Type omgeving", SURROUNDING_OPTIONS,index=SURROUNDING_OPTIONS.index(id_surrounding))
+      type_bunker = st.selectbox("Soort bunker", TYPE_BUNKER_OPTIONS,index=TYPE_BUNKER_OPTIONS.index(id_type_bunker))
+      number_chambers = st.number_input("Aantal kamers", min_value=1,value=id_number_chambers)
+      number_entrance = st.number_input("Aantal ingangen", min_value=1,value=id_number_entrance)
+      batbox_shape = None
+      kraamverblijjkast = None
+    
+  else:
+      batbox_shape = st.selectbox("Vorm", BATBOX_SHAPE_OPTIONS,index=BATBOX_SHAPE_OPTIONS.index(id_batbox_shape))
+      kraamverblijjkast = st.selectbox("Kraamverblijjkast", BATBOX_KRAAMVEBLIJFKAST_OPTION,index=BATBOX_KRAAMVEBLIJFKAST_OPTION.index(id_kraamverblijjkast))
+      surrounding = None
+      type_bunker = None
+      number_chambers = None
+      number_entrance = None
+    
+  opmerking = st.text_input("", value=id_opmerking,placeholder="Vul hier een opmerking in ...")
+  last_survey = 'Geen data'
+
+  if st.button("**Update**",use_container_width=True):
+    
+    df_drop = df[~df.apply(tuple, axis=1).isin(df_filter.apply(tuple, axis=1))]
+    conn.update(worksheet='bunkers_features',data=df_drop)
+    df_old = conn.read(ttl=0,worksheet="bunkers_features")
+      
+    data = [{'Last survey':last_survey,"id_bunker":id_bunker, "lat":id_lat,"lng":id_lng,"class_hybernate":id_class_hybernate,
+             'kraamverblijjkast':kraamverblijjkast,"surrounding":surrounding,"type_bunker":type_bunker,
+             "batbox_shape":batbox_shape,"number_chambers":number_chambers,"number_entrance":number_entrance,"opmerking":opmerking,
+             }]
+      
+    df_new = pd.DataFrame(data)
+    df_updated = pd.concat([df,df_new],ignore_index=True)
+    conn.update(worksheet='bunkers_features',data=df_updated)
+
+    st.rerun()
     
