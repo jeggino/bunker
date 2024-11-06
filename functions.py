@@ -97,7 +97,6 @@ def input_data(output,df):
     
     class_hybernate = st.selectbox("", CLASS_HYBERNATE_OPTIONS) 
     if class_hybernate == 'Bunker':
-        st.write('prova')
         bunker_name = st.text_input("Bunker naam", placeholder="Vul hier ...")
         surrounding = st.selectbox("Type omgeving", SURROUNDING_OPTIONS)
         type_bunker = st.selectbox("Soort bunker", TYPE_BUNKER_OPTIONS)
