@@ -115,11 +115,11 @@ for i in range(len(df_bunkers_features)):
 
     if df_bunkers_features.iloc[i]['class_hybernate'] == 'Bunker': 
         icon_shape=""
-        border_width=3
+        border_width=1
         icon=''
     elif df_bunkers_features.iloc[i]['class_hybernate'] == 'Vleermuiskast':
         icon_shape="circle"
-        border_width=3
+        border_width=1
         icon=''
     
     if df_bunkers_features.iloc[i]['Last survey'] == "Niet bewoond in laatste onderzoek":
