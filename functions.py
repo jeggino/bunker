@@ -288,5 +288,5 @@ def update_item(id):
     df_updated = pd.concat([df_old ,df_new],ignore_index=True)
     conn.update(worksheet='bunkers_features',data=df_updated)
 
-    st.rerun()
+     st.switch_page("🗺️_Home.py")
     
