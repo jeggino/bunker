@@ -62,10 +62,11 @@ def logOut():
         del st.session_state.login
         st.rerun()
 
-def insert_bunker_fearures(last_survey,id_bunker,lat,lng,class_hybernate,surrounding,type_bunker,
+def insert_bunker_fearures(last_survey,id_bunker,lat,lng,class_hybernate,kraamverblijjkast,surrounding,type_bunker,
                            batbox_shape,number_chambers,number_entrance,opmerking,df):
     
-    data = [{'Last survey':last_survey,"id_bunker":id_bunker, "lat":lat,"lng":lng,"class_hybernate":class_hybernate,"surrounding":surrounding,"type_bunker":type_bunker,
+    data = [{'Last survey':last_survey,"id_bunker":id_bunker, "lat":lat,"lng":lng,"class_hybernate":class_hybernate,
+             'kraamverblijjkast':kraamverblijjkast,"surrounding":surrounding,"type_bunker":type_bunker,
              "batbox_shape":batbox_shape,"number_chambers":number_chambers,"number_entrance":number_entrance,"opmerking":opmerking,
              }]
     df_new = pd.DataFrame(data)
@@ -101,8 +102,10 @@ def input_data(output,df):
         number_chambers = st.number_input("Aantal kamers", min_value=1)
         number_entrance = st.number_input("Aantal ingangen", min_value=1)
         batbox_shape = None
+        kraamverblijjkast = None
     else:
         batbox_shape = st.selectbox("Vorm", BATBOX_SHAPE_OPTIONS)
+        kraamverblijjkast = st.selectbox("Kraamverblijjkast", BATBOX_KRAAMVEBLIJFKAST_OPTION)
         surrounding = None
         type_bunker = None
         number_chambers = None
@@ -128,7 +131,7 @@ def input_data(output,df):
             st.stop()
 
         else:
-            insert_bunker_fearures(last_survey,id_bunker,lat,lng,class_hybernate,surrounding,type_bunker,
+            insert_bunker_fearures(last_survey,id_bunker,lat,lng,class_hybernate,surrounding,type_bunker,kraamverblijjkast,
                                    batbox_shape,number_chambers,number_entrance,opmerking,df)
 
             st.success('Gegevens opgeslagen!', icon="✅")       
