@@ -203,26 +203,26 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
         st.image(f'icons/images/{id_bunker}.jpg')
     except:
         pass
-    try:
-        st.header('Gevonden soorten',divider='grey')
+    # try:
+    st.header('Gevonden soorten',divider='grey')
 
-        if len(table_dictionary[id_bunker].iloc[:,4:].columns) ==0:
-            st.write("Nog geen soort gevonden")
-        else:
-            for species in table_dictionary[id_bunker].iloc[:,4:].columns:
-                st.write(f'*{species}*')
-                df = table_dictionary[id_bunker].iloc[:,4:]
-                df
-                st.write(f"""
-                Het maximale aantal individuen werd bereikt: blue-background[**{int(df[species].max())}**], 
-                gedocumenteerd op datum: blue-background[**{df[df[species]==df[species].max()].index[0]}**].
-                """)
-            
-        st.header('Onderzoeken',divider='grey')
-    
-        table_dictionary[id_bunker].iloc[:,4:-1] = table_dictionary[id_bunker].iloc[:,4:-1].astype('int').replace({0:'-'})
-        table_dictionary[id_bunker].iloc[:,-1] = table_dictionary[id_bunker].iloc[:,-1].replace({0:'-'})
-        st.dataframe(table_dictionary[id_bunker].iloc[:,1:])
-    except:
-        st.write('Geen data')
+    if len(table_dictionary[id_bunker].iloc[:,4:].columns) ==0:
+        st.write("Nog geen soort gevonden")
+    else:
+        for species in table_dictionary[id_bunker].iloc[:,4:].columns:
+            st.write(f'*{species}*')
+            df = table_dictionary[id_bunker].iloc[:,4:]
+            df
+            st.write(f"""
+            Het maximale aantal individuen werd bereikt: blue-background[**{int(df[species].max())}**], 
+            gedocumenteerd op datum: blue-background[**{df[df[species]==df[species].max()].index[0]}**].
+            """)
+        
+    st.header('Onderzoeken',divider='grey')
+
+    table_dictionary[id_bunker].iloc[:,4:-1] = table_dictionary[id_bunker].iloc[:,4:-1].astype('int').replace({0:'-'})
+    table_dictionary[id_bunker].iloc[:,-1] = table_dictionary[id_bunker].iloc[:,-1].replace({0:'-'})
+    st.dataframe(table_dictionary[id_bunker].iloc[:,1:])
+    # except:
+    #     st.write('Geen data')
     
