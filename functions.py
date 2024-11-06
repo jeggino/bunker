@@ -189,6 +189,7 @@ def input_insert_bats(output,df,df_features):
 def popup_table(id_bunker,output,df_bunkers_features,table_dictionary): 
     df_popup = df_bunkers_features[df_bunkers_features['id_bunker']==id_bunker].reset_index(drop=True)
     df_popup['opmerking'] = df_popup['opmerking'].fillna(value='Geen opmerking')
+    st.dataframe(df_popup)
     
     if df_popup['class_hybernate'].loc[0] == 'Bunker':
         st.header('Bunkerkenmerken',divider='grey')
@@ -224,7 +225,11 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
     
         table_dictionary[id_bunker].iloc[:,4:-1] = table_dictionary[id_bunker].iloc[:,4:-1].astype('int').replace({0:'-'})
         table_dictionary[id_bunker].iloc[:,-1] = table_dictionary[id_bunker].iloc[:,-1].replace({0:'-'})
-        st.dataframe(table_dictionary[id_bunker].iloc[:,1:])
+        if df_popup['class_hybernate'].loc[0] == 'Bunker':
+            st.dataframe(table_dictionary[id_bunker].iloc[:,1:])
+        elif df_popup['class_hybernate'].loc[0] == 'Vleermuiskast':
+            df_survey = table_dictionary[id_bunker].drop(['temperature','humidity'],axis=1)
+            st.dataframe(df_survey.iloc[:,1:])
     except:
         st.write('Geen data')
     
