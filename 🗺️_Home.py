@@ -145,27 +145,27 @@ output = st_folium(map,width=OUTPUT_width, height=OUTPUT_height,
 output["last_clicked"]
 
 try:
-    if len(output["last_object_clicked"]) != 0:
-        coordinates = output["last_object_clicked"]
-               
-        lng = coordinates["lng"]
-        lat = coordinates['lat']
-        
-        id = str(lng)+str(lat)
-        popup_table(id,output,df_bunkers_features,table_dictionary)
-        
-        with st.sidebar:
-            if st.button("Waarneming bijwerken",use_container_width=True):
-                update_item(id)
+    # if len(output["last_object_clicked"]) != 0:
+    coordinates = output["last_object_clicked"]
+           
+    lng = coordinates["lng"]
+    lat = coordinates['lat']
+    
+    id = str(lng)+str(lat)
+    popup_table(id,output,df_bunkers_features,table_dictionary)
+    
+    with st.sidebar:
+        if st.button("Waarneming bijwerken",use_container_width=True):
+            update_item(id)
 
-            with st.form("entry_form", clear_on_submit=True,border=False):
-                submitted = st.form_submit_button(":red[**Verwijder waarneming**]",use_container_width=True)
-                if submitted:
-                    df_filter = df_bunkers_features[df_bunkers_features["id_bunker"]==id]
-                    df_drop = df_bunkers_features[~df_bunkers_features.apply(tuple, axis=1).isin(df_filter.apply(tuple, axis=1))]
-                    conn.update(worksheet='bunkers_features',data=df_drop)
-                    st.success('Waarneming verwijderd', icon="✅") 
-                    st.page_link("🗺️_Home.py", label="Vernieuwen", icon="🔄",use_container_width=True)
+        with st.form("entry_form", clear_on_submit=True,border=False):
+            submitted = st.form_submit_button(":red[**Verwijder waarneming**]",use_container_width=True)
+            if submitted:
+                df_filter = df_bunkers_features[df_bunkers_features["id_bunker"]==id]
+                df_drop = df_bunkers_features[~df_bunkers_features.apply(tuple, axis=1).isin(df_filter.apply(tuple, axis=1))]
+                conn.update(worksheet='bunkers_features',data=df_drop)
+                st.success('Waarneming verwijderd', icon="✅") 
+                st.page_link("🗺️_Home.py", label="Vernieuwen", icon="🔄",use_container_width=True)
 
 except:
     pass
