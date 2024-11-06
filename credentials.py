@@ -13,14 +13,12 @@ ttl_references = '10m'
 # IMAGE = "image/logo.png"
 IMAGE_2 ="icons/menu.jpg"
 
-CLASS_HYBERNATE_OPTIONS = ['Bunker','Batbox']
+CLASS_HYBERNATE_OPTIONS = ['Bunker','Vleermuiskast']
 
-SURROUNDING_OPTIONS = ['In the dunes', 'deciduous forrest', 'pine/evergreen forrest']
+SURROUNDING_OPTIONS = ['In de duinen', 'Loofbos', 'Pijnboombos/groenblijvend bos']
 
-BATBOX_SHAPE_OPTIONS = [ 'platte kast', 'ronde kast']
+BATBOX_SHAPE_OPTIONS = ['Platte kast', 'Ronde kast']
 
-TYPE_BUNKER_OPTIONS = ['A','B','C']
+TYPE_BUNKER_OPTIONS = ['Open','Dichtbij']
 
 BAT_NAMES = ['Gewone dwergvleermuis','Ruige dwergvleermuis', 'Laatvlieger','Rosse vleermuis','Gewone grootoorvleermuis','Meervleermuis','Watervleermuis','...Andere(n)']
-
-TYPE_ENTRANCES_OPTIONS = ['A','B','C']
