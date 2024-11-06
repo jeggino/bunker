@@ -283,9 +283,9 @@ def update_item(id):
     "batbox_shape":batbox_shape,"number_chambers":number_chambers,"number_entrance":number_entrance,"opmerking":opmerking,
     }]
   
-    # df_new = pd.DataFrame(data)
-    # df_updated = pd.concat([df_old ,df_new],ignore_index=True)
-    # conn.update(worksheet='bunkers_features',data=df_updated)
+    df_new = pd.DataFrame(data)
+    df_updated = pd.concat([df_old,df_new],ignore_index=True)
+    conn.update(worksheet='bunkers_features',data=df_updated)
 
-    # st.switch_page("🗺️_Home.py")
+    st.switch_page("🗺️_Home.py")
     
