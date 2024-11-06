@@ -115,7 +115,7 @@ for i in range(len(df_bunkers_features)):
 
     if df_bunkers_features.iloc[i]['class_hybernate'] == 'Bunker': 
         icon_shape=""
-        border_width=8
+        border_width=3
         icon=''
     elif df_bunkers_features.iloc[i]['class_hybernate'] == 'Vleermuiskast':
         icon_shape="circle"
@@ -136,7 +136,7 @@ for i in range(len(df_bunkers_features)):
                                                    border_width=border_width,
                                                    icon=icon,
                                    background_color=color,
-                                   border_color=color
+                                   border_color='black'
                                   )
                  ).add_to(fouctie_loop)
 
