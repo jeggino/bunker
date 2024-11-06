@@ -116,11 +116,11 @@ for i in range(len(df_bunkers_features)):
     if df_bunkers_features.iloc[i]['class_hybernate'] == 'Bunker': 
         icon="square"
         border_width=8
-        icon='location'
+        icon=''
     elif df_bunkers_features.iloc[i]['class_hybernate'] == 'Vleermuiskast':
         icon="circle"
         border_width=3
-        icon=''
+        icon='circle'
     
     if df_bunkers_features.iloc[i]['Last survey'] == "Niet bewoond in laatste onderzoek":
         color='orange'
