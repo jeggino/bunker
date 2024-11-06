@@ -23,4 +23,5 @@ BATBOX_KRAAMVEBLIJFKAST_OPTION = ['Ja','Nee']
 
 TYPE_BUNKER_OPTIONS = ['Open','Niet toegankelijk']
 
-BAT_NAMES = ['Gewone dwergvleermuis','Ruige dwergvleermuis', 'Laatvlieger','Rosse vleermuis','Gewone grootoorvleermuis','Meervleermuis','Watervleermuis','...Andere(n)']
+BAT_NAMES = ['Gewone dwergvleermuis','Ruige dwergvleermuis', 'Laatvlieger','Rosse vleermuis',
+             'Gewone grootoorvleermuis','Meervleermuis','Watervleermuis','...Andere(n)']
