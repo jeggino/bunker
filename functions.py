@@ -212,7 +212,6 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
             for species in table_dictionary[id_bunker].iloc[:,4:-1].columns:
                 st.write(f'*{species}*')
                 df = table_dictionary[id_bunker].iloc[:,4:-1]
-                df
                 st.write(f"""
                 Het maximale aantal individuen werd bereikt :blue-background[**{int(df[species].max())}**], 
                 gedocumenteerd op datum :blue-background[**{df[df[species]==df[species].max()].index[0]}**].
