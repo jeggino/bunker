@@ -19,9 +19,9 @@ from functions import logIn,logOut,tab_popup,input_insert_bats
 
 # ---LAYOUT---
 st.set_page_config(
-    page_title="Winterslaap",
+    page_title="---",
     initial_sidebar_state="collapsed",
-    page_icon="😴",
+    page_icon="🦇",
     layout="wide",
     
 )
