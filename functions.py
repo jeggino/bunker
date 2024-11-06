@@ -24,6 +24,7 @@ def tab_popup(df_bunkers_observations):
             df_table['date'] = pd.to_datetime(df_table['date'],format="%Y-%m-%d").dt.date
             df_table.set_index("date",inplace=True)
             df_table.sort_index(inplace=True)
+            df_table['opmerking'] = df_table['opmerking'].fillna(value='-')
             df_table.dropna(axis=1, how='all',inplace=True)
             df_table.fillna(0, inplace=True)
             table_dictionary[id] = df_table
@@ -168,8 +169,6 @@ def input_insert_bats(output,df,df_features):
         data_dict = {'date':date,"waarnemer":waarnemer,"temperature":temperature,"humidity":humidity}
         
     opmerking = st.text_input("", placeholder="Vul hier een opmerking in ...")   
-    if opmerking==None:
-        opmerking = '-'
     
     st.divider()
         
