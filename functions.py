@@ -198,7 +198,7 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
     
     if df_popup['class_hybernate'].loc[0] == 'Bunker':
         st.header('Bunkerkenmerken',divider='grey')
-        st.write(f'**Naam:** {int(df_popup['bunker_name'].loc[0])}')
+        st.write(f'**Naam:** {df_popup['bunker_name'].loc[0]}')
         st.write(f'**Aantal kamers:** {int(df_popup['number_chambers'].loc[0])}')
         st.write(f'**Omgeving:** {df_popup['surrounding'].loc[0]}')
         st.write(f'**Soort bunker:** {df_popup['type_bunker'].loc[0]}')
