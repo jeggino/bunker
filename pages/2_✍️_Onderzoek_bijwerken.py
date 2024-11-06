@@ -102,32 +102,32 @@ try:
     
     folium.LayerControl().add_to(map)    
     
-    for i in range(len(df_bunkers_features)):
+    if df_bunkers_features.iloc[i]['class_hybernate'] == 'Bunker': 
+        icon_shape=""
+        border_width=1
+        icon=''
+    elif df_bunkers_features.iloc[i]['class_hybernate'] == 'Vleermuiskast':
+        icon_shape="circle"
+        border_width=1
+        icon=''
     
-        fouctie_loop = functie_dictionary[df_bunkers_features.iloc[i]['Last survey']]
-    
-        if df_bunkers_features.iloc[i]['class_hybernate'] == 'Bunker': 
-            icon="square"
-        elif df_bunkers_features.iloc[i]['class_hybernate'] == 'Vleermuiskast':
-            icon="circle"
-        
-        if df_bunkers_features.iloc[i]['Last survey'] == "Niet bewoond in laatste onderzoek":
-            color='orange'
-        elif df_bunkers_features.iloc[i]['Last survey'] == "Bewoond in laatste onderzoek":
-            color='red'
-        elif df_bunkers_features.iloc[i]['Last survey'] == "Nooit bewoond tijdens het onderzoek":
-            color='green'
-        elif df_bunkers_features.iloc[i]['Last survey'] == "Geen data":
-            color='yellow'
-    
-        folium.Marker([df_bunkers_features.iloc[i]['lat'], df_bunkers_features.iloc[i]['lng']],
-                      icon=folium.plugins.BeautifyIcon(icon_shape=icon,
-                                                   border_width=5,
-                                                   icon='',
+    if df_bunkers_features.iloc[i]['Last survey'] == "Niet bewoond in laatste onderzoek":
+        color='orange'
+    elif df_bunkers_features.iloc[i]['Last survey'] == "Bewoond in laatste onderzoek":
+        color='red'
+    elif df_bunkers_features.iloc[i]['Last survey'] == "Nooit bewoond tijdens het onderzoek":
+        color='green'
+    elif df_bunkers_features.iloc[i]['Last survey'] == "Geen data":
+        color='yellow'
+
+    folium.Marker([df_bunkers_features.iloc[i]['lat'], df_bunkers_features.iloc[i]['lng']],
+                  icon=folium.plugins.BeautifyIcon(icon_shape=icon_shape,
+                                                   border_width=border_width,
+                                                   icon=icon,
                                    background_color=color,
-                                   border_color=color
+                                   border_color='black'
                                   )
-                     ).add_to(fouctie_loop)
+                 ).add_to(fouctie_loop)
     
     output = st_folium(map,width=OUTPUT_width, height=OUTPUT_height,returned_objects=["last_object_clicked"],
                        feature_group_to_add=list(functie_dictionary.values()))
