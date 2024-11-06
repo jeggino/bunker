@@ -188,7 +188,7 @@ def input_insert_bats(output,df,df_features):
 @st.dialog(" ")
 def popup_table(id_bunker,output,df_bunkers_features,table_dictionary): 
     df_popup = df_bunkers_features[df_bunkers_features['id_bunker']==id_bunker].reset_index(drop=True)
-    df_popup['opmerking'] = df_popup['opmerking'].fillna(value='---')
+    df_popup['opmerking'] = df_popup['opmerking'].fillna(value='-')
     
     if df_popup['class_hybernate'].loc[0] == 'Bunker':
         st.header('Bunkerkenmerken',divider='grey')
