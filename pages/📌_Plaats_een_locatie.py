@@ -17,7 +17,7 @@ from functions import insert_bunker_fearures,map,input_data
 
 # ---LAYOUT---
 st.set_page_config(
-    page_title="---",
+    page_title="Bunkers & Vleermuiskasten",
     initial_sidebar_state="collapsed",
     page_icon="🦇",
     layout="wide",
