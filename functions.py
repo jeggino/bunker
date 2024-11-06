@@ -274,18 +274,18 @@ def update_item(id):
   opmerking = st.text_input("", value=id_opmerking,placeholder="Vul hier een opmerking in ...")
   last_survey = 'Geen data'
 
-  if st.button("**Update**",use_container_width=True):
-    conn.update(worksheet='bunkers_features',data=df_drop)
-    df_old = conn.read(ttl=0,worksheet="bunkers_features")
+  # if st.button("**Update**",use_container_width=True):
+  #   conn.update(worksheet='bunkers_features',data=df_drop)
+  #   df_old = conn.read(ttl=0,worksheet="bunkers_features")
   
-    data = [{'Last survey':last_survey,"id_bunker":id_bunker, "lat":id_lat,"lng":id_lng,"class_hybernate":id_class_hybernate,
-             'kraamverblijjkast':kraamverblijjkast,"surrounding":surrounding,"type_bunker":type_bunker,
-             "batbox_shape":batbox_shape,"number_chambers":number_chambers,"number_entrance":number_entrance,"opmerking":opmerking,
-             }]
+  #   data = [{'Last survey':last_survey,"id_bunker":id_bunker, "lat":id_lat,"lng":id_lng,"class_hybernate":id_class_hybernate,
+  #            'kraamverblijjkast':kraamverblijjkast,"surrounding":surrounding,"type_bunker":type_bunker,
+  #            "batbox_shape":batbox_shape,"number_chambers":number_chambers,"number_entrance":number_entrance,"opmerking":opmerking,
+  #            }]
   
-    df_new = pd.DataFrame(data)
-    df_updated = pd.concat([df_old ,df_new],ignore_index=True)
-    conn.update(worksheet='bunkers_features',data=df_updated)
+  #   df_new = pd.DataFrame(data)
+  #   df_updated = pd.concat([df_old ,df_new],ignore_index=True)
+  #   conn.update(worksheet='bunkers_features',data=df_updated)
 
-    st.switch_page("🗺️_Home.py")
+    # st.switch_page("🗺️_Home.py")
     
