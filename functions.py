@@ -241,7 +241,8 @@ def update_item(id):
 
   df = conn.read(ttl=0,worksheet="bunkers_features")
   df_filter = df[df["id_bunker"]==id].reset_index(drop=True)
-
+  
+  df_filter
   id_bunker = df_filter['id_bunker'][0]
   id_lat = df_filter['lat'][0]
   id_lng = df_filter['lng'][0]
@@ -272,7 +273,7 @@ def update_item(id):
     
   opmerking = st.text_input("", value=id_opmerking,placeholder="Vul hier een opmerking in ...")
   last_survey = 'Geen data'
-
+  df_drop = df[~df.apply(tuple, axis=1).isin(df_filter.apply(tuple, axis=1))]
   if st.button("**Update**",use_container_width=True):
     
     df_drop = df[~df.apply(tuple, axis=1).isin(df_filter.apply(tuple, axis=1))]
