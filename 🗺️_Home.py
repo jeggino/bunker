@@ -129,8 +129,10 @@ for i in range(len(df_bunkers_features)):
 
     folium.Marker([df_bunkers_features.iloc[i]['lat'], df_bunkers_features.iloc[i]['lng']],
                   icon=folium.plugins.BeautifyIcon(icon_shape=icon,
+                                                   icon='',
+                                                   border_width=2,
                                    background_color=color,
-                                   border_color=color
+                                   border_color='black'
                                   )
                  ).add_to(fouctie_loop)
 
