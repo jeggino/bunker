@@ -114,7 +114,7 @@ for i in range(len(df_bunkers_features)):
     fouctie_loop = functie_dictionary[df_bunkers_features.iloc[i]['Last survey']]
 
     if df_bunkers_features.iloc[i]['class_hybernate'] == 'Bunker': 
-        icon_shape="square"
+        icon_shape=""
         border_width=8
         icon=''
     elif df_bunkers_features.iloc[i]['class_hybernate'] == 'Vleermuiskast':
