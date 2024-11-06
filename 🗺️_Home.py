@@ -142,7 +142,7 @@ for i in range(len(df_bunkers_features)):
 output = st_folium(map,width=OUTPUT_width, height=OUTPUT_height,
              feature_group_to_add=list(functie_dictionary.values()))
 
-output
+output["last_clicked"]
 
 try:
     if len(output["last_object_clicked"]) != 0:
