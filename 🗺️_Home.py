@@ -104,7 +104,7 @@ folium.TileLayer(tiles="Cartodb Positron",overlay=False,show=False,name="Light")
 folium.TileLayer('Cartodb dark_matter',overlay=False,show=False,name="Dark").add_to(map)
 folium.TileLayer(tiles='https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}',attr='Google_map',overlay=False,show=False,name="Satellite").add_to(map)
 
-folium.LayerControl(draggable= True,position ='topleft').add_to(map)    
+folium.LayerControl(draggable= True,position ='bottomleft').add_to(map)    
 
 for i in range(len(df_bunkers_features)):
     
