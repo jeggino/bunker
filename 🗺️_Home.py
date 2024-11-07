@@ -52,7 +52,7 @@ st.markdown("""
 """ , unsafe_allow_html=True)
 
 
-st.logo('icons/logo.png',  link='https://www.elskenecologie.nl/test-smp-dashboard/', icon_image='icons/logo.png',size="large")
+st.logo('icons/logo.png',  link='https://www.elskenecologie.nl/contact-elsken-ecologie-nh-terschelling/', icon_image='icons/logo.png',size="large")
 
 # --- DATASETS ---
 conn = st.connection("gsheets", type=GSheetsConnection)
