@@ -23,7 +23,7 @@ st.set_page_config(
     layout="wide",  
 )
 
-from functions import logIn,logOut,tab_popup,popup_table
+from functions import tab_popup,popup_table
 
 st.markdown(
     """
@@ -61,14 +61,6 @@ df_bunkers_observations = conn.read(ttl=ttl,worksheet="bunkers_observations")
 df_references = conn.read(ttl=ttl_references,worksheet="df_users")
 
 #--- App ---
-if "login" not in st.session_state:
-    logIn(df_references)
-    st.stop()
-
-with st.sidebar:
-    logOut()
-    st.divider()
-
 table_dictionary = tab_popup(df_bunkers_observations)
 
 
