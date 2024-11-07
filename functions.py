@@ -233,7 +233,8 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
         table_dictionary[id_bunker].iloc[:,4:-1] = table_dictionary[id_bunker].iloc[:,4:-1].astype('int').replace({0:'-'})
         table_dictionary[id_bunker].iloc[:,-1] = table_dictionary[id_bunker].iloc[:,-1].replace({0:'-'})
         if df_popup['class_hybernate'].loc[0] == 'Bunker':
-            st.dataframe(table_dictionary[id_bunker].iloc[:,1:])
+            st.dataframe(table_dictionary[id_bunker].iloc[:,1:],column_config={'temperature':"Temperatuur (C°)",
+                                                                               'humidity':"Vochtigheid (%)"})
         elif df_popup['class_hybernate'].loc[0] == 'Vleermuiskast':
             df_survey = table_dictionary[id_bunker].drop(['temperature','humidity'],axis=1)
             st.dataframe(df_survey.iloc[:,1:],column_config={'temperature':"Temperatuur (C°)",
