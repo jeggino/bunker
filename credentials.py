@@ -33,7 +33,7 @@ legend_template = """
      border-radius: 6px; padding: 10px; font-size: 10.5px; left: 20px; top: 320px;'>     
 <div class='legend-scale'>
   <ul class='legend-labels'>
-    <li><strong>Funtie</strong></li>
+    <li><strong>Functie</strong></li>
     <li><span style='background: yellow; opacity: 0.75;'></span>Geen data</li>
     <li><span style='background: green; opacity: 0.75;'></span>Nooit bewoond tijdens het onderzoek</li>
     <li><span style='background: orange; opacity: 0.75;'></span>Niet bewoond in laatste onderzoek</li>
