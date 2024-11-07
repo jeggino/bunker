@@ -88,7 +88,7 @@ map = folium.Map(tiles=None,position=[df_bunkers_features['lat'].mean(),df_bunke
 macro = MacroElement()
 macro._template = Template(legend_template)
 
-map.add_child(macro)
+map.get_root().add_child(macro)
 
 functie_dictionary = {}
 functie_len = df_bunkers_features['Last survey'].unique()
