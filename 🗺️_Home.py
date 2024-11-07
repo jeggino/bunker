@@ -52,7 +52,7 @@ st.markdown("""
 """ , unsafe_allow_html=True)
 
 
-st.logo('icons/logo.png',  link='https://www.ecoloogterschelling.nl/contact/', icon_image='icons/logo.png',size="large")
+st.logo('icons/logo.png',  link='https://www.elskenecologie.nl/contact-elsken-ecologie-nh-terschelling/', icon_image='icons/logo.png',size="large")
 
 # --- DATASETS ---
 conn = st.connection("gsheets", type=GSheetsConnection)
@@ -82,8 +82,6 @@ for id in df_bunkers_observations.id_bunker.unique():
 df_bunkers_features["Last survey"] = df_bunkers_features["id_bunker"].map(dict_presences).fillna("Geen data")
 
 map = folium.Map(tiles=None,position=[df_bunkers_features['lat'].mean(),df_bunkers_features['lng'].mean],)
-# LocateControl(auto_start=True,position="topright").add_to(map)
-# Fullscreen(position="topright").add_to(map)
 
 functie_dictionary = {}
 functie_len = df_bunkers_features['Last survey'].unique()
