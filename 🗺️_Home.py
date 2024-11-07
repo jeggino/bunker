@@ -6,6 +6,8 @@ import random
 import folium
 from folium.plugins import Draw, Fullscreen, LocateControl, GroupedLayerControl
 from streamlit_folium import st_folium
+from branca.element import Template, MacroElement
+
 import datetime
 from datetime import datetime, timedelta, date
 import random
@@ -82,6 +84,11 @@ for id in df_bunkers_observations.id_bunker.unique():
 df_bunkers_features["Last survey"] = df_bunkers_features["id_bunker"].map(dict_presences).fillna("Geen data")
 
 map = folium.Map(tiles=None,position=[df_bunkers_features['lat'].mean(),df_bunkers_features['lng'].mean],)
+
+macro = MacroElement()
+macro._template = Template(legend_template)
+
+map.add_child(macro)
 
 functie_dictionary = {}
 functie_len = df_bunkers_features['Last survey'].unique()
