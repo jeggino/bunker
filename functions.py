@@ -238,7 +238,9 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
         elif df_popup['class_hybernate'].loc[0] == 'Vleermuiskast':
             df_survey = table_dictionary[id_bunker].drop(['temperature','humidity'],axis=1)
             st.dataframe(df_survey.iloc[:,1:],column_config={'temperature':"Temperatuur (C°)",
-                                                             'humidity':"Vochtigheid (%)"})
+                                                             'humidity':"Vochtigheid (%)",
+                                                             'opmerking':'Opmerking',
+                                                             'waarnemer':'Waarnemer'})
     except:
         st.write('Geen data')
 
