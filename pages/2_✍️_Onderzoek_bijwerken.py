@@ -112,11 +112,14 @@ try:
             if df_bunkers_features.iloc[i]['type_bunker'] == 'Niet toegankelijk':
                 border_width=4
             else:
-                border_width=1
+                border_width=0
         elif df_bunkers_features.iloc[i]['class_hybernate'] == 'Vleermuiskast':
             icon_shape="circle"
-            border_width=1
             icon=''
+            if df_bunkers_features.iloc[i]['kraamverblijjkast'] == 'Ja':
+                border_width=4
+            else:
+                border_width=0
         
         if df_bunkers_features.iloc[i]['Last survey'] == "Niet bewoond in laatste onderzoek":
             color='orange'
