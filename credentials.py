@@ -39,7 +39,8 @@ legend_template = """
     <li><span style='background: orange; opacity: 0.75;'></span>Niet bewoond in laatste onderzoek</li>
     <li><span style='background: red; opacity: 0.75;'></span>Bewoond in laatste onderzoek</li>
     <li><strong>Typen</strong></li>
-    <li><span class="fa fa-circle" style="color:grey" opacity: 0.75;'></span>Vleermuiskast</li>
+    <li><span class="fa fa-circle" style="color:grey" opacity: 0.75;'></span>Normale vleermuiskast</li>
+    <li><span class="fa-regular fa-circle" style="color:grey" opacity: 0.75;'></span>Kraamverblijjkast</li>
     <li><span class="fa-solid fa-square" style="color:grey" opacity: 0.75;'></span>Bunker (Open)</li>
     <li><span class="fa-regular fa-square" style="color:grey" opacity: 0.75;'></span>Bunker (Niet toegankelijk)</li>
   </ul>
