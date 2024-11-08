@@ -55,7 +55,8 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
     st.header('Opmerking',divider='grey')
     st.write(f'{df_popup['opmerking'].loc[0]}')
     try:
-        st.image(f'icons/images/{id_bunker}.jpg')
+        with st.expander("Klik om foto's te zien", expanded=False, icon="📷"):
+            st.image(f'icons/images/{id_bunker}.jpg')
     except:
         pass
     try:
