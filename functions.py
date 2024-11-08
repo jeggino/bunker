@@ -199,10 +199,18 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
     if df_popup['class_hybernate'].loc[0] == 'Bunker':
         st.title(f':blue[**{df_popup['bunker_name'].loc[0].upper()}**]')
         st.header('Bunkerkenmerken',divider='grey')
-        st.write(f'**Aantal kamers:** {int(df_popup['number_chambers'].loc[0])}')
-        st.write(f'**Omgeving:** {df_popup['surrounding'].loc[0]}')
-        st.write(f'**Soort bunker:** {df_popup['type_bunker'].loc[0]}')
-        st.write(f'**Aantal ingangen:** {int(df_popup['number_entrance'].loc[0])}')
+        col_1,col_2 = st.columns(2)
+        with col_1:
+            st.write(f'**Aantal kamers:** {int(df_popup['number_chambers'].loc[0])}')
+            st.write(f'**Omgeving:** {df_popup['surrounding'].loc[0]}')
+            st.write(f'**Soort bunker:** {df_popup['type_bunker'].loc[0]}')
+            st.write(f'**Aantal ingangen:** {int(df_popup['number_entrance'].loc[0])}')
+        with col_2:
+            try:
+                with st.expander("Klik om foto's te zien", expanded=False, icon="📷"):
+                    st.image(f'icons/images/{id_bunker}.jpg')
+            except:
+                pass
     else:
         st.header('Vleermuiskast kenmerken',divider='grey')
         st.write(f'**Vorm:** {df_popup['batbox_shape'].loc[0]}')
