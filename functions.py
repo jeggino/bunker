@@ -34,7 +34,7 @@ def tab_popup(df_bunkers_observations):
     return table_dictionary
 
 
-@st.dialog(" ")
+@st.dialog(" ",width="large")
 def popup_table(id_bunker,output,df_bunkers_features,table_dictionary): 
     df_popup = df_bunkers_features[df_bunkers_features['id_bunker']==id_bunker].reset_index(drop=True)
     df_popup['opmerking'] = df_popup['opmerking'].fillna(value='Geen opmerking')
