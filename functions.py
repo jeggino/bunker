@@ -39,11 +39,12 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
     df_popup = df_bunkers_features[df_bunkers_features['id_bunker']==id_bunker].reset_index(drop=True)
     df_popup['opmerking'] = df_popup['opmerking'].fillna(value='Geen opmerking')
     df_popup['bunker_name'] = df_popup['bunker_name'].fillna(value='Geen opmerking')
-    col_1,col_2 = st.columns(2)
+    
     
     if df_popup['class_hybernate'].loc[0] == 'Bunker':
         st.title(f':blue[**{df_popup['bunker_name'].loc[0].upper()}**]')
         st.header('Bunkerkenmerken',divider='grey')
+        col_1,col_2 = st.columns(2)
         with col_1:
             st.write(f'**Aantal kamers:** {int(df_popup['number_chambers'].loc[0])}')
             st.write(f'**Omgeving:** {df_popup['surrounding'].loc[0]}')
