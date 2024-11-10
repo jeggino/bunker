@@ -60,7 +60,7 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
     else:
         st.header('Vleermuiskast kenmerken',divider='grey')
         st.write(f'**Vorm:** {df_popup['batbox_shape'].loc[0]}')
-        st.write(f'**Kraamverblijjkast:** {df_popup['kraamverblijjkast'].loc[0]}')
+        st.write(f'**Kraamverblijkast:** {df_popup['kraamverblijjkast'].loc[0]}')
         
     st.header('Opmerking',divider='grey')
     st.write(f'{df_popup['opmerking'].loc[0]}')
