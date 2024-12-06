@@ -5,7 +5,7 @@ OUTPUT_width = '95%'
 OUTPUT_height = 550
 
 # --- DATASET CACHE ---
-ttl = 0
+ttl = '10m'
 ttl_references = '10m'
 
 # --- SIDEBAR ---
