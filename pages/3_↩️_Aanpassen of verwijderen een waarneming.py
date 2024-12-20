@@ -52,7 +52,7 @@ st.markdown("""
 """ , unsafe_allow_html=True)
 
 
-st.logo(IMAGE,  link=None, icon_image=IMAGE)
+st.logo(IMAGE,  link=None, size="large",icon_image=IMAGE)
 
 # --- DATASETS ---
 conn = st.connection("gsheets", type=GSheetsConnection)
