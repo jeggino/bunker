@@ -53,7 +53,7 @@ st.markdown("""
    
 
 # --- APP ---  
-st.logo(IMAGE,  link=None, icon_image=IMAGE)
+st.logo(IMAGE,  link=None, size="large",icon_image=IMAGE)
 
 try:
     waarnemer = st.session_state.login['name']
