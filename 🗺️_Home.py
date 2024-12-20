@@ -6,6 +6,8 @@ import random
 import folium
 from folium.plugins import Draw, Fullscreen, LocateControl, GroupedLayerControl
 from streamlit_folium import st_folium
+from branca.element import Template, MacroElement
+
 import datetime
 from datetime import datetime, timedelta, date
 import random
@@ -92,6 +94,11 @@ df_bunkers_features["Last survey"] = df_bunkers_features["id_bunker"].map(dict_p
 map = folium.Map(tiles=None,position=[df_bunkers_features['lat'].mean(),df_bunkers_features['lng'].mean],zoom_start=8)
 LocateControl(auto_start=False,position="topright").add_to(map)
 Fullscreen(position="topright").add_to(map)
+
+macro = MacroElement()
+macro._template = Template(legend_template)
+
+map.get_root().add_child(macro)
 
 functie_dictionary = {}
 functie_len = df_bunkers_features['Last survey'].unique()
