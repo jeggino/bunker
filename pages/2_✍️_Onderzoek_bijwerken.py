@@ -56,6 +56,7 @@ try:
     waarnemer = st.session_state.login['name']
     
     st.logo(IMAGE,  link=None, size="large",icon_image=IMAGE)
+
     
     #--- UI ---
     conn = st.connection("gsheets", type=GSheetsConnection)
