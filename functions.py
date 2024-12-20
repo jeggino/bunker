@@ -76,7 +76,7 @@ def insert_bunker_fearures(last_survey,id_bunker,bunker_name,lat,lng,class_hyber
   
 def map():
     
-    m = folium.Map()
+    m = folium.Map(zoom_start=8)
 
     Draw(draw_options={'circle': False,'rectangle': False,'circlemarker': False, 'polyline': False, 'polygon': False},
          position="topright").add_to(m)
