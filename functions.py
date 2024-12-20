@@ -76,14 +76,16 @@ def insert_bunker_fearures(last_survey,id_bunker,bunker_name,lat,lng,class_hyber
   
 def map():
     
-    m = folium.Map(zoom_start=8)
+    m = folium.Map(zoom_start=8,tiles=None)
 
     Draw(draw_options={'circle': False,'rectangle': False,'circlemarker': False, 'polyline': False, 'polygon': False},
          position="topright").add_to(m)
     Fullscreen(position="topright").add_to(m)
     LocateControl(auto_start=False,position="topright").add_to(m)
+    folium.TileLayer('OpenStreetMap',overlay=False,show=True,name="Stratenkaart").add_to(m)
+    folium.TileLayer(tiles="Cartodb Positron",overlay=False,show=False,name="Witte contrastkaart").add_to(m)
     folium.TileLayer(tiles='https://api.mapbox.com/styles/v1/jeggino/cm2vtvb2l000w01qz9wet0mv9/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiamVnZ2lubyIsImEiOiJjbHdscmRkZHAxMTl1MmlyeTJpb3Z2eHdzIn0.N9TRN7xxTikk235dVs1YeQ',
-                 attr='XXX Mapbox Attribution',overlay=False,show=False,name="Satellietkaart").add_to(m)
+                     attr='XXX Mapbox Attribution',overlay=False,show=False,name="Satellietkaart").add_to(m)
     
 
     folium.LayerControl().add_to(m)
