@@ -55,7 +55,7 @@ st.markdown("""
 try:
     waarnemer = st.session_state.login['name']
     
-    st.logo(IMAGE_2,  link=None, icon_image=IMAGE_2)
+    st.logo(IMAGE,  link=None, icon_image=IMAGE)
     
     #--- UI ---
     conn = st.connection("gsheets", type=GSheetsConnection)
