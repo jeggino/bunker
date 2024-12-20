@@ -9,7 +9,7 @@ ttl = 0
 ttl_references = '10m'
 
 # --- SIDEBAR ---
-# IMAGE = "image/logo.png"
+IMAGE = "icons/logo (2).png"
 IMAGE_2 ="icons/menu.jpg"
 
 CLASS_HYBERNATE_OPTIONS = ['Bunker','Vleermuiskast']
