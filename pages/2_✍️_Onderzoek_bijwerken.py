@@ -1,5 +1,6 @@
 import streamlit as st
-from streamlit_gsheets import GSheetsConnection
+
+from supabase import create_client, Client
 import pandas as pd
 import random
 
@@ -58,11 +59,22 @@ try:
     st.logo(IMAGE,  link=None, size="large",icon_image=IMAGE)
 
     
-    #--- UI ---
-    conn = st.connection("gsheets", type=GSheetsConnection)
-    df_bunkers_features = conn.read(ttl=ttl,worksheet="bunkers_features")
-    df_bunkers_observations = conn.read(ttl=ttl,worksheet="bunkers_observations")
-    df_references = conn.read(ttl=ttl_references,worksheet="df_users")
+    # --- DATASETS ---
+    def init_connection():
+        url = st.secrets["SUPABASE_URL"]
+        key = st.secrets["SUPABASE_KEY"]
+        return create_client(url, key)
+    
+    supabase = init_connection()
+    
+    rows_users = supabase.table("df_users").select("*").execute()
+    df_references = pd.DataFrame(rows_users.data)
+    
+    rows_bunkers_features = supabase.table("bunkers_features").select("*").execute()
+    df_bunkers_features = pd.DataFrame(rows_bunkers_features.data)
+    
+    rows_bunkers_observations = supabase.table("bunkers_observations").select("*").execute()
+    df_bunkers_observations = pd.DataFrame(rows_bunkers_observations.data).drop('key',axis=1)
     
     table_dictionary = tab_popup(df_bunkers_observations)
     
@@ -145,7 +157,7 @@ try:
     
     try:
         if len(output["last_object_clicked"]) != 0:
-            input_insert_bats(output,df_bunkers_observations,df_bunkers_features)
+            input_insert_bats(output,df_bunkers_features)
     except:
         pass
 
