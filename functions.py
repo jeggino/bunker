@@ -63,7 +63,7 @@ def logOut():
         st.rerun()
 
 def insert_bunker_fearures(last_survey,id_bunker,bunker_name,lat,lng,class_hybernate,kraamverblijjkast,surrounding,type_bunker,
-                           batbox_shape,number_chambers,number_entrance,opmerking,df):
+                           batbox_shape,number_chambers,number_entrance,opmerking):
     
     data = {'Last survey':last_survey,"id_bunker":id_bunker,'bunker_name':bunker_name, "lat":lat,"lng":lng,"class_hybernate":class_hybernate,
              'kraamverblijjkast':kraamverblijjkast,"surrounding":surrounding,"type_bunker":type_bunker,
@@ -94,7 +94,7 @@ def map():
 
         
 @st.dialog(" ")
-def input_data(output,df):   
+def input_data(output):   
     
     class_hybernate = st.selectbox("", CLASS_HYBERNATE_OPTIONS) 
     if class_hybernate == 'Bunker':
@@ -135,7 +135,7 @@ def input_data(output,df):
 
         else:
             insert_bunker_fearures(last_survey,id_bunker,bunker_name,lat,lng,class_hybernate,kraamverblijjkast,surrounding,type_bunker,
-                                   batbox_shape,number_chambers,number_entrance,opmerking,df)
+                                   batbox_shape,number_chambers,number_entrance,opmerking)
 
             st.success('Gegevens opgeslagen!', icon="✅")       
   
