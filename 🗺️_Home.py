@@ -72,7 +72,7 @@ df_bunkers_features = pd.DataFrame(rows_bunkers_features.data)
 
 rows_bunkers_observations = supabase.table("bunkers_observations").select("*").execute()
 df_bunkers_observations = pd.DataFrame(rows_bunkers_observations.data).drop('key',axis=1)
-df_bunkers_observations 
+
 #--- App ---
 if "login" not in st.session_state:
     logIn(df_references)
@@ -100,8 +100,6 @@ for id in df_bunkers_observations.id_bunker.unique():
     except:
         continue
         
-table_dictionary["5.21163453.359795"]
-
 df_bunkers_features["Last survey"] = df_bunkers_features["id_bunker"].map(dict_presences).fillna("Geen data")
 
 map = folium.Map(tiles=None,position=[df_bunkers_features['lat'].mean(),df_bunkers_features['lng'].mean],zoom_start=8)
