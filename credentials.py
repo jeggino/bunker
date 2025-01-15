@@ -4,10 +4,6 @@ import streamlit as st
 OUTPUT_width = '95%'
 OUTPUT_height = 550
 
-# --- DATASET CACHE ---
-ttl = 0
-ttl_references = '10m'
-
 # --- SIDEBAR ---
 IMAGE = "icons/logo (2).png"
 IMAGE_2 ="icons/menu.jpg"
