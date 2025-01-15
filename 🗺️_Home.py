@@ -73,6 +73,7 @@ df_bunkers_features = pd.DataFrame(rows_bunkers_features.data)
 rows_bunkers_observations = supabase.table("bunkers_observations").select("*").execute()
 df_bunkers_observations = pd.DataFrame(rows_bunkers_observations.data)
 
+df_bunkers_observations 
 #--- App ---
 if "login" not in st.session_state:
     logIn(df_references)
