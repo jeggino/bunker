@@ -99,7 +99,7 @@ for id in df_bunkers_observations.id_bunker.unique():
             
     except:
         continue
-        
+dict_presences["5.21163453.359795"]
 df_bunkers_features["Last survey"] = df_bunkers_features["id_bunker"].map(dict_presences).fillna("Geen data")
 
 map = folium.Map(tiles=None,position=[df_bunkers_features['lat'].mean(),df_bunkers_features['lng'].mean],zoom_start=8)
