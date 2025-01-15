@@ -84,7 +84,7 @@ with st.sidebar:
 
 table_dictionary = tab_popup(df_bunkers_observations)
 
-
+table_dictionary['12.24625148.224673']
 dict_presences = {}
 
 for id in df_bunkers_observations.id_bunker.unique():
