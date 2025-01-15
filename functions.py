@@ -215,31 +215,31 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
     st.header('Opmerking',divider='grey')
     st.write(f'{df_popup['opmerking'].loc[0]}')
 
-    try:
-        st.header('Gevonden soorten',divider='grey')
-    
-        if len(table_dictionary[id_bunker].iloc[:,4:-1].columns) ==0:
-            st.write("Nog geen soort gevonden")
-        else:
-            for species in table_dictionary[id_bunker].iloc[:,4:-1].columns:
-                st.write(f'*{species}*')
-                df = table_dictionary[id_bunker].iloc[:,4:-1]
-                st.write(f"""
-                Het maximale aantal individuen werd bereikt :blue-background[**{int(df[species].max())}**], 
-                gedocumenteerd op datum :blue-background[**{df[df[species]==df[species].max()].index[0]}**].
-                """)
-            
-        st.header('Onderzoeken',divider='grey')
-    
-        table_dictionary[id_bunker].iloc[:,4:-1] = table_dictionary[id_bunker].iloc[:,4:-1].astype('int').replace({0:'-'})
-        table_dictionary[id_bunker].iloc[:,-1] = table_dictionary[id_bunker].iloc[:,-1].replace({0:'-'})
-        if df_popup['class_hybernate'].loc[0] == 'Bunker':
-            st.dataframe(table_dictionary[id_bunker].iloc[:,1:])
-        elif df_popup['class_hybernate'].loc[0] == 'Vleermuiskast':
-            df_survey = table_dictionary[id_bunker].drop(['temperature','humidity'],axis=1)
-            st.dataframe(df_survey.iloc[:,1:])
-    except:
-        st.write('Geen data')
+    # try:
+    st.header('Gevonden soorten',divider='grey')
+
+    if len(table_dictionary[id_bunker].iloc[:,4:-1].columns) ==0:
+        st.write("Nog geen soort gevonden")
+    else:
+        for species in table_dictionary[id_bunker].iloc[:,4:-1].columns:
+            st.write(f'*{species}*')
+            df = table_dictionary[id_bunker].iloc[:,4:-1]
+            st.write(f"""
+            Het maximale aantal individuen werd bereikt :blue-background[**{int(df[species].max())}**], 
+            gedocumenteerd op datum :blue-background[**{df[df[species]==df[species].max()].index[0]}**].
+            """)
+        
+    st.header('Onderzoeken',divider='grey')
+
+    table_dictionary[id_bunker].iloc[:,4:-1] = table_dictionary[id_bunker].iloc[:,4:-1].astype('int').replace({0:'-'})
+    table_dictionary[id_bunker].iloc[:,-1] = table_dictionary[id_bunker].iloc[:,-1].replace({0:'-'})
+    if df_popup['class_hybernate'].loc[0] == 'Bunker':
+        st.dataframe(table_dictionary[id_bunker].iloc[:,1:])
+    elif df_popup['class_hybernate'].loc[0] == 'Vleermuiskast':
+        df_survey = table_dictionary[id_bunker].drop(['temperature','humidity'],axis=1)
+        st.dataframe(df_survey.iloc[:,1:])
+    # except:
+    #     st.write('Geen data')
 
 @st.dialog(" ")
 def update_item(id):
