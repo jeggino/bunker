@@ -150,7 +150,7 @@ def input_insert_bats(output,df_features):
     id_bunker = str(lng)+str(lat)
     
     waarnemer = st.session_state.login['name']
-    date = st.date_input("Datum")
+    date = str(st.date_input("Datum"))
 
     if df_features[df_features['id_bunker']==id_bunker].reset_index()['class_hybernate'].values[0]=='Bunker':
         if st.checkbox("Geef aan of u temperatuur- en vochtigheidsparameters hebt"):
