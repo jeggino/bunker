@@ -70,7 +70,7 @@ def insert_bunker_fearures(last_survey,id_bunker,bunker_name,lat,lng,class_hyber
              "batbox_shape":batbox_shape,"number_chambers":number_chambers,"number_entrance":number_entrance,"opmerking":opmerking,
              }
     
-    return supabase.table("df_observations").insert(data).execute()      
+    return supabase.table("bunkers_features").insert(data).execute()      
   
 def map():
     
