@@ -5,7 +5,7 @@ from folium.plugins import Draw, Fullscreen, LocateControl
 from streamlit_folium import st_folium
 
 import pandas as pd
-from streamlit_gsheets import GSheetsConnection
+from supabase import create_client, Client
 
 import datetime
 from datetime import datetime, timedelta, date
@@ -57,17 +57,13 @@ st.logo(IMAGE,  link=None, size="large",icon_image=IMAGE)
 
 try:
     waarnemer = st.session_state.login['name']
-    
-    
-    conn = st.connection("gsheets", type=GSheetsConnection)
-    df_old = conn.read(ttl=ttl,worksheet="bunkers_features")
-    
-        
+    supabase = create_client(st.secrets["SUPABASE_URL"], st.secrets["SUPABASE_KEY"])
+            
     output_map = map()
     
     try:
         if len(output_map["features"]) != 0:
-            input_data(output_map,df_old)
+            input_data(output_map)
     except:
         st.stop()
     
