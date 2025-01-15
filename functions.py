@@ -8,13 +8,13 @@ import folium
 from folium.plugins import Draw, Fullscreen, LocateControl, GroupedLayerControl
 from streamlit_folium import st_folium
 
-from streamlit_gsheets import GSheetsConnection
+from supabase import create_client, Client
 
 from credentials import *
 
 
 
-conn = st.connection("gsheets", type=GSheetsConnection)
+supabase = create_client(st.secrets["SUPABASE_URL"], st.secrets["SUPABASE_KEY"])
 
 def tab_popup(df_bunkers_observations):
     table_dictionary = {}
@@ -65,14 +65,12 @@ def logOut():
 def insert_bunker_fearures(last_survey,id_bunker,bunker_name,lat,lng,class_hybernate,kraamverblijjkast,surrounding,type_bunker,
                            batbox_shape,number_chambers,number_entrance,opmerking,df):
     
-    data = [{'Last survey':last_survey,"id_bunker":id_bunker,'bunker_name':bunker_name, "lat":lat,"lng":lng,"class_hybernate":class_hybernate,
+    data = {'Last survey':last_survey,"id_bunker":id_bunker,'bunker_name':bunker_name, "lat":lat,"lng":lng,"class_hybernate":class_hybernate,
              'kraamverblijjkast':kraamverblijjkast,"surrounding":surrounding,"type_bunker":type_bunker,
              "batbox_shape":batbox_shape,"number_chambers":number_chambers,"number_entrance":number_entrance,"opmerking":opmerking,
-             }]
-    df_new = pd.DataFrame(data)
-    df_updated = pd.concat([df,df_new],ignore_index=True)
+             }
     
-    return conn.update(worksheet="bunkers_features",data=df_updated)      
+    return supabase.table("df_observations").insert(data).execute()      
   
 def map():
     
@@ -184,13 +182,8 @@ def input_insert_bats(output,df,df_features):
     
     if submitted:           
 
-        data = [{"id_bunker":id_bunker} | data_dict | {'opmerking':opmerking}]
-        df_new = pd.DataFrame(data)
-        df_updated = pd.concat([df,df_new],ignore_index=True)
-        conn.update(worksheet="bunkers_observations",data=df_updated)
-
-        st.success('Gegevens opgeslagen!', icon="✅")       
-  
+        data = {"id_bunker":id_bunker} | data_dict | {'opmerking':opmerking}
+        supabase.table("bunkers_observations").insert(data).execute()  
         st.switch_page("🗺️_Home.py")
 
 @st.dialog(" ")
