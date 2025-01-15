@@ -142,7 +142,7 @@ def input_data(output):
         st.switch_page("🗺️_Home.py")
 
 @st.dialog(" ")
-def input_insert_bats(output,df,df_features):
+def input_insert_bats(output,df_features):
     
     coordinates = output["last_object_clicked"]
     lng = coordinates["lng"]
