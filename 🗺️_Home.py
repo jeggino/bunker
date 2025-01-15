@@ -177,8 +177,9 @@ try:
         lat = coordinates['lat']
         
         id = str(lng)+str(lat)
-        popup_table(id,output,df_bunkers_features,table_dictionary)
         table_dictionary[id]
+        popup_table(id,output,df_bunkers_features,table_dictionary)
+        
         
 
 except:
