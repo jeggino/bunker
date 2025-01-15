@@ -71,7 +71,7 @@ rows_bunkers_features = supabase.table("bunkers_features").select("*").execute()
 df_bunkers_features = pd.DataFrame(rows_bunkers_features.data)
 
 rows_bunkers_observations = supabase.table("bunkers_observations").select("*").execute()
-df_bunkers_observations = pd.DataFrame(rows_bunkers_observations.data)
+df_bunkers_observations = pd.DataFrame(rows_bunkers_observations.data).drop('key',axis=1)
 
 df_bunkers_observations 
 #--- App ---
