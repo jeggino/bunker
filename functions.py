@@ -243,11 +243,7 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
         st.write('Geen data')
 
 @st.dialog(" ")
-def update_item(id):
-
-  df = conn.read(ttl=0,worksheet="bunkers_features")
-  df_filter = df[df["id_bunker"]==id].reset_index(drop=True)
-  df_drop = df[~df.apply(tuple, axis=1).isin(df_filter.apply(tuple, axis=1))]
+def update_item(id,df_filter):
 
   id_bunker = df_filter['id_bunker'][0]
   id_bunker_name = df_filter['bunker_name'][0]
@@ -284,17 +280,18 @@ def update_item(id):
   last_survey = 'Geen data'
 
   if st.button("**Update**",use_container_width=True):
-    conn.update(worksheet='bunkers_features',data=df_drop)
-    df_old = conn.read(ttl=0,worksheet="bunkers_features")
   
-    data = [{'Last survey':last_survey,"id_bunker":id_bunker, 'bunker_name':bunker_name,"lat":id_lat,"lng":id_lng,"class_hybernate":id_class_hybernate,
+    data = {'Last survey':last_survey,"id_bunker":id_bunker, 'bunker_name':bunker_name,"lat":id_lat,"lng":id_lng,"class_hybernate":id_class_hybernate,
     'kraamverblijjkast':kraamverblijjkast,"surrounding":surrounding,"type_bunker":type_bunker,
     "batbox_shape":batbox_shape,"number_chambers":number_chambers,"number_entrance":number_entrance,"opmerking":opmerking,
-    }]
+    }
   
-    df_new = pd.DataFrame(data)
-    df_updated = pd.concat([df_old,df_new],ignore_index=True)
-    conn.update(worksheet='bunkers_features',data=df_updated)
+    response = (
+        supabase.table("bunkers_features")
+        .update(data)
+        .eq("id_bunker", id_bunker)
+        .execute()
+    )
 
     st.switch_page("🗺️_Home.py")
     
