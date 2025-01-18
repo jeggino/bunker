@@ -177,7 +177,8 @@ try:
         lat = coordinates['lat']
         
         id = str(lng)+str(lat)
-        table_dictionary[id]#.iloc[:,5:]
+        tab_temp = table_dictionary[id].iloc[:,4:].drop('opmerking',axis=1)
+        tab_temp
         popup_table(id,output,df_bunkers_features,table_dictionary)
         
         
