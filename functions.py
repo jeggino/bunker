@@ -223,6 +223,7 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
     else:
         for species in table_dictionary[id_bunker].iloc[:,4:-1].columns:
             st.write(f'*{species}*')
+            table_dictionary[id_bunker].iloc[:,4:-1]
             df = table_dictionary[id_bunker].iloc[:,4:-1]
             df 
             st.write(f"""
