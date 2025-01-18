@@ -298,12 +298,13 @@ def update_item(id,df):
 
 @st.dialog(" ")
 def delete_item(id):
-  if st.button("Let op! Klik hier als je de waarneming wilt verwijderen",icon="🚨",use_container_width=True):
-      response = (
-          supabase.table("bunkers_features")
-          .delete()
-          .eq("id_bunker", id)
-          .execute()
-          )
+    st.write(ciao)
+  # if st.button("Let op! Klik hier als je de waarneming wilt verwijderen",icon="🚨",use_container_width=True):
+  #     response = (
+  #         supabase.table("bunkers_features")
+  #         .delete()
+  #         .eq("id_bunker", id)
+  #         .execute()
+  #         )
       st.switch_page("🗺️_Home.py")
     
