@@ -23,7 +23,7 @@ st.set_page_config(
     layout="wide",  
 )
 
-from functions import logIn,logOut,tab_popup,update_item
+from functions import logIn,logOut,tab_popup,update_item,delete_item
 
 st.markdown(
     """
