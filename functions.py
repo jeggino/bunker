@@ -246,55 +246,54 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
 def update_item(id,df):
 
   df_filter = df[df['id_bunker']==id]
-  df_filter 
 
-  id_bunker = df_filter['id_bunker'][0]
-  id_bunker_name = df_filter['bunker_name'][0]
-  id_lat = df_filter['lat'][0]
-  id_lng = df_filter['lng'][0]
-  id_class_hybernate = df_filter['class_hybernate'][0]
-  id_surrounding = df_filter['surrounding'][0]
-  id_type_bunker = df_filter['type_bunker'][0]
-  id_number_chambers = df_filter['number_chambers'][0]
-  id_opmerking = df_filter['opmerking'][0]
-  id_number_entrance = df_filter['number_entrance'][0]
-  id_batbox_shape = df_filter['batbox_shape'][0]
-  id_kraamverblijjkast = df_filter['kraamverblijjkast'][0]
+  # id_bunker = df_filter['id_bunker'][0]
+  # id_bunker_name = df_filter['bunker_name'][0]
+  # id_lat = df_filter['lat'][0]
+  # id_lng = df_filter['lng'][0]
+  # id_class_hybernate = df_filter['class_hybernate'][0]
+  # id_surrounding = df_filter['surrounding'][0]
+  # id_type_bunker = df_filter['type_bunker'][0]
+  # id_number_chambers = df_filter['number_chambers'][0]
+  # id_opmerking = df_filter['opmerking'][0]
+  # id_number_entrance = df_filter['number_entrance'][0]
+  # id_batbox_shape = df_filter['batbox_shape'][0]
+  # id_kraamverblijjkast = df_filter['kraamverblijjkast'][0]
 
-  if id_class_hybernate == 'Bunker':
-      bunker_name = st.text_input("Bunker naam", value=id_bunker_name,placeholder="Vul hier een naam ...")
-      surrounding = st.selectbox("Type omgeving", SURROUNDING_OPTIONS,index=SURROUNDING_OPTIONS.index(id_surrounding))
-      type_bunker = st.selectbox("Soort bunker", TYPE_BUNKER_OPTIONS,index=TYPE_BUNKER_OPTIONS.index(id_type_bunker))
-      number_chambers = st.number_input("Aantal kamers", min_value=1,value=int(id_number_chambers))
-      number_entrance = st.number_input("Aantal ingangen", min_value=1,value=int(id_number_entrance))
-      batbox_shape = None
-      kraamverblijjkast = None
+  # if id_class_hybernate == 'Bunker':
+  #     bunker_name = st.text_input("Bunker naam", value=id_bunker_name,placeholder="Vul hier een naam ...")
+  #     surrounding = st.selectbox("Type omgeving", SURROUNDING_OPTIONS,index=SURROUNDING_OPTIONS.index(id_surrounding))
+  #     type_bunker = st.selectbox("Soort bunker", TYPE_BUNKER_OPTIONS,index=TYPE_BUNKER_OPTIONS.index(id_type_bunker))
+  #     number_chambers = st.number_input("Aantal kamers", min_value=1,value=int(id_number_chambers))
+  #     number_entrance = st.number_input("Aantal ingangen", min_value=1,value=int(id_number_entrance))
+  #     batbox_shape = None
+  #     kraamverblijjkast = None
 
-  else:
-      batbox_shape = st.selectbox("Vorm", BATBOX_SHAPE_OPTIONS,index=BATBOX_SHAPE_OPTIONS.index(id_batbox_shape))
-      kraamverblijjkast = st.selectbox("Kraamverblijjkast", BATBOX_KRAAMVEBLIJFKAST_OPTION,index=BATBOX_KRAAMVEBLIJFKAST_OPTION.index(id_kraamverblijjkast))
-      surrounding = None
-      type_bunker = None
-      number_chambers = None
-      number_entrance = None
-      bunker_name = None
+  # else:
+  #     batbox_shape = st.selectbox("Vorm", BATBOX_SHAPE_OPTIONS,index=BATBOX_SHAPE_OPTIONS.index(id_batbox_shape))
+  #     kraamverblijjkast = st.selectbox("Kraamverblijjkast", BATBOX_KRAAMVEBLIJFKAST_OPTION,index=BATBOX_KRAAMVEBLIJFKAST_OPTION.index(id_kraamverblijjkast))
+  #     surrounding = None
+  #     type_bunker = None
+  #     number_chambers = None
+  #     number_entrance = None
+  #     bunker_name = None
 
-  opmerking = st.text_input("", value=id_opmerking,placeholder="Vul hier een opmerking in ...")
-  last_survey = 'Geen data'
+  # opmerking = st.text_input("", value=id_opmerking,placeholder="Vul hier een opmerking in ...")
+  # last_survey = 'Geen data'
 
-  if st.button("**Update**",use_container_width=True):
+  # if st.button("**Update**",use_container_width=True):
   
-    data = {'Last survey':last_survey,"id_bunker":id_bunker, 'bunker_name':bunker_name,"lat":id_lat,"lng":id_lng,"class_hybernate":id_class_hybernate,
-    'kraamverblijjkast':kraamverblijjkast,"surrounding":surrounding,"type_bunker":type_bunker,
-    "batbox_shape":batbox_shape,"number_chambers":number_chambers,"number_entrance":number_entrance,"opmerking":opmerking,
-    }
+  #   data = {'Last survey':last_survey,"id_bunker":id_bunker, 'bunker_name':bunker_name,"lat":id_lat,"lng":id_lng,"class_hybernate":id_class_hybernate,
+  #   'kraamverblijjkast':kraamverblijjkast,"surrounding":surrounding,"type_bunker":type_bunker,
+  #   "batbox_shape":batbox_shape,"number_chambers":number_chambers,"number_entrance":number_entrance,"opmerking":opmerking,
+  #   }
   
-    response = (
-        supabase.table("bunkers_features")
-        .update(data)
-        .eq("id_bunker", id_bunker)
-        .execute()
-    )
+  #   response = (
+  #       supabase.table("bunkers_features")
+  #       .update(data)
+  #       .eq("id_bunker", id_bunker)
+  #       .execute()
+  #   )
 
-    st.switch_page("🗺️_Home.py")
+  #   st.switch_page("🗺️_Home.py")
     
