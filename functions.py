@@ -234,7 +234,7 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
         
     st.header('Onderzoeken',divider='grey')
 
-    table_dictionary[id_bunker].iloc[:,6:] = table_dictionary[id_bunker].iloc[:,6:0].astype('int').replace({0:'-'})
+    table_dictionary[id_bunker].iloc[:,6:] = table_dictionary[id_bunker].iloc[:,6:].astype('int').replace({0:'-'})
     # table_dictionary[id_bunker].iloc[:,-1] = table_dictionary[id_bunker].iloc[:,-1].replace({0:'-'})
     if df_popup['class_hybernate'].loc[0] == 'Bunker':
         st.dataframe(table_dictionary[id_bunker].iloc[:,1:])
