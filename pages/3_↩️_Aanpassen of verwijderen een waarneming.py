@@ -1,5 +1,5 @@
 import streamlit as st
-from streamlit_gsheets import GSheetsConnection
+from supabase import create_client, Client
 import pandas as pd
 import random
 
@@ -55,10 +55,22 @@ st.markdown("""
 st.logo(IMAGE,  link=None, size="large",icon_image=IMAGE)
 
 # --- DATASETS ---
-conn = st.connection("gsheets", type=GSheetsConnection)
-df_bunkers_features = conn.read(ttl=ttl,worksheet="bunkers_features")
-df_bunkers_observations = conn.read(ttl=ttl,worksheet="bunkers_observations")
-df_references = conn.read(ttl=ttl_references,worksheet="df_users")
+def init_connection():
+    url = st.secrets["SUPABASE_URL"]
+    key = st.secrets["SUPABASE_KEY"]
+    return create_client(url, key)
+
+supabase = init_connection()
+
+rows_users = supabase.table("df_users").select("*").execute()
+df_references = pd.DataFrame(rows_users.data)
+
+rows_bunkers_features = supabase.table("bunkers_features").select("*").execute()
+df_bunkers_features = pd.DataFrame(rows_bunkers_features.data)
+
+rows_bunkers_observations = supabase.table("bunkers_observations").select("*").execute()
+df_bunkers_observations = pd.DataFrame(rows_bunkers_observations.data).drop('key',axis=1)
+
 
 #--- App ---
 if "login" not in st.session_state:
@@ -76,12 +88,12 @@ dict_presences = {}
 
 for id in df_bunkers_observations.id_bunker.unique():
     try:
-        
-        if (table_dictionary[id].iloc[-1,4:-1].sum() == 0) & (table_dictionary[id].iloc[:-1,4:-1].sum().sum() > 0):
+        tab_color = table_dictionary[id].iloc[:,4:].drop('opmerking',axis=1)
+        if (tab_color.iloc[-1,:].sum() == 0) & (tab_color.iloc[:-1,:].sum().sum() > 0):
             dict_presences[id] = "Niet bewoond in laatste onderzoek"
-        elif table_dictionary[id].iloc[-1,4:-1].sum() > 0:
+        elif tab_color.iloc[-1,:].sum() > 0:
             dict_presences[id] = "Bewoond in laatste onderzoek"
-        elif len(table_dictionary[id].iloc[:,4:-1].sum()) == 0:
+        elif len(tab_color.iloc[:,:].sum()) == 0:
             dict_presences[id] = "Nooit bewoond tijdens het onderzoek"
             
     except:
@@ -161,7 +173,7 @@ try:
       
       with st.sidebar:
           if st.button("Waarneming bijwerken",use_container_width=True):
-              update_item(id)
+              update_item(id,df_bunkers_features)
   
           with st.form("entry_form", clear_on_submit=True,border=False):
               submitted = st.form_submit_button(":red[**Verwijder waarneming**]",use_container_width=True)
