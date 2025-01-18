@@ -306,5 +306,5 @@ def delete_item(id):
   #         .eq("id_bunker", id)
   #         .execute()
   #         )
-      st.switch_page("🗺️_Home.py")
+      # st.switch_page("🗺️_Home.py")
     
