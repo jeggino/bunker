@@ -186,7 +186,7 @@ def input_insert_bats(output,df_features):
         supabase.table("bunkers_observations").insert(data).execute()  
         st.switch_page("🗺️_Home.py")
 
-@st.dialog(" ")
+@st.dialog(" ",width="large")
 def popup_table(id_bunker,output,df_bunkers_features,table_dictionary): 
     df_popup = df_bunkers_features[df_bunkers_features['id_bunker']==id_bunker].reset_index(drop=True)
     df_popup['opmerking'] = df_popup['opmerking'].fillna(value='Geen opmerking')
