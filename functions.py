@@ -246,7 +246,8 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
 def update_item(id,df):
 
   df_filter = df[df['id_bunker']==id]
-    
+  df_filter 
+
   id_bunker = df_filter['id_bunker'][0]
   id_bunker_name = df_filter['bunker_name'][0]
   id_lat = df_filter['lat'][0]
