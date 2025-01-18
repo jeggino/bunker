@@ -222,10 +222,10 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
         st.write("Nog geen soort gevonden")
     else:
         table_dictionary[id_bunker]
-        for species in table_dictionary[id_bunker].iloc[:,4:-1].columns:
+        for species in table_dictionary[id_bunker].iloc[:,6:].columns:
             st.write(f'*{species}*')
-            table_dictionary[id_bunker].iloc[:,4:-1]
-            df = table_dictionary[id_bunker].iloc[:,4:-1]
+            table_dictionary[id_bunker].iloc[:,6:]
+            df = table_dictionary[id_bunker].iloc[:,6:]
             df 
             st.write(f"""
             Het maximale aantal individuen werd bereikt :blue-background[**{int(df[species].max())}**], 
