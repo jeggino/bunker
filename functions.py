@@ -221,6 +221,7 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
     if len(table_dictionary[id_bunker].iloc[:,4:-1].columns) ==0:
         st.write("Nog geen soort gevonden")
     else:
+        table_dictionary[id_bunker]
         for species in table_dictionary[id_bunker].iloc[:,4:-1].columns:
             st.write(f'*{species}*')
             table_dictionary[id_bunker].iloc[:,4:-1]
