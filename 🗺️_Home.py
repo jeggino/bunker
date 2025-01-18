@@ -90,11 +90,11 @@ dict_presences = {}
 for id in df_bunkers_observations.id_bunker.unique():
     try:
         
-        if (table_dictionary[id].iloc[-1,4:-1].sum() == 0) & (table_dictionary[id].iloc[:-1,4:-1].sum().sum() > 0):
+        if (table_dictionary[id].iloc[-1,6:].sum() == 0) & (table_dictionary[id].iloc[:-1,6:].sum().sum() > 0):
             dict_presences[id] = "Niet bewoond in laatste onderzoek"
-        elif table_dictionary[id].iloc[-1,4:-1].sum() > 0:
+        elif table_dictionary[id].iloc[-1,6:].sum() > 0:
             dict_presences[id] = "Bewoond in laatste onderzoek"
-        elif len(table_dictionary[id].iloc[:,4:-1].sum()) == 0:
+        elif len(table_dictionary[id].iloc[:,6:].sum()) == 0:
             dict_presences[id] = "Nooit bewoond tijdens het onderzoek"
             
     except:
