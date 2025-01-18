@@ -179,7 +179,7 @@ try:
         id = str(lng)+str(lat)
         tab_temp = table_dictionary[id].iloc[:,4:].drop('opmerking',axis=1)
         tab_temp
-        table_dictionary[id]['opmerking']
+        table_dictionary[id]['opmerking'].fillna('thjfr')
         popup_table(id,output,df_bunkers_features,table_dictionary)
         
         
