@@ -244,7 +244,7 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
 
 @st.dialog(" ")
 def update_item(id,df):
-
+  df
   df_filter = df[df['id_bunker']==id]
   df_filter 
 
