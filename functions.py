@@ -232,11 +232,12 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
         st.header('Onderzoeken',divider='grey')
     
         table_dictionary[id_bunker].iloc[:,5:] = table_dictionary[id_bunker].iloc[:,5:].astype('int').replace({0:'-'})
-        table_dictionary[id_bunker]['opmerking'] = table_dictionary[id_bunker]['opmerking'].fillna('-')
         if df_popup['class_hybernate'].loc[0] == 'Bunker':
+            table_dictionary[id_bunker]['opmerking'].fillna('-', inplace = True)
             st.dataframe(table_dictionary[id_bunker].iloc[:,1:])
         elif df_popup['class_hybernate'].loc[0] == 'Vleermuiskast':
             df_survey = table_dictionary[id_bunker].drop(['temperature','humidity'],axis=1)
+            df_survey['opmerking'].fillna('-', inplace = True)
             st.dataframe(df_survey.iloc[:,1:])
     except:
         st.write('Geen data')
