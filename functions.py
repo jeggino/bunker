@@ -195,13 +195,10 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
     if df_popup['class_hybernate'].loc[0] == 'Bunker':
         st.title(f':blue[**{df_popup['bunker_name'].loc[0].upper()}**]')
         st.header('Bunkerkenmerken',divider='grey')
-        # col_1,col_2 = st.columns(2)
-        # with col_1:
         st.write(f'**Aantal kamers:** {int(df_popup['number_chambers'].loc[0])}')
         st.write(f'**Omgeving:** {df_popup['surrounding'].loc[0]}')
         st.write(f'**Soort bunker:** {df_popup['type_bunker'].loc[0]}')
         st.write(f'**Aantal ingangen:** {int(df_popup['number_entrance'].loc[0])}')
-        # with col_2:
         try:
             with st.expander("Klik om foto's te zien", expanded=False, icon="📷"):
                 st.image(f'icons/images/{id_bunker}.jpg')
@@ -235,7 +232,7 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
         st.header('Onderzoeken',divider='grey')
     
         table_dictionary[id_bunker].iloc[:,5:] = table_dictionary[id_bunker].iloc[:,5:].astype('int').replace({0:'-'})
-        # table_dictionary[id_bunker].iloc[:,-1] = table_dictionary[id_bunker].iloc[:,-1].replace({0:'-'})
+        table_dictionary[id_bunker].iloc[:,4] = table_dictionary[id_bunker].iloc[:,4].replace({0:'-'})
         if df_popup['class_hybernate'].loc[0] == 'Bunker':
             st.dataframe(table_dictionary[id_bunker].iloc[:,1:])
         elif df_popup['class_hybernate'].loc[0] == 'Vleermuiskast':
