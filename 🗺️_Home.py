@@ -177,7 +177,7 @@ try:
         lat = coordinates['lat']
         
         id = str(lng)+str(lat)
-        table_dictionary[id]
+        table_dictionary[id].iloc[:,6:]
         popup_table(id,output,df_bunkers_features,table_dictionary)
         
         
