@@ -175,6 +175,7 @@ try:
               update_item(id,df_bunkers_features)
 
           if st.button(":red[**Verwijder waarneming**]",use_container_width=True):
+              st.write(id)
               delete_item(id)
 
 except:
