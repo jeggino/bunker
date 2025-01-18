@@ -243,8 +243,10 @@ def popup_table(id_bunker,output,df_bunkers_features,table_dictionary):
         st.write('Geen data')
 
 @st.dialog(" ")
-def update_item(id,df_filter):
+def update_item(id,df):
 
+  df_filter = df[df['id_bunker']==id]
+    
   id_bunker = df_filter['id_bunker'][0]
   id_bunker_name = df_filter['bunker_name'][0]
   id_lat = df_filter['lat'][0]
