@@ -4,12 +4,8 @@ import streamlit as st
 OUTPUT_width = '95%'
 OUTPUT_height = 550
 
-# --- DATASET CACHE ---
-ttl = 0
-ttl_references = '10m'
-
 # --- SIDEBAR ---
-# IMAGE = "image/logo.png"
+IMAGE = "icons/logo (2).png"
 IMAGE_2 ="icons/menu.jpg"
 
 CLASS_HYBERNATE_OPTIONS = ['Bunker','Vleermuiskast']
@@ -23,9 +19,8 @@ BATBOX_KRAAMVEBLIJFKAST_OPTION = ['Ja','Nee']
 TYPE_BUNKER_OPTIONS = ['Open','Niet toegankelijk']
 
 BAT_NAMES = ['Gewone dwergvleermuis','Ruige dwergvleermuis', 'Laatvlieger','Rosse vleermuis',
-             'Gewone grootoorvleermuis','Meervleermuis','Watervleermuis','...Andere(n)']
+             'Gewone grootoorvleermuis','Meervleermuis','Watervleermuis','Franjestaart','...Ander(en)']
 
-# Create the legend template as an HTML element
 legend_template = """
 {% macro html(this, kwargs) %}
 <div id='maplegend' class='maplegend' 
