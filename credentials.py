@@ -5,7 +5,7 @@ OUTPUT_width = '95%'
 OUTPUT_height = 550
 
 # --- SIDEBAR ---
-IMAGE = "icons/logo (2).png"
+IMAGE = "icons/logo.png"
 IMAGE_2 ="icons/menu.jpg"
 
 CLASS_HYBERNATE_OPTIONS = ['Bunker','Vleermuiskast']
