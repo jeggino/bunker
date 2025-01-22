@@ -1,5 +1,5 @@
 import streamlit as st
-from streamlit_gsheets import GSheetsConnection
+from supabase import create_client, Client
 import pandas as pd
 import random
 
@@ -25,7 +25,7 @@ st.set_page_config(
     layout="wide",  
 )
 
-from functions import tab_popup,popup_table
+from functions import logIn,logOut,tab_popup,popup_table
 
 st.markdown(
     """
@@ -54,15 +54,34 @@ st.markdown("""
 """ , unsafe_allow_html=True)
 
 
-st.logo('icons/logo.png',  link='https://www.elskenecologie.nl/contact-elsken-ecologie-nh-terschelling/', icon_image='icons/logo.png',size="large")
+st.logo(IMAGE,  link=None, size="large",icon_image=IMAGE)
 
 # --- DATASETS ---
-conn = st.connection("gsheets", type=GSheetsConnection)
-df_bunkers_features = conn.read(ttl=ttl,worksheet="bunkers_features")
-df_bunkers_observations = conn.read(ttl=ttl,worksheet="bunkers_observations")
-df_references = conn.read(ttl=ttl_references,worksheet="df_users")
+def init_connection():
+    url = st.secrets["SUPABASE_URL"]
+    key = st.secrets["SUPABASE_KEY"]
+    return create_client(url, key)
+
+supabase = init_connection()
+
+rows_users = supabase.table("df_users").select("*").execute()
+df_references = pd.DataFrame(rows_users.data)
+
+rows_bunkers_features = supabase.table("bunkers_features").select("*").execute()
+df_bunkers_features = pd.DataFrame(rows_bunkers_features.data)
+
+rows_bunkers_observations = supabase.table("bunkers_observations").select("*").execute()
+df_bunkers_observations = pd.DataFrame(rows_bunkers_observations.data).drop('key',axis=1)
 
 #--- App ---
+if "login" not in st.session_state:
+    logIn(df_references)
+    st.stop()
+
+with st.sidebar:
+    logOut()
+    st.divider()
+
 table_dictionary = tab_popup(df_bunkers_observations)
 
 
@@ -70,12 +89,12 @@ dict_presences = {}
 
 for id in df_bunkers_observations.id_bunker.unique():
     try:
-        
-        if (table_dictionary[id].iloc[-1,4:-1].sum() == 0) & (table_dictionary[id].iloc[:-1,4:-1].sum().sum() > 0):
+        tab_color = table_dictionary[id].iloc[:,4:].drop('opmerking',axis=1)
+        if (tab_color.iloc[-1,:].sum() == 0) & (tab_color.iloc[:-1,:].sum().sum() > 0):
             dict_presences[id] = "Niet bewoond in laatste onderzoek"
-        elif table_dictionary[id].iloc[-1,4:-1].sum() > 0:
+        elif tab_color.iloc[-1,:].sum() > 0:
             dict_presences[id] = "Bewoond in laatste onderzoek"
-        elif len(table_dictionary[id].iloc[:,4:-1].sum()) == 0:
+        elif len(tab_color.iloc[:,:].sum()) == 0:
             dict_presences[id] = "Nooit bewoond tijdens het onderzoek"
             
     except:
@@ -83,7 +102,9 @@ for id in df_bunkers_observations.id_bunker.unique():
         
 df_bunkers_features["Last survey"] = df_bunkers_features["id_bunker"].map(dict_presences).fillna("Geen data")
 
-map = folium.Map(tiles=None,position=[df_bunkers_features['lat'].mean(),df_bunkers_features['lng'].mean],zoom_control=False,zoom_start=15)
+map = folium.Map(tiles=None,position=[df_bunkers_features['lat'].mean(),df_bunkers_features['lng'].mean],zoom_start=8)
+LocateControl(auto_start=False,position="topright").add_to(map)
+Fullscreen(position="topright").add_to(map)
 
 macro = MacroElement()
 macro._template = Template(legend_template)
@@ -104,7 +125,7 @@ folium.TileLayer(tiles="Cartodb Positron",overlay=False,show=False,name="Witte c
 folium.TileLayer(tiles='https://api.mapbox.com/styles/v1/jeggino/cm2vtvb2l000w01qz9wet0mv9/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiamVnZ2lubyIsImEiOiJjbHdscmRkZHAxMTl1MmlyeTJpb3Z2eHdzIn0.N9TRN7xxTikk235dVs1YeQ',
                  attr='XXX Mapbox Attribution',overlay=False,show=False,name="Satellietkaart").add_to(map)
 
-folium.LayerControl(draggable= True,position ='topright').add_to(map)    
+folium.LayerControl().add_to(map)    
 
 for i in range(len(df_bunkers_features)):
     
@@ -125,7 +146,6 @@ for i in range(len(df_bunkers_features)):
             border_width=4
         else:
             border_width=0
-        
     
     if df_bunkers_features.iloc[i]['Last survey'] == "Niet bewoond in laatste onderzoek":
         color='orange'
@@ -157,9 +177,12 @@ try:
         lat = coordinates['lat']
         
         id = str(lng)+str(lat)
+        # tab_temp = table_dictionary[id].iloc[:,4:].drop('opmerking',axis=1)
+        # tab_temp['opmerking'].fillna('-', inplace = True)
+        # tab_temp
         popup_table(id,output,df_bunkers_features,table_dictionary)
+        
         
 
 except:
     pass
-
