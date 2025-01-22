@@ -74,13 +74,13 @@ rows_bunkers_observations = supabase.table("bunkers_observations").select("*").e
 df_bunkers_observations = pd.DataFrame(rows_bunkers_observations.data).drop('key',axis=1)
 
 #--- App ---
-if "login" not in st.session_state:
-    logIn(df_references)
-    st.stop()
+# if "login" not in st.session_state:
+#     logIn(df_references)
+#     st.stop()
 
-with st.sidebar:
-    logOut()
-    st.divider()
+# with st.sidebar:
+#     logOut()
+#     st.divider()
 
 table_dictionary = tab_popup(df_bunkers_observations)
 
