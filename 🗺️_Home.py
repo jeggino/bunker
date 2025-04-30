@@ -64,7 +64,7 @@ def init_connection():
 
 supabase = init_connection()
 
-rows_users = supabase.table("df_users").select("*").execute()
+rows_users = supabase.table("df_users_bunkers").select("*").execute()
 df_references = pd.DataFrame(rows_users.data)
 
 rows_bunkers_features = supabase.table("bunkers_features").select("*").execute()
